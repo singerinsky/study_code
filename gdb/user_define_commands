@@ -1,0 +1,13 @@
+#remove all breakpoints
+delete
+#直接输出到日志文件里面
+set $hit_times = 0
+set $index = 0
+break test_coin.cpp:32
+commands
+	set $index=index
+	printf "%d\n",$index
+	c 
+end
+
+

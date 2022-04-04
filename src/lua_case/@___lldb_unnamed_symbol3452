@@ -1,0 +1,113 @@
+; id = {0x00000d7c}, range = [0x00000000001885e0-0x0000000000188780), name="___lldb_unnamed_symbol3452"
+; Source location: unknown
+7FFFF77D35E0: F3 0F 1E FA                endbr64 
+7FFFF77D35E4: 89 F9                      movl   %edi, %ecx
+7FFFF77D35E6: 48 89 FA                   movq   %rdi, %rdx
+7FFFF77D35E9: C5 F9 EF C0                vpxor  %xmm0, %xmm0, %xmm0
+7FFFF77D35ED: 83 E1 3F                   andl   $0x3f, %ecx
+7FFFF77D35F0: 83 F9 20                   cmpl   $0x20, %ecx
+7FFFF77D35F3: 77 2B                      ja     0x7ffff77d3620  ; <+64>
+7FFFF77D35F5: C5 FD 74 0F                vpcmpeqb (%rdi), %ymm0, %ymm1
+7FFFF77D35F9: C5 FD D7 C1                vpmovmskb %ymm1, %eax
+7FFFF77D35FD: 85 C0                      testl  %eax, %eax
+7FFFF77D35FF: 0F 85 EB 00 00 00          jne    0x7ffff77d36f0  ; <+272>
+7FFFF77D3605: 48 83 C7 20                addq   $0x20, %rdi
+7FFFF77D3609: 83 E1 1F                   andl   $0x1f, %ecx
+7FFFF77D360C: 48 83 E7 E0                andq   $-0x20, %rdi
+7FFFF77D3610: EB 42                      jmp    0x7ffff77d3654  ; <+116>
+7FFFF77D3612: 66 66 2E 0F 1F 84 00 00 >  nopw   %cs:(%rax,%rax)
+7FFFF77D361D: 0F 1F 00                   nopl   (%rax)
+7FFFF77D3620: 83 E1 1F                   andl   $0x1f, %ecx
+7FFFF77D3623: 48 83 E7 E0                andq   $-0x20, %rdi
+7FFFF77D3627: C5 FD 74 0F                vpcmpeqb (%rdi), %ymm0, %ymm1
+7FFFF77D362B: C5 FD D7 C1                vpmovmskb %ymm1, %eax
+7FFFF77D362F: D3 F8                      sarl   %cl, %eax
+7FFFF77D3631: 85 C0                      testl  %eax, %eax
+7FFFF77D3633: 74 1B                      je     0x7ffff77d3650  ; <+112>
+7FFFF77D3635: F3 0F BC C0                tzcntl %eax, %eax
+7FFFF77D3639: 48 01 F8                   addq   %rdi, %rax
+7FFFF77D363C: 48 01 C8                   addq   %rcx, %rax
+7FFFF77D363F: 48 29 D0                   subq   %rdx, %rax
+7FFFF77D3642: C5 F8 77                   vzeroupper 
+7FFFF77D3645: C3                         retq   
+7FFFF77D3646: 66 2E 0F 1F 84 00 00 00 >  nopw   %cs:(%rax,%rax)
+7FFFF77D3650: 48 83 C7 20                addq   $0x20, %rdi
+7FFFF77D3654: C5 FD 74 0F                vpcmpeqb (%rdi), %ymm0, %ymm1
+7FFFF77D3658: C5 FD D7 C1                vpmovmskb %ymm1, %eax
+7FFFF77D365C: 85 C0                      testl  %eax, %eax
+7FFFF77D365E: 0F 85 8C 00 00 00          jne    0x7ffff77d36f0  ; <+272>
+7FFFF77D3664: C5 FD 74 4F 20             vpcmpeqb 0x20(%rdi), %ymm0, %ymm1
+7FFFF77D3669: C5 FD D7 C1                vpmovmskb %ymm1, %eax
+7FFFF77D366D: 85 C0                      testl  %eax, %eax
+7FFFF77D366F: 0F 85 8B 00 00 00          jne    0x7ffff77d3700  ; <+288>
+7FFFF77D3675: C5 FD 74 4F 40             vpcmpeqb 0x40(%rdi), %ymm0, %ymm1
+7FFFF77D367A: C5 FD D7 C1                vpmovmskb %ymm1, %eax
+7FFFF77D367E: 85 C0                      testl  %eax, %eax
+7FFFF77D3680: 0F 85 9A 00 00 00          jne    0x7ffff77d3720  ; <+320>
+7FFFF77D3686: C5 FD 74 4F 60             vpcmpeqb 0x60(%rdi), %ymm0, %ymm1
+7FFFF77D368B: C5 FD D7 C1                vpmovmskb %ymm1, %eax
+7FFFF77D368F: 85 C0                      testl  %eax, %eax
+7FFFF77D3691: 0F 85 D5 00 00 00          jne    0x7ffff77d376c  ; <+396>
+7FFFF77D3697: 48 81 C7 80 00 00 00       addq   $0x80, %rdi
+7FFFF77D369E: 48 89 F9                   movq   %rdi, %rcx
+7FFFF77D36A1: 83 E1 7F                   andl   $0x7f, %ecx
+7FFFF77D36A4: 48 83 E7 80                andq   $-0x80, %rdi
+7FFFF77D36A8: 0F 1F 84 00 00 00 00 00    nopl   (%rax,%rax)
+7FFFF77D36B0: C5 FD 6F 0F                vmovdqa (%rdi), %ymm1
+7FFFF77D36B4: C5 FD 6F 57 20             vmovdqa 0x20(%rdi), %ymm2
+7FFFF77D36B9: C5 FD 6F 5F 40             vmovdqa 0x40(%rdi), %ymm3
+7FFFF77D36BE: C5 FD 6F 67 60             vmovdqa 0x60(%rdi), %ymm4
+7FFFF77D36C3: C5 ED DA E9                vpminub %ymm1, %ymm2, %ymm5
+7FFFF77D36C7: C5 DD DA F3                vpminub %ymm3, %ymm4, %ymm6
+7FFFF77D36CB: C5 CD DA ED                vpminub %ymm5, %ymm6, %ymm5
+7FFFF77D36CF: C5 FD 74 ED                vpcmpeqb %ymm5, %ymm0, %ymm5
+7FFFF77D36D3: C5 FD D7 C5                vpmovmskb %ymm5, %eax
+7FFFF77D36D7: 85 C0                      testl  %eax, %eax
+7FFFF77D36D9: 75 65                      jne    0x7ffff77d3740  ; <+352>
+7FFFF77D36DB: 48 81 C7 80 00 00 00       addq   $0x80, %rdi
+7FFFF77D36E2: EB CC                      jmp    0x7ffff77d36b0  ; <+208>
+7FFFF77D36E4: 66 66 2E 0F 1F 84 00 00 >  nopw   %cs:(%rax,%rax)
+7FFFF77D36EF: 90                         nop    
+7FFFF77D36F0: F3 0F BC C0                tzcntl %eax, %eax
+7FFFF77D36F4: 48 01 F8                   addq   %rdi, %rax
+7FFFF77D36F7: 48 29 D0                   subq   %rdx, %rax
+7FFFF77D36FA: C5 F8 77                   vzeroupper 
+7FFFF77D36FD: C3                         retq   
+7FFFF77D36FE: 66 90                      nop    
+7FFFF77D3700: F3 0F BC C0                tzcntl %eax, %eax
+7FFFF77D3704: 48 83 C0 20                addq   $0x20, %rax
+7FFFF77D3708: 48 01 F8                   addq   %rdi, %rax
+7FFFF77D370B: 48 29 D0                   subq   %rdx, %rax
+7FFFF77D370E: C5 F8 77                   vzeroupper 
+7FFFF77D3711: C3                         retq   
+7FFFF77D3712: 66 66 2E 0F 1F 84 00 00 >  nopw   %cs:(%rax,%rax)
+7FFFF77D371D: 0F 1F 00                   nopl   (%rax)
+7FFFF77D3720: F3 0F BC C0                tzcntl %eax, %eax
+7FFFF77D3724: 48 83 C0 40                addq   $0x40, %rax
+7FFFF77D3728: 48 01 F8                   addq   %rdi, %rax
+7FFFF77D372B: 48 29 D0                   subq   %rdx, %rax
+7FFFF77D372E: C5 F8 77                   vzeroupper 
+7FFFF77D3731: C3                         retq   
+7FFFF77D3732: 66 66 2E 0F 1F 84 00 00 >  nopw   %cs:(%rax,%rax)
+7FFFF77D373D: 0F 1F 00                   nopl   (%rax)
+7FFFF77D3740: C5 FD 74 C9                vpcmpeqb %ymm1, %ymm0, %ymm1
+7FFFF77D3744: C5 FD D7 C1                vpmovmskb %ymm1, %eax
+7FFFF77D3748: 85 C0                      testl  %eax, %eax
+7FFFF77D374A: 75 A4                      jne    0x7ffff77d36f0  ; <+272>
+7FFFF77D374C: C5 FD 74 D2                vpcmpeqb %ymm2, %ymm0, %ymm2
+7FFFF77D3750: C5 FD D7 C2                vpmovmskb %ymm2, %eax
+7FFFF77D3754: 85 C0                      testl  %eax, %eax
+7FFFF77D3756: 75 A8                      jne    0x7ffff77d3700  ; <+288>
+7FFFF77D3758: C5 FD 74 DB                vpcmpeqb %ymm3, %ymm0, %ymm3
+7FFFF77D375C: C5 FD D7 C3                vpmovmskb %ymm3, %eax
+7FFFF77D3760: 85 C0                      testl  %eax, %eax
+7FFFF77D3762: 75 BC                      jne    0x7ffff77d3720  ; <+320>
+7FFFF77D3764: C5 FD 74 E4                vpcmpeqb %ymm4, %ymm0, %ymm4
+7FFFF77D3768: C5 FD D7 C4                vpmovmskb %ymm4, %eax
+7FFFF77D376C: F3 0F BC C0                tzcntl %eax, %eax
+7FFFF77D3770: 48 83 C0 60                addq   $0x60, %rax
+7FFFF77D3774: 48 01 F8                   addq   %rdi, %rax
+7FFFF77D3777: 48 29 D0                   subq   %rdx, %rax
+7FFFF77D377A: C5 F8 77                   vzeroupper 
+7FFFF77D377D: C3                         retq   
+7FFFF77D377E: 66 90                      nop    

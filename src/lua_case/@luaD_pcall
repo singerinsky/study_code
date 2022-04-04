@@ -1,0 +1,43 @@
+; id = {0x00001aa0}, range = [0x00000000007ee130-0x00000000007ee1b8), name="luaD_pcall"
+; Source location: unknown
+007EE130: F3 0F 1E FA                endbr64 
+007EE134: 41 56                      pushq  %r14
+007EE136: 41 55                      pushq  %r13
+007EE138: 41 54                      pushq  %r12
+007EE13A: 55                         pushq  %rbp
+007EE13B: 48 89 CD                   movq   %rcx, %rbp
+007EE13E: 53                         pushq  %rbx
+007EE13F: 48 89 FB                   movq   %rdi, %rbx
+007EE142: 48 83 EC 10                subq   $0x10, %rsp
+007EE146: 4C 8B A7 A8 00 00 00       movq   0xa8(%rdi), %r12
+007EE14D: 4C 89 87 A8 00 00 00       movq   %r8, 0xa8(%rdi)
+007EE154: 4C 8B 77 20                movq   0x20(%rdi), %r14
+007EE158: 44 0F B6 6F 0B             movzbl 0xb(%rdi), %r13d
+007EE15D: E8 FE ED FF FF             callq  0x7ecf60  ; luaD_rawrunprotected
+007EE162: 85 C0                      testl  %eax, %eax
+007EE164: 75 1A                      jne    0x7ee180  ; <+80>
+007EE166: 4C 89 A3 A8 00 00 00       movq   %r12, 0xa8(%rbx)
+007EE16D: 48 83 C4 10                addq   $0x10, %rsp
+007EE171: 5B                         popq   %rbx
+007EE172: 5D                         popq   %rbp
+007EE173: 41 5C                      popq   %r12
+007EE175: 41 5D                      popq   %r13
+007EE177: 41 5E                      popq   %r14
+007EE179: C3                         retq   
+007EE17A: 66 0F 1F 44 00 00          nopw   (%rax,%rax)
+007EE180: 4C 89 73 20                movq   %r14, 0x20(%rbx)
+007EE184: 89 C2                      movl   %eax, %edx
+007EE186: 48 89 EE                   movq   %rbp, %rsi
+007EE189: 48 89 DF                   movq   %rbx, %rdi
+007EE18C: 44 88 6B 0B                movb   %r13b, 0xb(%rbx)
+007EE190: E8 FB FE FF FF             callq  0x7ee090  ; luaD_closeprotected
+007EE195: 48 8B 53 30                movq   0x30(%rbx), %rdx
+007EE199: 48 89 DF                   movq   %rbx, %rdi
+007EE19C: 89 C6                      movl   %eax, %esi
+007EE19E: 89 44 24 0C                movl   %eax, 0xc(%rsp)
+007EE1A2: 48 01 EA                   addq   %rbp, %rdx
+007EE1A5: E8 46 EB FF FF             callq  0x7eccf0  ; luaD_seterrorobj
+007EE1AA: 48 89 DF                   movq   %rbx, %rdi
+007EE1AD: E8 9E F0 FF FF             callq  0x7ed250  ; luaD_shrinkstack
+007EE1B2: 8B 44 24 0C                movl   0xc(%rsp), %eax
+007EE1B6: EB AE                      jmp    0x7ee166  ; <+54>

@@ -1,0 +1,32 @@
+# 设置日志文件为 程序名 + _gdb.log
+# 写到~/tmp.gdb, 再重新加载
+define set-program-name
+  set logging file ~/tmp.gdb
+  set logging overwrite on
+  set logging redirect on
+  set logging on
+  # python 3
+  python print ("set logging file %s_gdb.log" % gdb.current_progspace().filename)
+  # python 2
+  #python print "set logging file %s_gdb.log" % gdb.current_progspace().filename
+  set logging off
+  set logging redirect off
+  set logging overwrite off
+  source ~/tmp.gdb
+end
+
+
+# 输出到日志
+#set logging file ~/gdb_log.txt
+set-program-name
+set logging on
+
+# 关闭分页提示
+set pagination off
+
+# 显示
+set print pretty on
+
+
+# 加载 自定义函数
+source -v ./gdb/user_define_commands
