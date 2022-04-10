@@ -45,5 +45,21 @@ TEST(TestStd, test_tuple) {
   LOG(INFO) << "result find in initlizelist " << result;
   LOG(INFO) << "main change" << result;
 }
+
+TEST(TestStd,test_map_remove)
+{
+    std::map<int,int> int_map = {{1,2},{2,3},{3,4}};
+    auto itr = int_map.begin();
+    while(itr != int_map.end()){
+        if(itr->second == 3){
+            int_map.erase(itr++);
+        }else{
+            itr++;
+        }
+    }
+    LOG(INFO)<<"test"<<int_map.size();
+}
+
+
 //结论：std::initialzer_list
 //本质和数组差不多，而且也是只能用同一种类型，不可以放入多个类型。在编译期无法得知其size，所以无法使用static_assert判断越界,而使用std::get<>
