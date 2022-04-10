@@ -42,7 +42,8 @@ TEST(TestStd, test_tuple) {
   // std::tie(i,j) = two_int;
   LOG(INFO) << std::get<0>(two_int); //.get(1);
   auto result = get_initlist_ele<10>(auto_int);
-  LOG(INFO) << "result find in initlizelist" << result;
+  LOG(INFO) << "result find in initlizelist " << result;
+  LOG(INFO) << "main change" << result;
 }
 //结论：std::initialzer_list
 //本质和数组差不多，而且也是只能用同一种类型，不可以放入多个类型。在编译期无法得知其size，所以无法使用static_assert判断越界,而使用std::get<>
