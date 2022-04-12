@@ -48,3 +48,10 @@ TEST(TestStl,bind)
     auto func_use_hold = std::bind(function_pre_build,4,_1);
     func_use_hold(999);
 }
+
+TEST(TestStl,void_value)
+{
+    test_void<void>();
+    test_void<int>();
+}
+

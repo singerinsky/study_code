@@ -58,6 +58,20 @@ TEST(TestStd,test_map_remove)
         }
     }
     LOG(INFO)<<"test"<<int_map.size();
+
+
+    std::vector<int> vec = {1,2,3,4,5,6};
+    auto itr_vec = vec.begin();
+    while(itr_vec != vec.end()){
+        if(*itr_vec == 2){
+            itr_vec = vec.erase(itr_vec);
+        }else{
+            itr_vec++;
+        }
+    }
+
+    LOG(INFO)<<"vec test"<<vec.size();
+
 }
 
 

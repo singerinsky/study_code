@@ -180,4 +180,18 @@ void function_to_bind(int value)
 {
     LOG(INFO) << "VALUE :" << value;
 } 
+
+template<class T>
+std::enable_if_t<std::is_void<T>::value,T> test_void(){
+    LOG(INFO)<<" void";
+}
+
+
+template<class T>
+std::enable_if_t<!std::is_void<T>::value,T> test_void(){
+    LOG(INFO)<<" not void";
+    return T(0);
+}
+
+
 #endif /* FCA815B9_0C14_495F_A5AF_929C844BAE5A */

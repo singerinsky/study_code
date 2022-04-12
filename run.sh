@@ -44,9 +44,10 @@
 #./AllCppTest --gtest_filter=TestMP.*
 #./AllCppTest --gtest_filter=TestMemery.*
 #./AllCppTest --gtest_filter=LuaTest.test_01
-./AllCppTest --gtest_filter=TestStd.test_map_remove
+#./AllCppTest --gtest_filter=TestStd.test_map_remove
 #./AllCppTest --gtest_filter=BaseTest.semaphore_thread
 #./AllCppTest --gtest_filter=BaseTest.semaphore_cp
 #./AllCppTest --gtest_filter=TestBase.g_default_test
 
 #./AllCppTest --gtest_filter=TestTemplate.stl_t
+./AllCppTest --gtest_filter=TestStl.void_value
