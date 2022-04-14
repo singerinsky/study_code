@@ -48,6 +48,5 @@
 #./AllCppTest --gtest_filter=BaseTest.semaphore_thread
 #./AllCppTest --gtest_filter=BaseTest.semaphore_cp
 #./AllCppTest --gtest_filter=TestBase.g_default_test
-
 #./AllCppTest --gtest_filter=TestTemplate.stl_t
 ./AllCppTest --gtest_filter=TestStl.void_value
