@@ -22,8 +22,9 @@
 #./AllCppTest --gtest_filter=Test_FOREACH.Test_iterator
 #./AllCppTest --gtest_filter=Test_stl_copy.test_set 
 #./AllCppTest --gtest_filter=TestStl.bind
+#./AllCppTest --gtest_filter=TestStl.ref_function
 #./AllCppTest --gtest_filter=Test_Queue.test_shared_class
-#./AllCppTest --gtest_filter=Test_Array.*
+./AllCppTest --gtest_filter=Test_Array.array_duplicate
 #./AllCppTest --gtest_filter=Test_Hash.*
 #./AllCppTest --gtest_filter=Test_Static.*
 #./AllCppTest --gtest_filter=StackTest.shm_test_1
@@ -49,4 +50,4 @@
 #./AllCppTest --gtest_filter=BaseTest.semaphore_cp
 #./AllCppTest --gtest_filter=TestBase.g_default_test
 #./AllCppTest --gtest_filter=TestTemplate.stl_t
-./AllCppTest --gtest_filter=TestStl.void_value
+#./AllCppTest --gtest_filter=TestStl.void_value

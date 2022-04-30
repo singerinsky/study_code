@@ -1,1 +1,1 @@
-gdb --args AllCppTest --gtest_filter=AlgorithmTest.test_01
+gdb --args AllCppTest --gtest_filter=Test_New.Test002

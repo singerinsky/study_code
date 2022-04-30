@@ -16,7 +16,7 @@ file(GLOB_RECURSE SRC_HEADS "src/*.h")
 
 find_file(exe_build NAMES AllCppTest PATHS .)
 #add_custom_command(OUTPUT ${exe_log} COMMAND echo "nice")
-set(WORKING_DIRECTORY "/home/ubuntu/study_space")
+set(WORKING_DIRECTORY "/home/ubuntu/git_space/study_code")
 
 macro(use_precompiled_header TARGET HEADER_FILE SRC_FILE)
   get_filename_component(HEADER ${HEADER_FILE} NAME)

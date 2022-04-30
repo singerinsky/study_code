@@ -22,10 +22,12 @@ TEST(Test_New,Test001)
 
 TEST(Test_New,Test002)
 {
-	PodSampleClass* pclass = new SubPodClass;
+	PodSampleClass* pclass = new SubPodClass(1,2);
 	SubPodClass* subclass = dynamic_cast<SubPodClass*>(pclass);
 	LOG(INFO)<<pclass->CheckClass();
 	LOG(INFO)<<subclass->CheckClass();
+    //delete subclass;
+    subclass->IsValied();
 }
 
 TEST(Test_New,Test003)

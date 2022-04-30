@@ -106,10 +106,11 @@ public:
     char str_value_[100];
     PodSampleClass()
     {
-        memset(this,0,sizeof(PodSampleClass));
+        //memset(this,0,sizeof(PodSampleClass));
     }
     PodSampleClass(int id,int flag):id_(id),flag_(flag)
     {
+        LOG(INFO)<<"Call base class constructor";
     }
 
     ~PodSampleClass()
@@ -133,6 +134,10 @@ private:
 class SubPodClass : public PodSampleClass
 {
 public:
+    SubPodClass(int x,int y,int z):PodSampleClass(x,y){
+        LOG(INFO)<<"Call Sub class special constructor";
+    }
+    using PodSampleClass::PodSampleClass;
     int CheckClass(){return 2;}
     int CheckClass(int i){return 3;}
 private:
@@ -213,5 +218,20 @@ class ClassWithData
       char *buff;
 };
 
+class ClassWithInitializer
+{
+public:
+    ClassWithInitializer(initializer_list<std::pair<string,string>> l){
+        for(auto& p :l){
+            data.push_back(p);
+        }
+    }
+    void dump(){
+        LOG(INFO)<<"size is"<<data.size();
+    }
+
+private:
+    std::vector<std::pair<string,string>> data;
+};
 
 #endif

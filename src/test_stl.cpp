@@ -2,6 +2,7 @@
 #include "test_stl.h"
 #include <list>
 #include <functional>
+#include "util/class_sample.h"
 
 void dump_node(int& value)
 {
@@ -54,4 +55,29 @@ TEST(TestStl,void_value)
     test_void<void>();
     test_void<int>();
 }
+
+void test_function_ref(int i )
+{
+    LOG(INFO)<<"in value is "<<i;
+}
+
+template<class Func>
+void warp_function(int i ,Func & func){
+    func(i);
+}
+
+template<class Func>
+void warp_function(int j,int i ,Func  func){
+    func(i+j);
+}
+
+
+TEST(TestStl,ref_function){
+    warp_function(1,test_function_ref);
+    warp_function(1,1,test_function_ref);
+    ClassWithInitializer object = {{"guanlei","age"}};
+    object.dump();
+}
+
+
 
