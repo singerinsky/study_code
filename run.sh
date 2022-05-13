@@ -24,7 +24,8 @@
 #./AllCppTest --gtest_filter=TestStl.bind
 #./AllCppTest --gtest_filter=TestStl.ref_function
 #./AllCppTest --gtest_filter=Test_Queue.test_shared_class
-./AllCppTest --gtest_filter=Test_Array.array_duplicate
+#./AllCppTest --gtest_filter=Test_Array.array_duplicate
+#./AllCppTest --gtest_filter=Test_Array.itr
 #./AllCppTest --gtest_filter=Test_Hash.*
 #./AllCppTest --gtest_filter=Test_Static.*
 #./AllCppTest --gtest_filter=StackTest.shm_test_1
@@ -38,6 +39,7 @@
 #-------------执行相对应的模块         --执行1000次
 #./AllCppTest --gtest_filter=Test_New.Test001ProducerTest,ThreadSafeTest
 #./AllCppTest --gtest_filter=Test_New.Test003
+#./AllCppTest --gtest_filter=Test_New.place_new
 #./AllCppTest --gtest_filter=ProducerTest.ThreadSafeTest
 #./AllCppTest --gtest_filter=BaseTest.* --gtest_repeat=1000
 #-----------------parttentest-------------------------------
@@ -51,3 +53,4 @@
 #./AllCppTest --gtest_filter=TestBase.g_default_test
 #./AllCppTest --gtest_filter=TestTemplate.stl_t
 #./AllCppTest --gtest_filter=TestStl.void_value
+./AllCppTest --gtest_filter=Sys.hook

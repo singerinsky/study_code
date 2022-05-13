@@ -69,3 +69,41 @@ TEST(Test_Array, array_duplicate) {
   std::vector<int> vec = {1, 2, 3, 4, 1};
   containsDuplicate(vec);
 }
+
+class TestRepeated
+{
+public:
+    TestRepeated(){
+        _value[0]=0;
+        _value[1]=1;
+        _value[2]=2;
+        _value[3]=3;
+        _value[4]=4;
+        _value[5]=5;
+        _value[6]=6;
+        _value[7]=7;
+        _value[8]=8;
+        _value[9]=9;
+    }
+    using iterator=int*;
+    iterator begin(){
+        return _value;
+    }
+    iterator end(){
+        return _value+10;
+    }
+private:
+    int _value[10];
+};
+
+TEST(Test_Array,itr)
+{
+    TestRepeated repeated;
+    for(auto i :repeated){
+        LOG(INFO)<<i;
+    }
+
+}
+
+
+

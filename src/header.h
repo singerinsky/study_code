@@ -31,6 +31,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <optional>
+#include <dlfcn.h>
 #include "util/asm_util.h"
 
 extern "C"{

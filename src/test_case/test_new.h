@@ -39,4 +39,13 @@ TEST(Test_New,Test003)
 	ASSERT_EQ(pclass, pObjectData);
 }
 
+TEST(Test_New,place_new)
+{
+    void* p = malloc(sizeof(std::string));
+    new(p)(std::string);
+    std::string* pstr = static_cast<std::string*>(p);
+    *pstr = "1111";
+    LOG(INFO)<<*pstr;
+}
+
 #endif
