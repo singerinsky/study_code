@@ -234,4 +234,68 @@ private:
     std::vector<std::pair<string,string>> data;
 };
 
+
+class SingleClass{
+public:
+    static SingleClass* Instance(int sleep_sec){
+        static std::once_flag _flag;
+        static std::unique_ptr<SingleClass> _ptr;
+        std::call_once(_flag,[&](){
+                       sleep(sleep_sec);
+                       _ptr.reset(new SingleClass());
+                       return _ptr.get();
+                       });
+        return _ptr.get();
+
+    }
+};
+
+/*
+template<typename T>
+class SingletonClassTemplate
+{
+public:
+    static T& GetInstance(){
+        static std::once_flag s_flag;
+        std::call_once(s_flag,[&]()
+                       {
+        _ptr.reset(new T);
+        return *(_ptr.get());
+                       });
+        return *(_ptr.get());
+    }
+private:
+    static std::unique_ptr<T> _ptr;
+};
+
+
+template<typename T>
+std::unique_ptr<T> SingletonClassTemplate<T>::_ptr;
+
+*/
+
+template<typename T>
+class SingletonClassTemplate
+{
+public:
+    static T& GetInstance(){
+        static std::once_flag s_flag;
+        std::call_once(s_flag,[&]()
+                       {
+        _ptr.reset(new T);
+        return *(_ptr.get());
+                       });
+        //return *(_ptr.get());
+        return *_ptr;
+    }
+private:
+    static std::unique_ptr<T> _ptr;
+};
+
+
+template<typename T>
+std::unique_ptr<T> SingletonClassTemplate<T>::_ptr;
+
+
+
 #endif

@@ -2,6 +2,9 @@ package.path = package.path .. ";src/luafile/?.lua;src/protofile/message_one.pb"
 
 function func_for_hook_test()
     print("function for hook test")
+    print(".............")
+    local time2 = os.time()
+    print("lua time...."..time2)
 end
 
 function show_value(value)
@@ -70,4 +73,5 @@ end
 
 g_value_test = 111111
 g_value_integer = 11111111111111
-
+local time2 = os.time()
+print("lua time...."..time2)

@@ -18,9 +18,9 @@ const std::vector<std::string> all_lua_file = {
 };
 
 const std::vector<std::string> custom_lua_file = {
-    "/home/ubuntu/study_space/src/luafile/lua_functions.lua",
-    "/home/ubuntu/study_space/src/luafile/lua_define.lua",
-    "/home/ubuntu/study_space/src/luafile/lua_my_debug.lua",
+    "/home/ubuntu/git_space/study_code/src/luafile/lua_functions.lua",
+    "/home/ubuntu/git_space/study_code/src/luafile/lua_define.lua",
+    "/home/ubuntu/git_space/study_code/src/luafile/lua_my_debug.lua",
 };
 
 void __lua_hook_debug_func_call(lua_State *L, lua_Debug *ar) {
