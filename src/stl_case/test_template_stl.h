@@ -37,7 +37,7 @@ public:
 
     const_refernce_type operator*()const 
     {
-            if(pos_)return pos_->value_;
+            return pos_->value_;
     }
 };
 

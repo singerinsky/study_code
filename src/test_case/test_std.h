@@ -77,7 +77,7 @@ TEST(BaseTest,test_initlizelist)
     function_params(1,"string",3,4,5,6,std::move(object));
 }
 
-const std::string& get_const_string()
+std::string get_const_string()
 {
     std::string temp= "name";
     return temp;
