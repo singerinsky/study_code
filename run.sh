@@ -27,7 +27,7 @@
 #./AllCppTest --gtest_filter=Test_Array.array_duplicate
 #./AllCppTest --gtest_filter=Test_Array.itr
 #./AllCppTest --gtest_filter=Test_Hash.*
-./AllCppTest --gtest_filter=Test_Static.test_singleton_template
+#./AllCppTest --gtest_filter=Test_Static.test_singleton_template
 #./AllCppTest --gtest_filter=StackTest.shm_test_1
 #./AllCppTest --gtest_filter=StackTest.test_function_1
 #./AllCppTest --gtest_filter=lua_test.*
@@ -54,3 +54,5 @@
 #./AllCppTest --gtest_filter=TestTemplate.stl_t
 #./AllCppTest --gtest_filter=TestStl.void_value
 #/AllCppTest --gtest_filter=Sys.hook
+#./AllCppTest --gtest_filter=TestTemplate.type_traits_001
+./AllCppTest --gtest_filter=TestStd.test_string

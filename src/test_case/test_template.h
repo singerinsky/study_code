@@ -165,6 +165,22 @@ template <> void function_print(const std::string &str) {
   LOG(INFO) << "this is string ";
 }
 
+template<typename T>
+class TypeJustice
+{
+public:
+    typedef T* TypePoint;
+    static constexpr bool is_int_value(){return   false;}
+};
+
+template<>
+class TypeJustice<int>
+{
+public:
+    typedef int* TypePoint;
+    static constexpr bool is_int_value() {return true;}
+};
+
 TEST(TestTemplate, stl_t) {
   std::vector<int> vec = {1, 2, 34, 4};
   function_print(vec);
@@ -175,5 +191,13 @@ TEST(TestTemplate, stl_t) {
   std::vector<std::string> vec_str = {"111", "222"};
   function_print(vec_str);
 }
+
+TEST(TestTemplate, type_traits_001) {
+    auto purposeint = 1;
+    auto rst = TypeJustice<decltype(purposeint)>::is_int_value();
+    LOG(INFO)<<"type is int"<<rst;
+    
+}
+
 
 #endif /* A13B142C_9108_4EA0_8FA3_F19BD41B1172 */

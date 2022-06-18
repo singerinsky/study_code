@@ -273,7 +273,6 @@ public:
         static std::unique_ptr<SingleClass> _ptr;
         std::call_once(_flag, [&]()
         {
-            sleep(sleep_sec);
             _ptr.reset(new SingleClass());
             return _ptr.get();
         });
@@ -318,7 +317,6 @@ public:
             _ptr.reset(new T);
             return *(_ptr.get());
         });
-        //return *(_ptr.get());
         return *_ptr;
     }
 private:
