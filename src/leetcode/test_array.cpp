@@ -2,8 +2,6 @@
 #include <algorithm>
 #include <array>
 
-const std::array<int, 10> const_int_array = {1,  2, 34, 4,  455,
-                                             34, 2, 90, 89, 3};
 
 template <int ArraySize, class T, class elefunc>
 std::array<T, ArraySize> build_array_sort(elefunc &func) {

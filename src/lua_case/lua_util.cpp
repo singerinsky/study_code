@@ -73,7 +73,6 @@ lua_State *init_lua_state() {
   // lua_sethook(L,__lua_hook_debug_func_call,LUA_MASKCALL,0);
   // lua_sethook(L,__lua_hook_debug_func_ret,LUA_MASKRET,0);
   luabridge::getGlobalNamespace(L).addFunction("glog", glog_lua);
-  static int log_error = 1, log_info = 0;
   return L;
 }
 

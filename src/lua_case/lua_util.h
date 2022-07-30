@@ -67,7 +67,8 @@ R call_lua(lua_State *state, const char *function_name, P1 arg1, P2 arg2) {
 // }
 template <typename... ArgPacks>
 void CallLuaFunc(lua_State *state, const char *func_name, ArgPacks &&...args) {
-  int rst = lua_getglobal(state, "__G__TRACKBACK__");
+  //int rst = lua_getglobal(state, "__G__TRACKBACK__");
+  lua_getglobal(state, "__G__TRACKBACK__");
   int err_func = 0;
   if (lua_type(state, -1) != LUA_TFUNCTION) {
     LOG(ERROR) << "init debug functino error!";
@@ -78,7 +79,6 @@ void CallLuaFunc(lua_State *state, const char *func_name, ArgPacks &&...args) {
   }
 
   lua_getglobal(state, func_name);
-  int param_count = 0;
   if (lua_isfunction(state, -1)) {
     auto _init_list = std::initializer_list<int>{
         // TODO fix value pass
@@ -114,14 +114,13 @@ R CallLuaFuncWithRet(lua_State *state, const char *func_name,
   }
 
   lua_getglobal(state, func_name);
-  size_t param_count = 0;
   if (lua_isfunction(state, -1)) {
-    std::initializer_list<int>{
+    auto returnrst = std::initializer_list<int>{
         (luabridge::Stack<ArgPacks>::push(state, std::forward<ArgPacks>(args)),
          0)...};
     int call_rst = lua_pcall(state, sizeof...(args), 1, err_func);
     if (call_rst) {
-      LOG(ERROR) << "function" << func_name << " call error " << call_rst;
+      LOG(ERROR) << "function" << func_name << " call error " << call_rst<<" type"<<typeid(returnrst).name();
       return WarpReturn<R>(state);
     }
   } else {

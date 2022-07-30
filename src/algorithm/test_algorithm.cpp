@@ -159,7 +159,6 @@ std::vector<std::vector<bool>> generate_mat(int size) {
 
 TEST(BaseTest, generate_mat) {
   auto math = generate_mat(5);
-  int size = math.size();
   for (int index = 0; index < math.size(); index++) {
     std::string row_str;
     std::for_each(math[index].begin(), math[index].end(), [&](auto value) {
@@ -329,4 +328,8 @@ TEST(TestBase, generator_other)
   other_generate_function(4);
 }
 
-thread_local static int age;
+//thread_local static int age;
+
+
+
+

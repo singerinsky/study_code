@@ -8,7 +8,7 @@ void BenchmarkMalloc(size_t ntimes, size_t nworks, size_t rounds) {
   size_t malloc_costtime = 0;
   size_t free_costtime = 0;
   for (size_t k = 0; k < nworks; ++k) {
-    vthread[k] = std::thread([&, k]() {
+    vthread[k] = std::thread([&]() {
       std::vector<void *> v;
       v.reserve(ntimes);
       for (size_t j = 0; j < rounds; ++j) {
@@ -31,11 +31,11 @@ void BenchmarkMalloc(size_t ntimes, size_t nworks, size_t rounds) {
   for (auto &t : vthread) {
     t.join();
   }
-  printf("%u个线程并发执行%u轮次，每轮次malloc %u次: 花费：%u ms\n", nworks,
+  printf("%lu个线程并发执行%lu轮次，每轮次malloc %lu次: 花费：%lu ms\n", nworks,
          rounds, ntimes, malloc_costtime);
-  printf("%u个线程并发执行%u轮次，每轮次free %u次: 花费：%u ms\n", nworks,
+  printf("%lu个线程并发执行%lu轮次，每轮次free %lu次: 花费：%lu ms\n", nworks,
          rounds, ntimes, free_costtime);
-  printf("%u个线程并发malloc&free %u次，总计花费：%u ms\n", nworks,
+  printf("%lu个线程并发malloc&free %lu次，总计花费：%lu ms\n", nworks,
          nworks * rounds * ntimes, malloc_costtime + free_costtime);
 }
 
@@ -68,11 +68,11 @@ void BenchmarkConcurrentMalloc(size_t ntimes, size_t nworks, size_t rounds) {
   for (auto &t : vthread) {
     t.join();
   }
-  printf("%u个线程并发执行%u轮次，每轮次concurrent alloc %u次: 花费：%u ms\n",
+  printf("%lu个线程并发执行%lu轮次，每轮次concurrent alloc %lu次: 花费：%lu ms\n",
          nworks, rounds, ntimes, malloc_costtime);
-  printf("%u个线程并发执行%u轮次，每轮次concurrent dealloc %u次: 花费：%u ms\n",
+  printf("%lu个线程并发执行%lu轮次，每轮次concurrent dealloc %lu次: 花费：%lu ms\n",
          nworks, rounds, ntimes, free_costtime);
-  printf("%u个线程并发concurrent alloc&dealloc %u次，总计花费：%u ms\n", nworks,
+  printf("%lu个线程并发concurrent alloc&dealloc %lu次，总计花费：%lu ms\n", nworks,
          nworks * rounds * ntimes, malloc_costtime + free_costtime);
 }
 

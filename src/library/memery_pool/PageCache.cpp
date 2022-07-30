@@ -126,6 +126,7 @@ void PageCache::ReleaseSpanToPageCache(Span *cur) {
   // 当释放的内存是大于128页,直接将内存归还给操作系统,不能合并
   if (cur->_npage >= NPAGES) {
     void *ptr = (void *)(cur->_pageid << PAGE_SHIFT);
+    printf("%p",ptr);
     // 归还之前删除掉页到span的映射
     _idspanmap.erase(cur->_pageid);
     // TODO VirtualFree(ptr, 0, MEM_RELEASE);
