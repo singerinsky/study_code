@@ -123,10 +123,6 @@ public:
 
     virtual bool IsValied()
     {
-        if (!this)
-        {
-            return false;
-        }
         return _value_flag ==  0x123456789ABCDE0;
     }
 
