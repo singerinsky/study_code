@@ -52,12 +52,9 @@
 #./AllCppTest --gtest_filter=BaseTest.semaphore_cp
 #./AllCppTest --gtest_filter=TestBase.g_default_test
 #./AllCppTest --gtest_filter=TestTemplate.stl_t
-<<<<<<< HEAD
 #./AllCppTest --gtest_filter=TestStl.void_value
 #/AllCppTest --gtest_filter=Sys.hook
 #./AllCppTest --gtest_filter=TestTemplate.type_traits_001
 ./AllCppTest --gtest_filter=TestStd.test_string
-=======
-./AllCppTest --gtest_filter=TestStl.void_value
+#./AllCppTest --gtest_filter=TestStl.void_value
 #add for pick 
->>>>>>> ce5decb... test for pick
