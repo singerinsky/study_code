@@ -57,4 +57,5 @@
 #./AllCppTest --gtest_filter=TestTemplate.type_traits_001
 ./AllCppTest --gtest_filter=TestStd.test_string
 #./AllCppTest --gtest_filter=TestStl.void_value
+./AllCppTest --gtest_filter=TestStl.void_value
 #add for pick 
