@@ -55,5 +55,9 @@
 #./AllCppTest --gtest_filter=TestStl.void_value
 #/AllCppTest --gtest_filter=Sys.hook
 #./AllCppTest --gtest_filter=TestTemplate.type_traits_001
-./AllCppTest --gtest_filter=TestStd.test_string
+#./AllCppTest --gtest_filter=TestStd.test_string
+#./AllCppTest --gtest_filter=Test_std.TypeCall
+#./AllCppTest --gtest_filter=TestCpu.cache
 #....
+
+./AllCppTest --gtest_filter=Test20.init
