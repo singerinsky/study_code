@@ -79,5 +79,15 @@ TEST(TestStl,ref_function){
     object.dump();
 }
 
+TEST(Test20,init)
+{
+    int age {111};
+
+    LOG(INFO)<<"age:"<<age;
+}
+
+
+
+
 
 

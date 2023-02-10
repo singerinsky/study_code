@@ -8,7 +8,7 @@
 #./AllCppTest --gtest_filter=Hash_Test.* 
 #./AllCppTest --gtest_filter=Atom_Test.test_udt_class
 #./AllCppTest --gtest_filter=Test_New.Test002
-#./AllCppTest --gtest_filter=BaseTest.test_initlizelist
+./AllCppTest --gtest_filter=BaseTest.test_initlizelist
 #./AllCppTest --gtest_filter=BaseTest.test_ref_return
 #./AllCppTest --gtest_filter=Malloc_Test.* 
 #./AllCppTest --gtest_filter=BaseTest.test_class_with_desc_sleep
@@ -55,7 +55,10 @@
 #./AllCppTest --gtest_filter=TestStl.void_value
 #/AllCppTest --gtest_filter=Sys.hook
 #./AllCppTest --gtest_filter=TestTemplate.type_traits_001
-./AllCppTest --gtest_filter=TestStd.test_string
+#./AllCppTest --gtest_filter=TestStd.test_string
 #./AllCppTest --gtest_filter=TestStl.void_value
-./AllCppTest --gtest_filter=TestStl.void_value
+#./AllCppTest --gtest_filter=TestStl.void_value
+#./AllCppTest --gtest_filter=Test_restudy.restudy_unique_ptr_test
+#./AllCppTest  --gtest_filter=Test_restudy.restudy_random_engine
+./AllCppTest  --gtest_filter=Test_restudy.restudy_null_opt
 #add for pick 

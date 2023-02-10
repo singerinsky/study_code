@@ -16,23 +16,23 @@
 #include "test_case/test_shm.h"
 #include "test_case/test_sort.h"
 #include "test_case/test_static.h"
-#include "test_case/test_std.h"
 #include "test_case/test_tcmalloc.h"
-#include "test_case/test_template.h"
 #include "test_case/test_thread_safe.h"
 #include "util/res_guard.h"
 #include "util/test_move.h"
 #include "lua_case/lua_pure.h"
 #include "pattern/pattern_visitor.h"
+#include "cpu/cpu_test.h"
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv)
+{
 
-  testing::InitGoogleTest(&argc, argv);
-  gflags::ParseCommandLineFlags(&argc, &argv, true);
-  // 初始化日志库
-  google::InitGoogleLogging(argv[0]);
-  FLAGS_logtostderr = true;
-  LOG(ERROR) << "Start All Test!";
+    testing::InitGoogleTest(&argc, argv);
+    gflags::ParseCommandLineFlags(&argc, &argv, true);
+    // 初始化日志库
+    google::InitGoogleLogging(argv[0]);
+    FLAGS_logtostderr = true;
+    LOG(ERROR) << "Start All Test!";
 
-  return RUN_ALL_TESTS();
+    return RUN_ALL_TESTS();
 }

@@ -56,7 +56,7 @@ public:
         id = id_param;
     }
 
-    int GetId()
+    int GetId() const
     {
         return id;
     }
