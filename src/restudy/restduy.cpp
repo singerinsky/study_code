@@ -83,3 +83,9 @@ TEST(Test_restudy, restudy_null_opt)
         LOG(INFO) << "not null object";
     }
 }
+
+TEST(Test_restudy, restudy_get_cxx_version)
+{
+    LOG(INFO) << __cplusplus;
+}
+
