@@ -6,7 +6,9 @@
 #include <type_traits>
 #include <typeinfo>
 #include <random>
-
+#include <malloc.h>
+#include <stdio.h>
+#include "mm_malloc.h"
 
 void restudy_scope_class_function()
 {
@@ -89,3 +91,70 @@ TEST(Test_restudy, restudy_get_cxx_version)
     LOG(INFO) << __cplusplus;
 }
 
+TEST(Test_restudy, test_brk)
+{
+    char* ptr;
+    char* start = (char*)sbrk(0);
+    printf("Changing allocation with brk() %p\n", start);
+    ptr = (char*)malloc(64);
+    char* after = (char*)sbrk(0);
+    printf("new size%p\n", after - ptr);
+    printf("Before brk() call: %p bytes free\n", after);
+}
+
+TEST(Test_restudy, test_sbrk)
+{
+    void* tret;
+    char* pmem;
+    int i;
+    long sbrkret;
+
+    pmem = (char*)malloc(32);
+    if (pmem == NULL)
+    {
+        perror("malloc");
+        exit (EXIT_FAILURE);
+    }
+
+
+    printf ("pmem:%p\n", pmem);
+
+    for (i = 0; i < 65; i++)
+    {
+        sbrk(1);
+        printf ("%d\n", (char*)sbrk(0) - (long)pmem - 0x20ff8);   //0x20ff8 就是堆和 bss段 之间的空隙常数；改变后要用 sbrk(0) 再次获取更新后的program break位置
+    }
+    free(pmem);
+}
+#include "../util/class_sample.h"
+std::optional<SampleClass> get_sample_object()
+{
+    SampleClass sample_class(1);
+    if (sample_class.GetId() == 1)
+    {
+        return {sample_class};
+    }
+    else
+    {
+        return nullopt;
+    }
+}
+
+TEST(Test_restudy, test_optional)
+{
+    auto optional_object = get_sample_object();
+    if (optional_object == nullopt)
+    {
+        LOG(INFO) << "null opt";
+    }
+    std::unique_ptr<SampleClass> object(new SampleClass());
+    std::unique_ptr<SampleClass> object_make = std::make_unique<SampleClass>(1);
+    if (object)
+    {
+        LOG(INFO) << "object unique ptr is not null";
+    }
+    if (object_make)
+    {
+        LOG(INFO) << "object_make unique ptr is not null";
+    }
+}

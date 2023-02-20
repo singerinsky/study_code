@@ -108,7 +108,7 @@ SampleClass get_sample_class_with_nrvo()
     return object;
 }
 
-void scope_class_function()
+inline void scope_class_function()
 {
     struct __struct_tmp_
     {

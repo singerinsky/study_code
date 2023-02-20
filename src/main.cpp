@@ -1,4 +1,5 @@
 #include "header.h"
+#include "study_cmake_build_info.h"
 #include "lua_case/lua_test_one.h"
 #include "lua_case/test_lua_bridge.h"
 #include "mmap_case/test_mmap.h"
@@ -32,7 +33,13 @@ int main(int argc, char** argv)
     // 初始化日志库
     google::InitGoogleLogging(argv[0]);
     FLAGS_logtostderr = true;
+    LOG(INFO) << "Current running time build is " << StudyCmakeBuildInfo::Timestamp << endl;
     LOG(ERROR) << "Start All Test!";
 
-    return RUN_ALL_TESTS();
+    //ProfilerStart("study.prof");
+    HeapProfilerStart("heap/study");
+    int test_rst = RUN_ALL_TESTS();
+    HeapProfilerStop();
+    //ProfilerStop();
+    return 1;
 }

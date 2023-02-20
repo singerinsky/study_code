@@ -2,6 +2,7 @@
 #define _CLASS_SAMPLE_H_
 #include "glog/logging.h"
 #include <map>
+#include <memory>
 
 class SampleClass
 {
@@ -70,9 +71,20 @@ public:
     {
         LOG(INFO) << "modify value " << modify_value;
     }
+
+    void SetName(std::string str)
+    {
+        name = str;
+    }
+
+    void PrintName()
+    {
+        LOG(INFO) << "modify name " << name;
+    }
 private:
     int id = 0;
     mutable int modify_value = 0;
+    std::string name;
 };
 
 class ClassWithFunctionReturnObject
@@ -90,14 +102,29 @@ private:
 class ClassWithUniquePtr
 {
 public:
-    ClassWithUniquePtr() {}
+    ClassWithUniquePtr()
+    {
+
+    }
+
+    ClassWithUniquePtr(ClassWithUniquePtr&& object)
+    {
+        ptr_ = std::move(object.ptr_);
+    }
+
     ~ClassWithUniquePtr()
     {
         LOG(INFO) << "Call class ClassWithUniquePtr descutor";
     }
 
+    void SetPtrValue(std::string name)
+    {
+        ptr_->SetName(name);
+    }
+
+
 public:
-    std::unique_ptr<SampleClass> ptr_;
+    std::unique_ptr<SampleClass> ptr_ = std::make_unique<SampleClass>();
 };
 
 //简单类型

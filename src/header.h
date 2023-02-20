@@ -1,9 +1,9 @@
 /*
- * @file: 
+ * @file:
  * @copyright: 2012 - 2028 ByteDance. All Rights Reserved
  * @Author: guanlei
  * @Date: 2021-11-09 09:52:42
- * @brief: 
+ * @brief:
  */
 #ifndef _HEADER_H_
 #define _HEADER_H_
@@ -15,6 +15,8 @@
 #include <gflags/gflags.h>
 #include <glog/logging.h>
 #include "gtest/gtest.h"
+#include <gperftools/profiler.h>
+#include <gperftools/heap-profiler.h>
 #include <features.h>
 #include <map>
 #include <thread>   // std::thread
@@ -34,7 +36,7 @@
 #include <dlfcn.h>
 #include "util/asm_util.h"
 
-extern "C"{
+extern "C" {
 #include "lua.h"
 #include "lauxlib.h"
 #include "lualib.h"
