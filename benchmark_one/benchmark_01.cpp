@@ -167,6 +167,40 @@ void function_benchmark_singleton_without_mutex_class(benchmark::State& state)
 
 BENCHMARK(function_benchmark_singleton_without_mutex_class);
 
+void function_pass_ref(const std::string& str)
+{
+    //LOG(INFO) << str;
+}
+
+void function_pass_value(std::string str)
+{
+    //LOG(INFO) << str;
+}
+
+void function_test_pass_value(benchmark::State& state)
+{
+    for (auto _ : state)
+    {
+        int value = rand();
+        std::string str = std::to_string(value);
+        function_pass_value(str);
+    }
+}
+
+BENCHMARK(function_test_pass_value);
+
+void function_test_pass_ref(benchmark::State& state)
+{
+    for (auto _ : state)
+    {
+        int value = rand();
+        std::string str = std::to_string(value);
+        function_pass_ref(str);
+    }
+}
+
+BENCHMARK(function_test_pass_ref);
+
 BENCHMARK_MAIN()
 {
     ::benchmark::Initialize(&argc, argv);

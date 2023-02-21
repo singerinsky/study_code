@@ -1,0 +1,1 @@
+./benchmark_one --benchmark_filter=function_benchmark_singleton_with_mutex_class

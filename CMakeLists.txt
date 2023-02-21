@@ -9,7 +9,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)  #输出详细日志
 #-gp 是gprof生成gmon.out,函数调用关系
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -pg -O0 -std=c++17 -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -DNDEBUG -Wl -wrap=time -pthread")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -pg -O0 -std=c++17 -stdlib=libc++ -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -DNDEBUG -Werror=return-type")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -std=c++17 -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -DNDEBUG -Werror=return-type")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O1 -std=c++17 -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -DNDEBUG -Werror=return-type")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG ")
 
 
@@ -60,7 +60,7 @@ find_library(liblua.a ${WORKING_DIRECTORY}/libs)
 find_library(libprotobuf.a ${WORKING_DIRECTORY}/libs)
 find_library(libhookstaticlib.a ${WORKING_DIRECTORY}/static_library)
 
-SET(EXECUTABLE_OUTPUT_PATH ${WORKING_DIRECTORY}) 
+SET(EXECUTABLE_OUTPUT_PATH ${WORKING_DIRECTORY}/bin) 
 SET(ALL_LIBS gtest pthread glog gflags tcmalloc zmq lua dl protobuf benchmark hookstaticlib profiler)
 #SET(ALL_LIBS gtest pthread glog gflags tcmalloc zmq lua dl protobuf benchmark)
 add_executable(AllCppTest ${SRC_FILES} ${SRC_HEADS})
