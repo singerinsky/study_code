@@ -409,9 +409,9 @@ void manual_call_time_new()
 void get_new_rip()
 {
     unsigned long long _address;
-    asm volatile("call get_eip");//人为多一次调用
-    asm volatile("get_eip:"); //调用本身
-    asm volatile("popq %0" : "=r"(_address));//把堆栈地址弹出来
+    asm volatile("call get_eip\n\t"
+                 "get_eip:\n\t" //调用本身
+                 "popq %0" : "=r"(_address):);//把堆栈地址弹出来
     printf("%llx\n", _address);//可以用这个地址，用16进制加上* 号来下断点
 }
 
@@ -427,11 +427,62 @@ TEST(TestCpu, manual_call_exit)
     manual_call_time_new();
     LOG(INFO) << "end of time call test function" << endl;
     int now = time(NULL);
-    printf("printf %", now);
+    printf("printf %d", now);
     manual_call_exit();
-
     LOG(INFO) << "end of test function" << endl;
 }
 
+void test_sub()
+{
 
+    //上面的程序将~my_var~减一并且如果减一的最终结果为零就将cond置位。我们可以在汇编语句之前加上~”lock;\n\t”~让其变成原子操作
+    /*
+    - my_var是存在内存中的变量；
+    - cond存在通用寄存器中(eax,ebx,ecx,edx)，因为有限制条件”=q”；
+    - clobber list中指定了“memory”，说明代码将改变内存值。
+    */
+    // int cond = 0;
+    // int my_var = 99;
+    // asm ("decl %0; sete %1"
+    //      : "=m"(my_var), "=q"(cond)
+    //      : "m"(my_var)
+    //      : "memory"
+    //     );
+}
+TEST(TestCpu, add_test)
+{
+    int value1 = 10;
+    int value2 = 10;
+    //addl 是加指令 ，把ebx寄存器和eax的值相加，再把返回值给到eax寄存器。a表示eax,b表示ebx
+    __asm__("addl %%ebx,%%eax" : "=a"(value1) : "b"(value1), "a"(value2));
+    printf("%d\n", value1);
+
+
+    //上面代码是一个原子加法操作。要移除该原子操作可以删除lock指令。在输出部分“=m”指出直接输出到内存my_var。类似的，
+    // ”ir”是指my_int是一个整型数并且要保存到一个寄存器中(可以参考上面关于constraint的列表)。这里clobber list中没有指定任何寄存器。
+    int my_var = 1;
+    int my_int = 99;
+    __asm__ ("    lock        \n" //这个是锁定系统总线，保证原子操作
+             "    addl %1,%0; \n"
+             : "=m"(my_var)
+             : "ir"(my_int), "m"(my_var)
+             : /* no clobber-list */
+            );
+    printf("%d\n", my_var);
+    test_sub();
+}
+
+
+char* strcpy (char* dest, const char* src)
+{
+    int d0, d1, d2;
+    // __asm__ ("1:/tlodsb\n\t"
+    //          "stosb\n\t"
+    //          "testb %%al,%%al\n\t"
+    //          "jne 1b"
+    //          : "=&S" (d0), "=&D" (d1), "=&a" (d2)
+    //          : "0" (src), "1" (dest)
+    //          : "memory");
+    return dest;
+}
 
