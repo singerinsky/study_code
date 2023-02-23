@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.1)
-project(AllCppTest)
+
 set(CMAKE_C_COMPILER "/usr/bin/clang-12")
 set(CMAKE_CXX_COMPILER "/usr/bin/clang++-12")
+project(AllCppTest)
 #set(CMAKE_CXX_COMPILER "/usr/bin/g++")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -9,7 +10,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)  #输出详细日志
 #-gp 是gprof生成gmon.out,函数调用关系
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -pg -O0 -std=c++17 -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -DNDEBUG -Wl -wrap=time -pthread")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -pg -O0 -std=c++17 -stdlib=libc++ -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -DNDEBUG -Werror=return-type")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O1 -std=c++17 -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -DNDEBUG -Werror=return-type")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -std=c++17 -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -DNDEBUG -Werror=return-type")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG ")
 
 
@@ -52,21 +53,27 @@ endmacro(use_precompiled_header)
 include_directories(${WORKING_DIRECTORY}/src/include)
 include_directories(${WORKING_DIRECTORY}/src/cpp_proto)
 include_directories(${WORKING_DIRECTORY}/src/include/lua)
+include_directories(${WORKING_DIRECTORY}/src/include/zookeeper)
 include_directories(${WORKING_DIRECTORY}/thirdparty)
 
+#link_directories(${WORKING_DIRECTORY}/lib_bak /usr/local/lib)
 find_library(gtest /usr/local/lib)
 #find_library(libzmq.a ${WORKING_DIRECTORY}/libs)
-find_library(liblua.a ${WORKING_DIRECTORY}/libs)
-find_library(libprotobuf.a ${WORKING_DIRECTORY}/libs)
-find_library(libhookstaticlib.a ${WORKING_DIRECTORY}/static_library)
-
+# find_library(liblua.a ${WORKING_DIRECTORY}/libs)
+# find_library(libprotobuf.a ${WORKING_DIRECTORY}/libs)
+# find_library(libhookstaticlib.a ${WORKING_DIRECTORY}/static_library)
+find_library(libzookeeper zookeeper ${WORKING_DIRECTORY}/libs)
+#message("${WORKING_DIRECTORY}")
 SET(EXECUTABLE_OUTPUT_PATH ${WORKING_DIRECTORY}/bin) 
-SET(ALL_LIBS gtest pthread glog gflags tcmalloc zmq lua dl protobuf benchmark hookstaticlib profiler)
+SET(ALL_LIBS gtest pthread  gflags glog tcmalloc zmq lua dl protobuf benchmark hookstaticlib profiler ${libzookeeper})
 #SET(ALL_LIBS gtest pthread glog gflags tcmalloc zmq lua dl protobuf benchmark)
-add_executable(AllCppTest ${SRC_FILES} ${SRC_HEADS})
-target_link_libraries(AllCppTest ${ALL_LIBS})
+
 #target_precompile_headers(AllCppTest PUBLIC "${WORKING_DIRECTORY}/src/header.h" PRIVATE <list> <vector> <map>)
 add_subdirectory(common_lib library)
 add_subdirectory(common_static_lib static_library)
 add_subdirectory(benchmark_one benchmark_bin)
+
+add_executable(AllCppTest ${SRC_FILES} ${SRC_HEADS})
+
+target_link_libraries(AllCppTest ${ALL_LIBS})
 #execute_process(COMMAND "./AllCppTest")
