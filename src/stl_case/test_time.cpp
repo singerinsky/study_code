@@ -20,5 +20,4 @@ TEST(Test_stl, Time001)
             now = std::chrono::high_resolution_clock::now();
         }
     }
-
 }

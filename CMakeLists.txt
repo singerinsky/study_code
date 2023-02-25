@@ -13,7 +13,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)  #输出详细日志
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -std=c++17 -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -DNDEBUG -Werror=return-type")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG ")
 
-
+add_definitions(-DTHREADED)
 set(CMAKE_CXX_EXTENSIONS            OFF)#开关是告诉CMake采用更加通用的编译参数，比如这个开关打开，传递给GCC的参数就会是-std=c++14 而不是-std=gnu++14
 #set(CMAKE_CXX_VISIBILITY_PRESET     hidden)#消除了 static 关键字上的限制更多可见性选择（4 种）来控制导出符号在代码编写阶段编写更多的代码来设置符号的可见性
 #$set(CMAKE_VISIBILITY_INLINES_HIDDEN YES) # 与generate_export_header搭配使用, 设置内联函数可见性
@@ -26,7 +26,7 @@ GenerateBuildInfo(${CMAKE_CURRENT_LIST_DIR}/cmake/study_cmake_build_info.h.in ${
 
 
 file(GLOB_RECURSE PROTOFILE "src/cpp_proto/*.pb.*")
-file(GLOB_RECURSE SRC_FILES "src/*.cpp" "src/pattern/*.cpp" "src/pattern/*.h" "src/net/*.cpp" "src/restudy/*.cpp" "src/cpu/*.cpp")
+file(GLOB_RECURSE SRC_FILES "src/*.cpp" "src/pattern/*.cpp" "src/pattern/*.h" "src/net/*.cpp" "src/restudy/*.cpp" "src/cpu/*.cpp" "src/zookeeper/*.cpp")
 
 list(APPEND SRC_FILES ${PROTOFILE})
 list(APPEND SRC_FILES ${UTILFILE})
@@ -63,9 +63,10 @@ find_library(gtest /usr/local/lib)
 # find_library(libprotobuf.a ${WORKING_DIRECTORY}/libs)
 # find_library(libhookstaticlib.a ${WORKING_DIRECTORY}/static_library)
 find_library(libzookeeper zookeeper ${WORKING_DIRECTORY}/libs)
+find_library(libhashtable hashtable ${WORKING_DIRECTORY}/libs)
 #message("${WORKING_DIRECTORY}")
 SET(EXECUTABLE_OUTPUT_PATH ${WORKING_DIRECTORY}/bin) 
-SET(ALL_LIBS gtest pthread  gflags glog tcmalloc zmq lua dl protobuf benchmark hookstaticlib profiler ${libzookeeper})
+SET(ALL_LIBS gtest pthread  gflags glog tcmalloc zmq lua dl protobuf benchmark hookstaticlib profiler ${libzookeeper} ${libhashtable} ssl)
 #SET(ALL_LIBS gtest pthread glog gflags tcmalloc zmq lua dl protobuf benchmark)
 
 #target_precompile_headers(AllCppTest PUBLIC "${WORKING_DIRECTORY}/src/header.h" PRIVATE <list> <vector> <map>)

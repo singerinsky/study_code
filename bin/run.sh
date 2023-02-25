@@ -66,5 +66,6 @@
 #./AllCppTest  --gtest_filter=Test_restudy.restudy_get_cxx_version
 #./AllCppTest  --gtest_filter=Test_restudy.test_optional
 #./AllCppTest    --gtest_filter=Test_Map.Test001
-./AllCppTest --gtest_filter=TestCpu.add_test
+#./AllCppTest --gtest_filter=TestCpu.add_test
+./AllCppTest --gtest_filter=ZKTest.test_001
 #add for pick 
