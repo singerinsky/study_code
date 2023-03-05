@@ -201,9 +201,15 @@ void function_test_pass_ref(benchmark::State& state)
 
 BENCHMARK(function_test_pass_ref);
 
-BENCHMARK_MAIN()
+// BENCHMARK_MAIN()
+// {
+//     ::benchmark::Initialize(&argc, argv);
+//     ::benchmark::RunSpecifiedBenchmarks();
+//     return 1;
+// }
+int main(int argc, char** argv)
 {
-    ::benchmark::Initialize(&argc, argv);
-    ::benchmark::RunSpecifiedBenchmarks();
-    return 1;
+   ::benchmark::Initialize(&argc, argv);
+   ::benchmark::RunSpecifiedBenchmarks();
+   return 1;
 }

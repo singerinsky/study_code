@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
-set(CMAKE_C_COMPILER "/usr/bin/clang-12")
-set(CMAKE_CXX_COMPILER "/usr/bin/clang++-12")
+set(CMAKE_C_COMPILER "/usr/bin/clang-15")
+set(CMAKE_CXX_COMPILER "/usr/bin/clang++-15")
 project(AllCppTest)
 #set(CMAKE_CXX_COMPILER "/usr/bin/g++")
 set(CMAKE_CXX_STANDARD 17)
@@ -39,7 +39,8 @@ file(GLOB_RECURSE SRC_HEADS "src/*.h")
 
 find_file(exe_build NAMES AllCppTest PATHS .)
 #add_custom_command(OUTPUT ${exe_log} COMMAND echo "nice")
-set(WORKING_DIRECTORY "/home/ubuntu/git_space/study_code")
+#绝对路径
+set(WORKING_DIRECTORY "/home/gl/workspace/study_code")
 
 macro(use_precompiled_header TARGET HEADER_FILE SRC_FILE)
   get_filename_component(HEADER ${HEADER_FILE} NAME)
@@ -78,9 +79,8 @@ SET(ALL_LIBS gtest pthread  gflags glog tcmalloc zmq lua dl protobuf benchmark h
 #target_precompile_headers(AllCppTest PUBLIC "${WORKING_DIRECTORY}/src/header.h" PRIVATE <list> <vector> <map>)
 add_subdirectory(common_lib library)
 add_subdirectory(common_static_lib static_library)
-add_subdirectory(benchmark_one benchmark_bin)
 
-add_executable(AllCppTest ${SRC_FILES} ${SRC_HEADS})
+add_subdirectory(src)
+add_subdirectory(benchmark_one)
 
-target_link_libraries(AllCppTest ${ALL_LIBS})
 #execute_process(COMMAND "./AllCppTest")
