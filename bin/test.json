@@ -1,0 +1,54 @@
+{
+    "servertype": {
+        "desc": "用于哪个服务器 TODO Game部分除sceneserver外暂不支持...有点复杂, 我后面捋一捋",
+        "value": "sceneserver"
+    },
+    "moudle": {
+        "desc": {
+            "name": "模块名",
+            "activitytype": "活动类型 如有需要的话 活动类型和活动ID必选其一",
+            "activityid": "活动ID 如有需要的话 活动类型和活动ID必选其一"
+        },
+        "name": "Cake",
+        "activitytype": "EActivityType_Cake",
+        "activityid": 123456
+    },
+    "manager": {
+        "desc": {
+            "desc": "管理类",
+            "bopen": "是否要有管理类",
+            "config": "配置表名 TODO 后续一并处理了",
+            "data": "落库数据 sceneserver上不要有",
+            "timer": "定时器是否需要",
+            "proto": "接收的协议 涉及具体逻辑了,很难统一 具体的需要自己去实现"
+        },
+        "bopen": true,
+        "config": [
+            "OPActivityCakeTable",
+            "OPActivityCakePhotoTable"
+        ],
+        "data": "MDBFireworks",
+        "timer": true,
+        "proto": [
+            "CS_ActCakeInfoReq",
+            "CS_ActCakeSubmitMaterialReq",
+            "CS_ActCakeTakeAwardReq",
+            "PSGS_QueryGuildCakeContributionAck",
+            "PSGS_QueryGuildCakeAddAck"
+        ]
+    },
+    "game": {
+        "desc": {
+            "desc": "具体逻辑",
+            "open": "是否要这个玩意儿",
+            "guild": "公会相关活动 会判断必须入公会之类的",
+            "data": "落库数据 TODO 先不考虑复杂的多个数据",
+            "proto": "接收的协议 涉及具体逻辑了,很难统一 需要自己去实现",
+            "reissue": "活动结束后有补发操作(sceneserver)"
+        },
+        "bopen": true,
+        "reissue": true,
+        "guild": false,
+        "data": "MDBCake"
+    }
+}

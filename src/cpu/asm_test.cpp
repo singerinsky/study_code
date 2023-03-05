@@ -409,8 +409,8 @@ void manual_call_time_new()
 void get_new_rip()
 {
     unsigned long long _address;
-    asm volatile("call get_eip\n\t"
-                 "get_eip:\n\t" //调用本身
+    asm volatile("call get_rip\n\t"
+                 "get_rip:\n\t" //调用本身
                  "popq %0" : "=r"(_address):);//把堆栈地址弹出来
     printf("%llx\n", _address);//可以用这个地址，用16进制加上* 号来下断点
 }
