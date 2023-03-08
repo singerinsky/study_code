@@ -103,5 +103,35 @@ TEST(TestUv, test001)
 
 
     ASSERT_TRUE(500 <= uv_now(uv_default_loop()) - start_time);
+}
+
+#define NUM_TICKS 64
+
+static uv_idle_t idle_handle;
+static int idle_counter;
+
+
+static void idle_cb(uv_idle_t* handle) {
+  ASSERT_TRUE(handle == &idle_handle);
+
+  if (++idle_counter == NUM_TICKS) {
+        LOG(INFO)<<" stop idle "<<idle_counter;
+        uv_idle_stop(handle);
+  } else {
+        LOG(INFO)<<" idle call"<<idle_counter;
+  }
+}
+
+/*
+    uv_idle_t 句柄则是用来检测事件循环是否处于空闲状态。
+    当除了uv_prepare_t、uv_check_t和当前激活的io句柄外，没有其他待处理的任务时，
+    libuv会触发idle句柄的回调函数，通知应用程序有空闲可用，此时可以做一些额外的业务处理等
+*/
+TEST(TestUv,test002) {
+  uv_idle_init(uv_default_loop(), &idle_handle);
+  uv_idle_start(&idle_handle, idle_cb);
+
+  while (uv_run(uv_default_loop(), UV_RUN_ONCE));
+  ASSERT_TRUE(idle_counter == NUM_TICKS);
 
 }
