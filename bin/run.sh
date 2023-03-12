@@ -56,7 +56,8 @@
 #./AllCppTest --gtest_filter=TestBase.g_default_test
 #./AllCppTest --gtest_filter=TestTemplate.stl_t
 #./AllCppTest --gtest_filter=TestStl.void_value
-#/AllCppTest --gtest_filter=Sys.hook
+#./AllCppTest --gtest_filter=Sys.random
+./AllCppTest --gtest_filter=CasTest.test001
 #./AllCppTest --gtest_filter=TestTemplate.type_traits_001
 #./AllCppTest --gtest_filter=TestCpu.get_address
 #./AllCppTest --gtest_filter=TestStl.void_value
@@ -67,5 +68,5 @@
 #./AllCppTest  --gtest_filter=Test_restudy.test_optional
 #./AllCppTest    --gtest_filter=Test_Map.Test001
 #./AllCppTest --gtest_filter=TestCpu.add_test
-./AllCppTest --gtest_filter=TestUv.test001
+#./AllCppTest --gtest_filter=TestUv.test002
 #add for pick 
