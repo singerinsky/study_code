@@ -1,6 +1,7 @@
 #include "../header.h"
 #include "uv.h"
 #include <gtest/gtest.h>
+#include <thread>
 
 #define ARRAY_SIZE(_ARRAY_) (sizeof(_ARRAY_) / sizeof((_ARRAY_)[0]))
 
@@ -120,29 +121,48 @@ TEST(TestUv, test002) {
 }
 
 void custom_uv_cb(uv_work_t *req) {
-  LOG(INFO) << "function custom_uv_cb called";
+  LOG(INFO) << "function custom_uv_cb called in thread"
+            << std::this_thread::get_id();
+  std::this_thread::sleep_for(1s);
 }
+
+//此函数最终被主线程调用
 void custom_uv_cb_after(uv_work_t *req, int status) {
-  LOG(INFO) << "function custom_uv_cb_after called";
+  LOG(INFO) << "function custom_uv_cb_after in thread"
+            << std::this_thread::get_id();
+  std::this_thread::sleep_for(1s);
 }
 
 void custom_uv_cb_for_req(uv_work_t *req) {
   LOG(INFO) << "function custom_uv_cb_for_req called";
 }
+
 void custom_uv_cb_after_for_req(uv_work_t *req, int status) {
   LOG(INFO) << "function custom_uv_cb_for_req called";
 }
-// void on_work_completed() {}
+
+void on_engine_idle(uv_idle_t *handle) {
+  LOG(INFO) << "function idle function called in thread:"
+            << std::this_thread::get_id();
+  std::this_thread::sleep_for(1s);
+}
 
 TEST(TestUv, test_thread_pool) {
 
-  uv_work_t *req = (uv_work_t *)malloc(sizeof(uv_work_t));
-  req->work_cb = custom_uv_cb_for_req;
-  req->after_work_cb = custom_uv_cb_after_for_req;
+  uv_idle_t *idle_req = (uv_idle_t *)malloc(sizeof(uv_idle_t));
+  uv_idle_init(uv_default_loop(), idle_req);
+  uv_idle_start(idle_req, on_engine_idle);
 
-  int r =
-      uv_queue_work(uv_default_loop(), req, custom_uv_cb, custom_uv_cb_after);
+  for (int i = 0; i < 10; i++) {
+    // 循环体
+    uv_work_t *req = (uv_work_t *)malloc(sizeof(uv_work_t));
+    req->work_cb = custom_uv_cb_for_req;
+    req->after_work_cb = custom_uv_cb_after_for_req;
 
+    int r =
+        uv_queue_work(uv_default_loop(), req, custom_uv_cb, custom_uv_cb_after);
+  }
+  LOG(INFO) << "main thread id:" << std::this_thread::get_id();
   while (uv_run(uv_default_loop(), UV_RUN_DEFAULT))
     ;
 }
