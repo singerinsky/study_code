@@ -1,4 +1,5 @@
 #include "../header.h"
+#include <string_view>
 
 TEST(TestStd, test_string)
 {

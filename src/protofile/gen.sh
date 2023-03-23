@@ -1,0 +1,1 @@
+protoc $2 --proto_path=$1/src/protofile/ --cpp_out=$1/src/cpp_proto
