@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.26)
 
 set(CMAKE_C_COMPILER "/usr/bin/clang-15")
 set(CMAKE_CXX_COMPILER "/usr/bin/clang++-15")
@@ -86,6 +86,9 @@ SET(ALL_LIBS gtest pthread gflags glog tcmalloc zmq lua dl protobuf benchmark ho
 add_subdirectory(common_lib library)
 add_subdirectory(common_static_lib static_library)
 
+file(GLOB PROTO_SOURCES ${WORKING_DIRECTORY}/src/protofile/*.proto)
+
+add_custom_target(protobuild COMMAND sh ${WORKING_DIRECTORY}/src/protofile/gen.sh ${WORKING_DIRECTORY} ${PROTO_SOURCES})
 add_subdirectory(src)
 add_subdirectory(benchmark_one)
 add_subdirectory(example/uv_example)
