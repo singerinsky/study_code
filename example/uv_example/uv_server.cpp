@@ -88,15 +88,13 @@ uv_tcp_t *CUVServer::attach_net_service(NetServiceBase *pNetService) {
   pServiceHandle->data = pNetService;
   uv_tcp_init(this->get_loop_handle(), pServiceHandle);
   uv_tcp_bind(pServiceHandle, (const struct sockaddr *)&addr, 0);
-  auto event_cb = [&, service_id = pNetService->GetServiceID()](
-                      uv_stream_t *server, int status) {
-
-  };
 
   int r = uv_listen((uv_stream_t *)pServiceHandle, SOMAXCONN,
                     &CUVServer::on_connection);
   if (r != 0) {
+    LOG(ERROR) << "init service net failed!";
     uv_close((uv_handle_t *)pServiceHandle, common_close_cb);
+    return nullptr;
   }
   return pServiceHandle;
 }
@@ -110,7 +108,10 @@ int CUVServer::progress_input_event(uint32_t per_count) {
     case EVENT_LISTEN: {
       LOG(INFO) << "new listen event coming";
       EventListen *event = (EventListen *)base;
-      attach_net_service(event->m_pNetService);
+      auto handle = attach_net_service(event->m_pNetService);
+      if (handle == nullptr) {
+        // TODO send error event!
+      }
     } break;
     default:
       LOG(WARNING) << "Unknown event type: " << base->m_wType;

@@ -8,11 +8,16 @@
 #include "uv.h"
 
 class CUVServer {
-public:
+protected:
   CUVServer();
 
   ~CUVServer();
+  CUVServer(const CUVServer &) = delete;
+  CUVServer(CUVServer &&) = delete;
+  CUVServer &operator=(const CUVServer &) = delete;
+  CUVServer &operator=(CUVServer &&) = delete;
 
+public:
   bool init();
 
   void start();
