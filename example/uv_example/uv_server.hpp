@@ -34,7 +34,7 @@ public:
 
   static void on_connection(uv_stream_t *server, int status);
 
-  bool push_event(EventBase *event);
+  bool push_request(RequestBase *event);
 
   bool pop_event(EventBase *event);
 
@@ -50,7 +50,7 @@ private:
 
   uv_idle_t *idle_t = nullptr;
 
-  moodycamel::ConcurrentQueue<EventBase *> eventInputQueue;
-  moodycamel::ConcurrentQueue<EventBase *> eventOutputQueue;
+  moodycamel::ConcurrentQueue<RequestBase *> m_requestInputQueue;
+  moodycamel::ConcurrentQueue<EventBase *> m_eventOutputQueue;
 };
 #endif

@@ -6,6 +6,18 @@
 #include <ratio>
 #include <thread>
 
+static void alloc_cb(uv_handle_t *handle, size_t suggested_size,
+                     uv_buf_t *buf) {
+  static char slab[65536];
+  buf->base = slab;
+  buf->len = sizeof(slab);
+  LOG(INFO) << "call alloc_cb" << buf->base;
+}
+
+static void recv_cb(uv_stream_t *stream, ssize_t nread, const uv_buf_t *buf) {
+  LOG(INFO) << "call recv_cb" << buf->base;
+}
+
 CUVServer::CUVServer() {}
 
 CUVServer::~CUVServer() {}
@@ -29,15 +41,15 @@ bool CUVServer::init() {
   return true;
 }
 
-bool CUVServer::push_event(EventBase *event) {
-  while (!eventInputQueue.try_enqueue(event)) {
+bool CUVServer::push_request(RequestBase *request) {
+  while (!m_requestInputQueue.try_enqueue(request)) {
     LOG(INFO) << "add event";
   }
   return true;
 }
 
 bool CUVServer::pop_event(EventBase *event) {
-  return eventInputQueue.try_dequeue(event);
+  return m_eventOutputQueue.try_dequeue(event);
 }
 
 void CUVServer::pause(uint32_t ms) {
@@ -70,9 +82,10 @@ void CUVServer::on_connection(uv_stream_t *server, int status) {
   // 绑定到新的 TCP 连接上
   if (uv_accept(server, (uv_stream_t *)client) == 0) {
     LOG(INFO) << "Accepted a new client.\n";
-
+    init_tcp_connection(client);
     // TODO: 在这里进行业务逻辑处理
-    // uv_read_start((uv_stream_t *)client, on_alloc_buffer, on_read_data);
+    uv_read_start((uv_stream_t *)client, alloc_cb, recv_cb);
+    // uv_buf_init()
 
   } else {
     // 关闭新连接的套接字
@@ -101,13 +114,13 @@ uv_tcp_t *CUVServer::attach_net_service(NetServiceBase *pNetService) {
 
 int CUVServer::progress_input_event(uint32_t per_count) {
   int count = 0;
-  EventBase *base;
-  while (count < per_count && eventInputQueue.try_dequeue(base)) {
+  RequestBase *base;
+  while (count < per_count && m_requestInputQueue.try_dequeue(base)) {
     count++;
     switch (base->m_wType) {
-    case EVENT_LISTEN: {
+    case REQUEST_LISTEN: {
       LOG(INFO) << "new listen event coming";
-      EventListen *event = (EventListen *)base;
+      RequestListen *event = (RequestListen *)base;
       auto handle = attach_net_service(event->m_pNetService);
       if (handle == nullptr) {
         // TODO send error event!

@@ -51,8 +51,8 @@ int main(int argc, char **argv) {
 
   TcpNetService *pService = new TcpNetService(1, "clientservice");
   pService->Init("0.0.0.0", 9090);
-  EventListen *event = new EventListen(EVENT_LISTEN, pService);
-  CUVServer::get_instance()->push_event(event);
+  RequestListen *request = new RequestListen(pService);
+  CUVServer::get_instance()->push_request(request);
 
   while (true) {
     std::this_thread::sleep_for(100ms);
