@@ -11,16 +11,17 @@
 static void client_alloc_cb(uv_handle_t *handle, size_t suggested_size,
                             uv_buf_t *buf) {
   static char slab[65536];
-  buf->base = slab;
-  buf->len = sizeof(slab);
+  CUvNetClient *pClient = (CUvNetClient *)handle->data;
+  buf->base = pClient->getBufferHeadForUVWrite();
+  buf->len = pClient->getBufferSizeForUVWrite();
   LOG(INFO) << "call alloc_cb" << buf->base;
 }
 
 static void client_recv_cb(uv_stream_t *stream, ssize_t nread,
                            const uv_buf_t *buf) {
-  LOG(INFO) << "call recv_cb" << buf->base;
+  CUvNetClient *pClient = (CUvNetClient *)stream->data;
+  pClient->parseReadBuffer();
 }
-
 
 SINGLETON_FUN_BODY(CUVServer)
 

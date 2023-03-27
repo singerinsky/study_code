@@ -12,7 +12,12 @@
 
 template <typename T, uint32_t size, typename UNIQUE_ID = uint32_t>
 class ObjectPool {
-  SINGLETON_FUN_DEF(ObjectPool)
+public:
+  static ObjectPool *GetInstance();
+
+protected:
+  ObjectPool(){};
+  ~ObjectPool(){};
 
 public:
   void Init() { m_arrayUsedFlags.set(); }
