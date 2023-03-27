@@ -3,36 +3,28 @@
 #include "common_uv.h"
 #include "message_progress.hpp"
 #include "uv.h"
+#include "uv_net_client.h"
 #include <ratio>
 #include <thread>
+#include <utility>
 
-static void alloc_cb(uv_handle_t *handle, size_t suggested_size,
-                     uv_buf_t *buf) {
+static void client_alloc_cb(uv_handle_t *handle, size_t suggested_size,
+                            uv_buf_t *buf) {
   static char slab[65536];
   buf->base = slab;
   buf->len = sizeof(slab);
   LOG(INFO) << "call alloc_cb" << buf->base;
 }
 
-static void recv_cb(uv_stream_t *stream, ssize_t nread, const uv_buf_t *buf) {
+static void client_recv_cb(uv_stream_t *stream, ssize_t nread,
+                           const uv_buf_t *buf) {
   LOG(INFO) << "call recv_cb" << buf->base;
 }
 
-CUVServer::CUVServer() {}
 
-CUVServer::~CUVServer() {}
+SINGLETON_FUN_BODY(CUVServer)
 
-CUVServer *CUVServer::get_instance() {
-  static std::once_flag _flag;
-  static CUVServer _instance;
-  std::call_once(_flag, [&]() {
-    _instance.init();
-    LOG(INFO) << "do init cuvserver";
-  });
-  return &_instance;
-}
-
-bool CUVServer::init() {
+bool CUVServer::Init() {
   m_pLoopHandle = uv_loop_new();
   if (!m_pLoopHandle) {
     return false;
@@ -77,14 +69,18 @@ void CUVServer::on_connection(uv_stream_t *server, int status) {
 
   // 新 socket 用于和客户端通信
   uv_tcp_t *client = new uv_tcp_t;
-  uv_tcp_init(CUVServer::get_instance()->get_loop_handle(), client);
+  uv_tcp_init(CUVServer::GetInstance()->get_loop_handle(), client);
 
   // 绑定到新的 TCP 连接上
   if (uv_accept(server, (uv_stream_t *)client) == 0) {
     LOG(INFO) << "Accepted a new client.\n";
     init_tcp_connection(client);
+
+    // TODO 加入到管理器
+
     // TODO: 在这里进行业务逻辑处理
-    uv_read_start((uv_stream_t *)client, alloc_cb, recv_cb);
+    uv_read_start((uv_stream_t *)client, client_alloc_cb, client_recv_cb);
+
     // uv_buf_init()
 
   } else {
@@ -110,6 +106,15 @@ uv_tcp_t *CUVServer::attach_net_service(NetServiceBase *pNetService) {
     return nullptr;
   }
   return pServiceHandle;
+}
+
+bool CUVServer::add_hanle(uint32_t dwConnID, uv_handle_t *pHandle) {
+  auto p = make_pair(dwConnID, pHandle);
+  return m_allHandle.insert(p).second;
+}
+
+void CUVServer::remove_handle(uint32_t dwConnID) {
+  m_allHandle.erase(dwConnID);
 }
 
 int CUVServer::progress_input_event(uint32_t per_count) {

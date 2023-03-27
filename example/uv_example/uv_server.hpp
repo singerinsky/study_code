@@ -5,28 +5,22 @@
 #include "../util/concurrentqueue.h"
 #include "message_progress.hpp"
 #include "net_service.h"
+#include "object_pool.h"
 #include "uv.h"
-
+#include "uv_net_client.h"
+#include <cstdint>
+#include <unordered_map>
 class CUVServer {
-protected:
-  CUVServer();
-
-  ~CUVServer();
-  CUVServer(const CUVServer &) = delete;
-  CUVServer(CUVServer &&) = delete;
-  CUVServer &operator=(const CUVServer &) = delete;
-  CUVServer &operator=(CUVServer &&) = delete;
+  SINGLETON_FUN_DEF(CUVServer)
 
 public:
-  bool init();
+  bool Init();
 
   void start();
 
   void pause(uint32_t ms);
 
   void active_idle();
-
-  static CUVServer *get_instance();
 
   static void while_idle(uv_idle_t *idle_t);
 
@@ -45,6 +39,10 @@ protected:
 
   uv_tcp_t *attach_net_connection(NetServiceBase *pNetService);
 
+  bool add_hanle(uint32_t dwConnID, uv_handle_t *pHandle);
+
+  void remove_handle(uint32_t dwConnID);
+
 private:
   uv_loop_t *m_pLoopHandle = nullptr;
 
@@ -52,5 +50,8 @@ private:
 
   moodycamel::ConcurrentQueue<RequestBase *> m_requestInputQueue;
   moodycamel::ConcurrentQueue<EventBase *> m_eventOutputQueue;
+
+  std::unordered_map<uint32_t, uv_handle_t *> m_allHandle;
+  std::unordered_map<uint32_t, CUvNetClient *> m_allClientMap;
 };
 #endif

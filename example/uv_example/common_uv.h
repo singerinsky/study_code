@@ -9,8 +9,8 @@ public:                                                                        \
   static classname *GetInstance();                                             \
                                                                                \
 protected:                                                                     \
-  classname();                                                                 \
-  ~classname();                                                                \
+  classname() = default;                                                       \
+  ~classname() = default;                                                      \
   classname(const classname &) = delete;                                       \
   classname(classname &&) = delete;                                            \
   classname &operator=(const classname &) = delete;                            \

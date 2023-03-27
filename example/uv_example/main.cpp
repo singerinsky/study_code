@@ -47,17 +47,17 @@ int main(int argc, char **argv) {
   }
 
   auto thread_net = std::async(std::launch::async,
-                               []() { CUVServer::get_instance()->start(); });
+                               []() { CUVServer::GetInstance()->start(); });
 
   TcpNetService *pService = new TcpNetService(1, "clientservice");
   pService->Init("0.0.0.0", 9090);
   RequestListen *request = new RequestListen(pService);
-  CUVServer::get_instance()->push_request(request);
+  CUVServer::GetInstance()->push_request(request);
 
   while (true) {
     std::this_thread::sleep_for(100ms);
     EventBase *event;
-    if (CUVServer::get_instance()->pop_event(event)) {
+    if (CUVServer::GetInstance()->pop_event(event)) {
       LOG(INFO) << "process message from uv engine!";
     }
   }

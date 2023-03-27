@@ -3,9 +3,4 @@
 #include "common_uv.h"
 
 SINGLETON_FUN_BODY(CServiceMgr)
-
-CServiceMgr::CServiceMgr() {}
-
-CServiceMgr::~CServiceMgr() {}
-
 void CServiceMgr::Init() {}
