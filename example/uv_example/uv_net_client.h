@@ -44,9 +44,14 @@ public:
     return m_oReadBuffer.moveHead(dwMoveStep);
   }
 
+  uint32_t GetID() const { return m_dwID; }
+
+  void SetID(uint32_t id) { m_dwID = id; }
+
 private:
   CircularBuffer m_oReadBuffer;
   CircularBuffer m_oSendBuffer;
+  uint32_t m_dwID;
 };
 
 typedef ObjectPool<CUvNetClient, 10> NetClientPool;

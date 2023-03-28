@@ -19,6 +19,7 @@ public:
   T *CreateObject(UNIQUE_ID id) {
     const auto &itr = m_mapKey2VecIndex.find(id);
     if (itr != m_mapKey2VecIndex.end()) {
+      LOG_ASSERT(false);
       return nullptr;
     }
 

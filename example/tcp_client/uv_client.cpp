@@ -49,7 +49,7 @@ void UVTcpClient::SendMsg() {
   uv_buf_t buf_struct;
   buf_struct.base = buffer;
   buf_struct.len = head->dwMsgLen;
-  uv_write(req, m_connect_t.handle, &buf_struct, head->dwMsgLen, write_cb);
+  uv_write(req, m_connect_t.handle, &buf_struct, 1, write_cb);
 }
 
 void UVTcpClient::ConnectTo(const char *strIp, uint32_t port) {

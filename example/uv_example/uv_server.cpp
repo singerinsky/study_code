@@ -13,14 +13,27 @@ static void client_alloc_cb(uv_handle_t *handle, size_t suggested_size,
   CUvNetClient *pClient = (CUvNetClient *)handle->data;
   buf->base = pClient->getBufferHeadForUVWrite();
   buf->len = pClient->getBufferSizeForUVWrite();
-  LOG(INFO) << "call alloc_cb" << buf->base;
+  LOG(INFO) << "call alloc_cb" << buf->base
+            << "  suggested_size:" << suggested_size;
 }
 
 static void client_recv_cb(uv_stream_t *stream, ssize_t nread,
                            const uv_buf_t *buf) {
-
-  CUvNetClient *pClient = (CUvNetClient *)stream->data;
-  pClient->parseReadBuffer();
+  if (nread < 0) {
+    if (!uv_is_closing((uv_handle_t *)stream)) {
+      uv_close((uv_handle_t *)stream, NULL);
+    }
+    LOG(INFO) << "disconnection";
+    // handle the data read error
+  } else if (nread == 0) {
+    // do nothing
+    LOG(INFO) << "read data event coming";
+  } else {
+    // handle the read data
+    LOG(INFO) << "read data event coming";
+    // CUvNetClient *pClient = (CUvNetClient *)stream->data;
+    // pClient->parseReadBuffer();
+  }
 }
 
 SINGLETON_FUN_BODY(CUVServer)
@@ -66,27 +79,29 @@ void CUVServer::on_connection(uv_stream_t *server, int status) {
   if (status < 0) {
     LOG(ERROR) << "New connection error " << uv_strerror(status);
     return;
-  }
+  } else if (status == 0) {
+    // 新 socket 用于和客户端通信
+    uv_tcp_t *client = new uv_tcp_t;
+    uv_tcp_init(CUVServer::GetInstance()->get_loop_handle(), client);
 
-  // 新 socket 用于和客户端通信
-  uv_tcp_t *client = new uv_tcp_t;
-  uv_tcp_init(CUVServer::GetInstance()->get_loop_handle(), client);
+    // 绑定到新的 TCP 连接上
+    if (uv_accept(server, (uv_stream_t *)client) == 0) {
+      LOG(INFO) << "Accepted a new client.\n";
+      init_tcp_connection(client);
 
-  // 绑定到新的 TCP 连接上
-  if (uv_accept(server, (uv_stream_t *)client) == 0) {
-    LOG(INFO) << "Accepted a new client.\n";
-    init_tcp_connection(client);
+      // TODO 加入到管理器
 
-    // TODO 加入到管理器
+      // TODO: 在这里进行业务逻辑处理
+      uv_read_start((uv_stream_t *)client, client_alloc_cb, client_recv_cb);
 
-    // TODO: 在这里进行业务逻辑处理
-    uv_read_start((uv_stream_t *)client, client_alloc_cb, client_recv_cb);
+      // uv_buf_init()
 
-    // uv_buf_init()
-
+    } else {
+      // 关闭新连接的套接字
+      uv_close((uv_handle_t *)client, common_close_cb);
+    }
   } else {
-    // 关闭新连接的套接字
-    uv_close((uv_handle_t *)client, common_close_cb);
+    LOG(INFO) << "client disconnection!";
   }
 }
 
