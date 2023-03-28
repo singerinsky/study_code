@@ -19,7 +19,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -std=c++17 -fno-builtin-malloc -f
 # cmake 合并编译
 SET(CMAKE_UNITY_BUILD ON)
 set(CMAKE_UNITY_BUILD_BATCH_SIZE 5)
-
+set(WORKING_DIRECTORY "/home/gl/workspace/study_code")
 add_definitions(-DTHREADED)
 set(CMAKE_CXX_EXTENSIONS OFF) # 开关是告诉CMake采用更加通用的编译参数，比如这个开关打开，传递给GCC的参数就会是-std=c++14 而不是-std=gnu++14
 
@@ -44,8 +44,6 @@ find_file(exe_build NAMES AllCppTest PATHS .)
 
 # add_custom_command(OUTPUT ${exe_log} COMMAND echo "nice")
 # 绝对路径
-set(WORKING_DIRECTORY "/home/gl/workspace/study_code")
-
 macro(use_precompiled_header TARGET HEADER_FILE SRC_FILE)
   get_filename_component(HEADER ${HEADER_FILE} NAME)
 
@@ -59,39 +57,42 @@ macro(use_precompiled_header TARGET HEADER_FILE SRC_FILE)
   endif()
 endmacro(use_precompiled_header)
 
-include_directories(${WORKING_DIRECTORY}/src/include)
-include_directories(${WORKING_DIRECTORY}/src/cpp_proto)
-include_directories(${WORKING_DIRECTORY}/src/include/lua)
-include_directories(${WORKING_DIRECTORY}/src/include/zookeeper)
-include_directories(${WORKING_DIRECTORY}/thirdparty)
+include_directories(${WORKING_DIRECTORY}/src/include
+  ${WORKING_DIRECTORY}/src/cpp_proto
+  ${WORKING_DIRECTORY}/src/include/lua
+  ${WORKING_DIRECTORY}/src/include/zookeeper
+  ${WORKING_DIRECTORY}/thirdparty
+  ${WORKING_DIRECTORY}/message_include
+)
 
 # link_directories(${WORKING_DIRECTORY}/lib_bak /usr/local/lib)
 find_library(gtest /usr/local/lib)
-
-# find_library(libzmq.a ${WORKING_DIRECTORY}/libs)
-# find_library(liblua.a ${WORKING_DIRECTORY}/libs)
-# find_library(libprotobuf.a ${WORKING_DIRECTORY}/libs)
-# find_library(libhookstaticlib.a ${WORKING_DIRECTORY}/static_library)
 find_library(libzookeeper zookeeper ${WORKING_DIRECTORY}/libs)
 find_library(libhashtable hashtable ${WORKING_DIRECTORY}/libs)
 find_library(libuv uv ${WORKING_DIRECTORY}/libs)
+
+file(GLOB PROTO_SOURCES ${WORKING_DIRECTORY}/src/protofile/*.proto)
+execute_process(COMMAND sh ${WORKING_DIRECTORY}/src/protofile/gen.sh ${WORKING_DIRECTORY} ${PROTO_SOURCES})
 
 # message("${WORKING_DIRECTORY}")
 SET(EXECUTABLE_OUTPUT_PATH ${WORKING_DIRECTORY}/bin)
 SET(ALL_LIBS gtest pthread gflags glog tcmalloc zmq lua dl protobuf benchmark hookstaticlib profiler ${libzookeeper} ${libhashtable} ${libuv} ssl)
 
-# SET(ALL_LIBS gtest pthread glog gflags tcmalloc zmq lua dl protobuf benchmark)
+# add_custom_target(protobuild COMMAND sh ${WORKING_DIRECTORY}/src/protofile/gen.sh ${WORKING_DIRECTORY} ${PROTO_SOURCES})
 
 # target_precompile_headers(AllCppTest PUBLIC "${WORKING_DIRECTORY}/src/header.h" PRIVATE <list> <vector> <map>)
 add_subdirectory(common_lib library)
 add_subdirectory(common_static_lib static_library)
+add_subdirectory(src/cpp_proto messagelib)
 
-file(GLOB PROTO_SOURCES ${WORKING_DIRECTORY}/src/protofile/*.proto)
+find_library(libmessagelib messagelib ${WORKING_DIRECTORY}/libs)
 
-add_custom_target(protobuild COMMAND sh ${WORKING_DIRECTORY}/src/protofile/gen.sh ${WORKING_DIRECTORY} ${PROTO_SOURCES})
+SET(MESSAGE_LIB messagelib)
 
+# 暂时屏蔽
 # add_subdirectory(src)
 # add_subdirectory(benchmark_one)
 add_subdirectory(example/uv_example)
+add_subdirectory(example/tcp_client)
 
 # execute_process(COMMAND "./AllCppTest")

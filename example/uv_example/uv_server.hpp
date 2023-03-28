@@ -1,8 +1,7 @@
 #ifndef _UV_SERVER_H_
 #define _UV_SERVER_H_
 
-#include "../../header.h"
-#include "../util/concurrentqueue.h"
+#include "../../src/util/concurrentqueue.h"
 #include "message_progress.hpp"
 #include "net_service.h"
 #include "object_pool.h"

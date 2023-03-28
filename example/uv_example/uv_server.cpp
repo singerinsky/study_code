@@ -10,7 +10,6 @@
 
 static void client_alloc_cb(uv_handle_t *handle, size_t suggested_size,
                             uv_buf_t *buf) {
-  static char slab[65536];
   CUvNetClient *pClient = (CUvNetClient *)handle->data;
   buf->base = pClient->getBufferHeadForUVWrite();
   buf->len = pClient->getBufferSizeForUVWrite();
@@ -19,6 +18,7 @@ static void client_alloc_cb(uv_handle_t *handle, size_t suggested_size,
 
 static void client_recv_cb(uv_stream_t *stream, ssize_t nread,
                            const uv_buf_t *buf) {
+
   CUvNetClient *pClient = (CUvNetClient *)stream->data;
   pClient->parseReadBuffer();
 }

@@ -41,8 +41,9 @@ public:
     char *p = reinterpret_cast<char *>(data);
     uint32_t remaining = bytes;
     uint32_t tmpTail = m_tail;
+    uint32_t tmpDataInbuff = getOccupancy();
     while (remaining > 0) {
-      uint32_t count = std::min(remaining, getOccupancy());
+      uint32_t count = std::min(remaining, tmpDataInbuff);
 
       if (count == 0) {
         return bytes - remaining;
@@ -54,7 +55,7 @@ public:
       memcpy(p + (end - tmpTail), m_buffer, count - (end - tmpTail));
 
       tmpTail = (tmpTail + count) % m_size;
-
+      tmpDataInbuff -= count;
       p += count;
       remaining -= count;
     }
@@ -63,9 +64,8 @@ public:
   }
 
   void discard(uint32_t bytes) {
-    uint32_t remaining = bytes;
-
     if (bytes > getOccupancy()) {
+      LOG(ERROR) << "bytes:" << bytes << " occupancy:" << getOccupancy();
       LOG_ASSERT(false);
       return;
     }
@@ -84,7 +84,16 @@ public:
     }
   }
 
-private:
+  // 移动写入标志
+  bool moveHead(uint32_t dwStep) {
+    if (dwStep > m_size)
+      return false;
+
+    m_head = (m_head + dwStep) % m_size;
+    return true;
+  }
+
+  // 获取剩余容量
   uint32_t getCapacity() {
     if (m_head >= m_tail) {
       return m_size - (m_head - m_tail) - 1;
@@ -93,6 +102,7 @@ private:
     }
   }
 
+  // 获取目前数据大小
   uint32_t getOccupancy() {
     if (m_head >= m_tail) {
       return m_head - m_tail;

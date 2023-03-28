@@ -1,8 +1,17 @@
-syntax = "proto3";
+syntax="proto3";
 package gl;
+
+enum message_type{ 
+    NONE 	      = 0;
+    USE_INFO_TEST_REQ = 1;
+    USE_INFO_TEST_ACK = 2;
+
+}
 
 message user
 {
-    string name = 1;
-    int32    age  = 2;
+    optional message_type id = 1;
+    optional string name = 2;
+    optional int32  age  = 3;
+    repeated string data = 4;
 }
