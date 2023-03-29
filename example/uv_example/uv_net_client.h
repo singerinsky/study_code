@@ -2,6 +2,7 @@
 #define B6B49D68_0202_4D26_8DDD_A34692670831
 #include "circular_buffer.h"
 #include "common_uv.h"
+#include "message.pb.h"
 #include "message_head.h"
 #include "object_pool.h"
 #include "uv.h"
@@ -26,7 +27,7 @@ public:
   void parseReadBuffer() {
     char buff[MSG_HEAD_SIZE];
     uint32_t dwReadSize = m_oReadBuffer.read(buff, MSG_HEAD_SIZE);
-    if (dwReadSize <= MSG_HEAD_SIZE) {
+    if (dwReadSize < MSG_HEAD_SIZE) {
       LOG(INFO) << "data not ready,size is " << dwReadSize;
       return;
     }
@@ -38,6 +39,13 @@ public:
     }
     LOG(INFO) << "data in buffer" << buff;
     m_oReadBuffer.discard(dwReadSize);
+    data_size_in_buff = m_oReadBuffer.getOccupancy();
+    char *_buffer = new char[data_size_in_buff];
+    m_oReadBuffer.read(_buffer, data_size_in_buff);
+
+    gl::user userinfo;
+    userinfo.ParseFromArray(_buffer, data_size_in_buff);
+    LOG(INFO) << userinfo.ShortDebugString();
   }
 
   bool moveReadBufferHead(uint32_t dwMoveStep) {

@@ -35,6 +35,7 @@ public:
     }
     m_mapKey2VecIndex[id] = index;
     m_arrayUsedFlags.flip(index);
+    m_arrayObject[index].SetID(id);
     return &m_arrayObject[index];
   }
 
@@ -48,11 +49,11 @@ public:
 
   void ReleaseObject(UNIQUE_ID id) {
     const auto &itr = m_mapKey2VecIndex.find(id);
-    if (itr != m_mapKey2VecIndex.end()) {
+    if (itr == m_mapKey2VecIndex.end()) {
       return;
     }
-    m_arrayObject[itr.second].~T();
-    m_arrayUsedFlags.flip(itr.second);
+    m_arrayObject[itr->second].~T();
+    m_arrayUsedFlags.flip(itr->second);
     m_mapKey2VecIndex.erase(id);
   }
 

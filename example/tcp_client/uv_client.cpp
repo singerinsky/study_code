@@ -40,11 +40,11 @@ void UVTcpClient::SendMsg() {
   gl::user user_info;
   user_info.set_age(34);
   user_info.set_name("guanlei");
-  std::string buff = user_info.SerializeAsString();
+  std::string data_buffer = user_info.SerializeAsString();
   MsgHead *head = (MsgHead *)buffer;
   head->dwMsgID = 1;
-  head->dwMsgLen = sizeof(MsgHead) + buff.size();
-  memcpy(buffer + sizeof(MsgHead), buff.c_str(), buff.size());
+  head->dwMsgLen = sizeof(MsgHead) + data_buffer.size();
+  memcpy(buffer + sizeof(MsgHead), data_buffer.c_str(), data_buffer.size());
   uv_write_t *req = (uv_write_t *)malloc(sizeof(uv_write_t));
   uv_buf_t buf_struct;
   buf_struct.base = buffer;

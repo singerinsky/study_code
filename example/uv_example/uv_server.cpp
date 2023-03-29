@@ -17,10 +17,17 @@ static void client_alloc_cb(uv_handle_t *handle, size_t suggested_size,
             << "  suggested_size:" << suggested_size;
 }
 
+void client_close_cb(uv_handle_t *close_handle_t) {
+  CUvNetClient *pClient = (CUvNetClient *)close_handle_t->data;
+  LOG(INFO) << close_handle_t
+            << "disconnection from client_close_cb id:" << pClient->GetID();
+  NetClientPool::GetInstance()->ReleaseObject(pClient->GetID());
+}
+
 void client_recv_cb(uv_stream_t *stream, ssize_t nread, const uv_buf_t *buf) {
   if (nread < 0) {
     if (!uv_is_closing((uv_handle_t *)stream)) {
-      uv_close((uv_handle_t *)stream, NULL);
+      uv_close((uv_handle_t *)stream, client_close_cb);
     }
     LOG(INFO) << "disconnection";
     // handle the data read error
@@ -30,14 +37,10 @@ void client_recv_cb(uv_stream_t *stream, ssize_t nread, const uv_buf_t *buf) {
   } else {
     // handle the read data
     LOG(INFO) << "read data event coming";
-    // CUvNetClient *pClient = (CUvNetClient *)stream->data;
-    // pClient->parseReadBuffer();
+    CUvNetClient *pClient = (CUvNetClient *)stream->data;
+    pClient->moveReadBufferHead(nread);
+    pClient->parseReadBuffer();
   }
-}
-
-static void client_close_cb(uv_handle_t *close_handle_t) {
-
-  LOG(INFO) << close_handle_t << "disconnection from client_close_cb";
 }
 
 SINGLETON_FUN_BODY(CUVServer)
@@ -87,7 +90,7 @@ void CUVServer::on_connection(uv_stream_t *server, int status) {
     // 新 socket 用于和客户端通信
     uv_tcp_t *client = new uv_tcp_t;
     uv_tcp_init(CUVServer::GetInstance()->get_loop_handle(), client);
-    client->close_cb = client_close_cb;
+
     // 绑定到新的 TCP 连接上
     if (uv_accept(server, (uv_stream_t *)client) == 0) {
       LOG(INFO) << "Accepted a new client.\n";
@@ -97,16 +100,11 @@ void CUVServer::on_connection(uv_stream_t *server, int status) {
 
       // TODO: 在这里进行业务逻辑处理
       uv_read_start((uv_stream_t *)client, client_alloc_cb, client_recv_cb);
-
-      // client->close_cb = client_close_cb;
-      //  uv_close((uv_handle_t *)client, client_close_cb);
-      //   uv_buf_init()
     } else {
-      // 关闭新连接的套接字
-      uv_close((uv_handle_t *)client, common_close_cb);
+      LOG(ERROR) << "accept client error";
     }
   } else {
-    LOG(INFO) << "client disconnection!";
+    LOG(INFO) << "on_connection error!";
   }
 }
 
