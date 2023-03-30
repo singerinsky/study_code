@@ -35,6 +35,7 @@ public:
     }
     m_mapKey2VecIndex[id] = index;
     m_arrayUsedFlags.flip(index);
+    new (&m_arrayObject[index]) T();
     m_arrayObject[index].SetID(id);
     return &m_arrayObject[index];
   }

@@ -34,6 +34,7 @@ DEFINE_int32(log_level, google::INFO, "run daemon");
 int main(int argc, char **argv) {
   gflags::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
+
   FLAGS_logbufsecs = 0;
 
   signal(SIGHUP, signal_handler);

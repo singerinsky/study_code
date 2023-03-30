@@ -18,7 +18,8 @@ void init_tcp_connection(uv_tcp_t *client) {
   }
   CUvNetClient *pNetClient =
       NetClientPool::GetInstance()->CreateObject((uint32_t)fd);
-
+  LOG(INFO) << "current desc:" << pNetClient->GetDesc();
+  pNetClient->SetDesc("guanlei001");
   if (pNetClient == nullptr) {
     LOG(ERROR) << "create object failed! null ptr!";
     LOG_ASSERT(false);

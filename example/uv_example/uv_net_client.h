@@ -56,10 +56,15 @@ public:
 
   void SetID(uint32_t id) { m_dwID = id; }
 
+  void SetDesc(const std::string &strDesc) { m_strDesc = strDesc; }
+
+  const std::string GetDesc() { return m_strDesc; }
+
 private:
   CircularBuffer m_oReadBuffer;
   CircularBuffer m_oSendBuffer;
   uint32_t m_dwID;
+  std::string m_strDesc;
 };
 
 typedef ObjectPool<CUvNetClient, 10> NetClientPool;
