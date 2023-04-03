@@ -42,6 +42,12 @@ protected:
 
   void remove_handle(uint32_t dwConnID);
 
+  bool add_client(uint32_t dwID, CUvNetClient *);
+
+  CUvNetClient *get_client(uint32_t dwID);
+
+  void remove_client(uint32_t dwID);
+
 private:
   uv_loop_t *m_pLoopHandle = nullptr;
 

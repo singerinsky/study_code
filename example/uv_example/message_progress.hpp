@@ -4,9 +4,9 @@
 #include <cstdint>
 #include <cstring>
 
-//事件由logic thread->uv
+// 事件由logic thread->uv
 enum RequestType {
-  REQUEST_LISTEN = 1, //监听事件
+  REQUEST_LISTEN = 1, // 监听事件
 };
 class NetServiceBase;
 
@@ -23,9 +23,10 @@ struct RequestListen : public RequestBase {
   NetServiceBase *m_pNetService;
 };
 
-//事件由uv->logic thread
+// 事件由uv->logic thread
 enum EventType {
-  EVENT_NEW_CONNECTION = 1, //新连接
+  EVENT_NEW_CONNECTION = 1,   // 新连接
+  EVENT_CONNECTION_CLOSE = 2, // 连接断开
 };
 
 struct EventBase {
@@ -37,6 +38,15 @@ struct NSNewConnectionEvent : public EventBase {
   uint32_t m_dwConnectionId;
   uint32_t m_dwServiceId;
   NSNewConnectionEvent() : EventBase(EVENT_NEW_CONNECTION) {
+    m_dwConnectionId = 0;
+    m_dwServiceId = 0;
+  }
+};
+
+struct NSConnectionCloseEvent : public EventBase {
+  uint32_t m_dwConnectionId;
+  uint32_t m_dwServiceId;
+  NSConnectionCloseEvent() : EventBase(EVENT_CONNECTION_CLOSE) {
     m_dwConnectionId = 0;
     m_dwServiceId = 0;
   }

@@ -23,7 +23,7 @@ protected:                                                                     \
     std::call_once(_flag, [&]() { (_instance).Init(); });                      \
     return &_instance;                                                         \
   }
-
-void init_tcp_connection(uv_tcp_t *client);
+class CUvNetClient;
+CUvNetClient *init_tcp_connection(uv_tcp_t *client);
 
 #endif /* A192BE15_CFE8_41AC_B079_B2E7DE201F50 */

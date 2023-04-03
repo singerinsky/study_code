@@ -8,6 +8,8 @@
 #include <thread>
 #include <utility>
 
+// 默认使用LT模式，就算是缓冲区不够了，那也会再次被回调
+// 如果len设置为1的话，收到的消息是10，那就会调用10次
 static void client_alloc_cb(uv_handle_t *handle, size_t suggested_size,
                             uv_buf_t *buf) {
   CUvNetClient *pClient = (CUvNetClient *)handle->data;
@@ -38,8 +40,10 @@ void client_recv_cb(uv_stream_t *stream, ssize_t nread, const uv_buf_t *buf) {
     // handle the read data
     LOG(INFO) << "read data event coming";
     CUvNetClient *pClient = (CUvNetClient *)stream->data;
+    // 根据nread的大小，移动缓冲区的head标志量
     pClient->moveReadBufferHead(nread);
-    pClient->parseReadBuffer();
+    // 发送数据到达指令
+    // pClient->parseReadBuffer();
   }
 }
 
@@ -94,12 +98,12 @@ void CUVServer::on_connection(uv_stream_t *server, int status) {
     // 绑定到新的 TCP 连接上
     if (uv_accept(server, (uv_stream_t *)client) == 0) {
       LOG(INFO) << "Accepted a new client.\n";
-      init_tcp_connection(client);
-
-      // TODO 加入到管理器
-
-      // TODO: 在这里进行业务逻辑处理
+      CUvNetClient *pClient = init_tcp_connection(client);
+      CUVServer::GetInstance()->add_hanle(pClient->GetID(),
+                                          (uv_handle_t *)client);
+      CUVServer::GetInstance()->add_client(pClient->GetID(), pClient);
       uv_read_start((uv_stream_t *)client, client_alloc_cb, client_recv_cb);
+
     } else {
       LOG(ERROR) << "accept client error";
     }
@@ -135,6 +139,20 @@ bool CUVServer::add_hanle(uint32_t dwConnID, uv_handle_t *pHandle) {
 void CUVServer::remove_handle(uint32_t dwConnID) {
   m_allHandle.erase(dwConnID);
 }
+
+bool CUVServer::add_client(uint32_t dwID, CUvNetClient *pClient) {
+  auto p = make_pair(dwID, pClient);
+  return m_allClientMap.insert(p).second;
+}
+
+CUvNetClient *CUVServer::get_client(uint32_t dwID) {
+  auto itr = m_allClientMap.find(dwID);
+  if (itr == m_allClientMap.end())
+    return nullptr;
+  return itr->second;
+}
+
+void CUVServer::remove_client(uint32_t dwID) { m_allClientMap.erase(dwID); }
 
 int CUVServer::progress_input_event(uint32_t per_count) {
   int count = 0;

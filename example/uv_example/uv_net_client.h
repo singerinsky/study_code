@@ -24,7 +24,7 @@ public:
     return m_oReadBuffer.getHeadContinuouslySize();
   }
 
-  void parseReadBuffer() {
+  void CheckReadBufferMsgNeedProcess() {
     char buff[MSG_HEAD_SIZE];
     uint32_t dwReadSize = m_oReadBuffer.read(buff, MSG_HEAD_SIZE);
     if (dwReadSize < MSG_HEAD_SIZE) {
@@ -39,13 +39,6 @@ public:
     }
     LOG(INFO) << "data in buffer" << buff;
     m_oReadBuffer.discard(dwReadSize);
-    data_size_in_buff = m_oReadBuffer.getOccupancy();
-    char *_buffer = new char[data_size_in_buff];
-    m_oReadBuffer.read(_buffer, data_size_in_buff);
-
-    gl::user userinfo;
-    userinfo.ParseFromArray(_buffer, data_size_in_buff);
-    LOG(INFO) << userinfo.ShortDebugString();
   }
 
   bool moveReadBufferHead(uint32_t dwMoveStep) {
@@ -60,11 +53,14 @@ public:
 
   const std::string GetDesc() { return m_strDesc; }
 
+  void SetUVHandle(uv_tcp_t *phandle) { this->m_pUvTcpHandle = phandle; }
+
 private:
   CircularBuffer m_oReadBuffer;
   CircularBuffer m_oSendBuffer;
-  uint32_t m_dwID;
+  uint32_t m_dwID = 0;
   std::string m_strDesc;
+  uv_tcp_t *m_pUvTcpHandle = nullptr;
 };
 
 typedef ObjectPool<CUvNetClient, 10> NetClientPool;
