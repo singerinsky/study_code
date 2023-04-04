@@ -58,7 +58,6 @@ macro(use_precompiled_header TARGET HEADER_FILE SRC_FILE)
 endmacro(use_precompiled_header)
 
 include_directories(${WORKING_DIRECTORY}/src/include
-  ${WORKING_DIRECTORY}/src/cpp_proto
   ${WORKING_DIRECTORY}/src/include/lua
   ${WORKING_DIRECTORY}/src/include/zookeeper
   ${WORKING_DIRECTORY}/thirdparty

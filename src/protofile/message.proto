@@ -1,16 +1,33 @@
-syntax="proto3";
+syntax="proto2";
 package gl;
 
 enum message_type{ 
     NONE 	      = 0;
-    USE_INFO_TEST_REQ = 1;
-    USE_INFO_TEST_ACK = 2;
-
+    USER_INFO_TEST_REQ = 1;
+    USER_INFO_TEST_ACK = 2;
+    USER_LOGIN_REQ     = 3;
 }
 
-message user
+message CSRequireUserInfo
 {
-    optional message_type id = 1;
+    optional message_type id = 1[default = USER_INFO_TEST_REQ];
+    optional string name = 2;
+    optional int32  age  = 3;
+    repeated string data = 4;
+}
+
+
+message SCRequireUserInfo
+{
+    optional message_type id = 1[default = USER_INFO_TEST_ACK];
+    optional string name = 2;
+    optional int32  age  = 3;
+    repeated string data = 4;
+}
+
+message CSRequireLogin
+{
+    optional message_type id = 1[default = USER_LOGIN_REQ];
     optional string name = 2;
     optional int32  age  = 3;
     repeated string data = 4;

@@ -34,6 +34,9 @@ void CUvNetClient::OnNewDataRecv(uint32_t dwDataSize) {
     MessageBase *message = AllocNewMessage(dwMsgID);
     message->ParseFromArray(dwMsgID, _buffer, dwMsgLen);
 
+    MessageBase *temp = AllocNewMessage(dwMsgID);
+    bool bParse = temp->ParseFromArray(dwMsgID, _buffer, dwMsgLen);
+
     //     gl::user userinfo;
     // userinfo.ParseFromArray(_buffer, data_size_in_buff);
     // LOG(INFO) << userinfo.ShortDebugString();

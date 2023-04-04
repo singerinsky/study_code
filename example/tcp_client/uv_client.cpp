@@ -37,7 +37,7 @@ void client_connect(uv_connect_t *req, int status) {
 
 void UVTcpClient::SendMsg() {
   static char buffer[1024];
-  gl::user user_info;
+  gl::CSRequireUserInfo user_info;
   user_info.set_age(34);
   user_info.set_name("guanlei");
   std::string data_buffer = user_info.SerializeAsString();
