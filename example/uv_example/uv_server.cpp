@@ -41,9 +41,7 @@ void client_recv_cb(uv_stream_t *stream, ssize_t nread, const uv_buf_t *buf) {
     LOG(INFO) << "read data event coming";
     CUvNetClient *pClient = (CUvNetClient *)stream->data;
     // 根据nread的大小，移动缓冲区的head标志量
-    pClient->moveReadBufferHead(nread);
-    // 发送数据到达指令
-    // pClient->parseReadBuffer();
+    pClient->OnNewDataRecv(nread);
   }
 }
 

@@ -24,26 +24,7 @@ public:
     return m_oReadBuffer.getHeadContinuouslySize();
   }
 
-  void CheckReadBufferMsgNeedProcess() {
-    char buff[MSG_HEAD_SIZE];
-    uint32_t dwReadSize = m_oReadBuffer.read(buff, MSG_HEAD_SIZE);
-    if (dwReadSize < MSG_HEAD_SIZE) {
-      LOG(INFO) << "data not ready,size is " << dwReadSize;
-      return;
-    }
-    uint32_t msg_id = ((MsgHead *)(buff))->dwMsgID;
-    uint32_t msg_len = ((MsgHead *)(buff))->dwMsgLen;
-    uint32_t data_size_in_buff = m_oReadBuffer.getOccupancy();
-    if (data_size_in_buff < msg_len) {
-      return;
-    }
-    LOG(INFO) << "data in buffer" << buff;
-    m_oReadBuffer.discard(dwReadSize);
-  }
-
-  bool moveReadBufferHead(uint32_t dwMoveStep) {
-    return m_oReadBuffer.moveHead(dwMoveStep);
-  }
+  void OnNewDataRecv(uint32_t dwDataSize);
 
   uint32_t GetID() const { return m_dwID; }
 
@@ -54,6 +35,8 @@ public:
   const std::string GetDesc() { return m_strDesc; }
 
   void SetUVHandle(uv_tcp_t *phandle) { this->m_pUvTcpHandle = phandle; }
+
+  bool CheckReadBufferMsgNeedProcess(uint32_t &dwMsgID, uint32_t &dwMsgLen);
 
 private:
   CircularBuffer m_oReadBuffer;
