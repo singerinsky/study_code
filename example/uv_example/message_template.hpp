@@ -1,8 +1,8 @@
 #ifndef AA4190D0_BCDE_430B_9D80_4FAFAE416A70
 #define AA4190D0_BCDE_430B_9D80_4FAFAE416A70
 
+#include "../../message_include/message.pb.h"
 #include "glog/logging.h"
-#include "message.pb.h"
 #include <cstdint>
 #include <google/protobuf/stubs/port.h>
 #include <sys/types.h>
@@ -24,7 +24,8 @@ public:
                       uint32_t size) override {
     LOG(INFO) << "parse from origin";
     _msgType = dwMsgType;
-    return _data.ParseFromArray(buffer, size);
+    bool rst = _data.ParseFromArray(buffer, size);
+    return rst;
   }
 
   int _msgType;

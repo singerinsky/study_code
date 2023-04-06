@@ -29,7 +29,9 @@ public:
 
   bool push_request(RequestBase *event);
 
-  bool pop_event(EventBase *event);
+  EventBase *pop_event();
+
+  bool push_event(EventBase *pBase);
 
   int progress_input_event(uint32_t per_count);
 

@@ -1,5 +1,7 @@
 #include "uv_net_client.h"
+#include "message_progress.hpp"
 #include "message_template.hpp"
+#include "uv_server.hpp"
 #include <cstdint>
 
 bool CUvNetClient::CheckReadBufferMsgNeedProcess(uint32_t &dwMsgID,
@@ -10,10 +12,10 @@ bool CUvNetClient::CheckReadBufferMsgNeedProcess(uint32_t &dwMsgID,
     LOG(INFO) << "data not ready,size is " << dwReadSize;
     return false;
   }
-  uint32_t msg_id = ((MsgHead *)(buff))->dwMsgID;
-  uint32_t msg_len = ((MsgHead *)(buff))->dwMsgLen;
+  dwMsgID = ((MsgHead *)(buff))->dwMsgID;
+  dwMsgLen = ((MsgHead *)(buff))->dwMsgLen;
   uint32_t data_size_in_buff = m_oReadBuffer.getOccupancy();
-  if (data_size_in_buff < msg_len) {
+  if (data_size_in_buff < dwMsgLen) {
     return false;
   }
   LOG(INFO) << "data in buffer" << buff;
@@ -31,12 +33,17 @@ void CUvNetClient::OnNewDataRecv(uint32_t dwDataSize) {
     char *_buffer = new char[dwMsgLen];
     m_oReadBuffer.read(_buffer, dwMsgLen);
 
-    MessageBase *message = AllocNewMessage(dwMsgID);
-    message->ParseFromArray(dwMsgID, _buffer, dwMsgLen);
+    // MessageBase *message = AllocNewMessage(dwMsgID);
+    // message->ParseFromArray(dwMsgID, _buffer, dwMsgLen);
 
     MessageBase *temp = AllocNewMessage(dwMsgID);
     bool bParse = temp->ParseFromArray(dwMsgID, _buffer, dwMsgLen);
-
+    if (bParse) {
+      NSNewMessageEvent *pEvent = new NSNewMessageEvent(GetID(), 0, temp);
+      if (!CUVServer::GetInstance()->push_event(pEvent)) {
+        LOG(ERROR) << "error add event to queue";
+      }
+    }
     //     gl::user userinfo;
     // userinfo.ParseFromArray(_buffer, data_size_in_buff);
     // LOG(INFO) << userinfo.ShortDebugString();

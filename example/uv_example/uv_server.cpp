@@ -63,8 +63,17 @@ bool CUVServer::push_request(RequestBase *request) {
   return true;
 }
 
-bool CUVServer::pop_event(EventBase *event) {
-  return m_eventOutputQueue.try_dequeue(event);
+EventBase *CUVServer::pop_event() {
+  EventBase *event = nullptr;
+  if (m_eventOutputQueue.try_dequeue(event)) {
+    LOG(INFO) << "new event";
+    return event;
+  }
+  return nullptr;
+}
+
+bool CUVServer::push_event(EventBase *pBase) {
+  return m_eventOutputQueue.enqueue(pBase);
 }
 
 void CUVServer::pause(uint32_t ms) {

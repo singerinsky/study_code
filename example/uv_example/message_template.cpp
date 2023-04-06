@@ -1,4 +1,5 @@
 #include "message_template.hpp"
+#include "message.pb.h"
 #include <unordered_map>
 
 static std::unordered_map<uint32_t, MessageBase *> g_message_map;
@@ -9,7 +10,7 @@ static void register_message_builder() {}
 
 MessageBase *AllocNewMessage(uint32_t dwMsgType) {
   switch (dwMsgType) {
-  case 1:
+  case gl::USER_INFO_TEST_REQ:
     return new UserInfoClass;
     break;
 

@@ -57,9 +57,10 @@ int main(int argc, char **argv) {
 
   while (true) {
     std::this_thread::sleep_for(100ms);
-    EventBase *event;
-    if (CUVServer::GetInstance()->pop_event(event)) {
-      LOG(INFO) << "process message from uv engine!";
+    EventBase *event = CUVServer::GetInstance()->pop_event();
+    if (event) {
+      LOG(INFO) << "process message from uv engine! message_type:"
+                << event->m_wType;
     }
   }
 
