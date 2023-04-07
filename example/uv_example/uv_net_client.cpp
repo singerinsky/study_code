@@ -33,8 +33,7 @@ void CUvNetClient::OnNewDataRecv(uint32_t dwDataSize) {
     char *_buffer = new char[dwMsgLen];
     m_oReadBuffer.read(_buffer, dwMsgLen);
 
-    // MessageBase *message = AllocNewMessage(dwMsgID);
-    // message->ParseFromArray(dwMsgID, _buffer, dwMsgLen);
+    m_oReadBuffer.discard(dwMsgLen);
 
     MessageBase *temp = AllocNewMessage(dwMsgID);
     bool bParse = temp->ParseFromArray(dwMsgID, _buffer, dwMsgLen);

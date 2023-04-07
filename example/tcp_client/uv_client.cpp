@@ -2,6 +2,8 @@
 #include "message.pb.h"
 #include "uv.h"
 
+extern std::unordered_map<uint32_t, UVTcpClient *> user_map;
+
 void buf_alloc(uv_handle_t *tcp, size_t size, uv_buf_t *buf) {
   static char buff[1024];
   buf->len = size;
@@ -13,9 +15,10 @@ void read_cb(uv_stream_t *tcp, ssize_t nread, const uv_buf_t *buf) {
 }
 
 void write_cb(uv_write_t *req, int status) {
-  if (status == 0)
+  if (status == 0) {
     LOG(INFO) << "write call back";
-  else if (status == UV_ECANCELED)
+    delete req;
+  } else if (status == UV_ECANCELED)
     LOG(INFO) << "UV_ECANCELED";
   else
     LOG(INFO) << "ERROR !";
@@ -30,9 +33,11 @@ void client_connect(uv_connect_t *req, int status) {
   }
   req->handle->data = pClient;
   uv_read_start(req->handle, buf_alloc, read_cb);
-
+  // 把玩家的对象加入到管理器中
+  user_map.insert(std::make_pair(pClient->GetID(), pClient));
   // send message
-  pClient->SendMsg();
+  // 返送消息，由timer触发
+  // pClient->SendMsg();
 }
 
 void UVTcpClient::SendMsg() {

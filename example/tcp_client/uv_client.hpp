@@ -18,6 +18,11 @@ public:
   void OnRecv(const char *buffMsg);
   void ConnectTo(const char *strIp, uint32_t port);
   void SendMsg();
+  void SetID(uint32_t id) { id = m_id; }
+  uint32_t GetID() const { return m_id; }
+
+private:
+  uint32_t m_id;
   uv_tcp_t m_handle_t;
   uv_connect_t m_connect_t;
 };
