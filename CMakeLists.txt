@@ -91,6 +91,7 @@ SET(MESSAGE_LIB messagelib)
 # 暂时屏蔽
 # add_subdirectory(src)
 # add_subdirectory(benchmark_one)
+add_subdirectory(example/util)
 add_subdirectory(example/uv_example)
 add_subdirectory(example/tcp_client)
 
