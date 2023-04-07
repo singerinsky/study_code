@@ -13,7 +13,7 @@ bool CUvNetClient::CheckReadBufferMsgNeedProcess(uint32_t &dwMsgID,
     return false;
   }
   dwMsgID = ((MsgHead *)(buff))->dwMsgID;
-  dwMsgLen = ((MsgHead *)(buff))->dwMsgLen;
+  dwMsgLen = ((MsgHead *)(buff))->dwMsgLen - MSG_HEAD_SIZE;
   uint32_t data_size_in_buff = m_oReadBuffer.getOccupancy();
   if (data_size_in_buff < dwMsgLen) {
     return false;
@@ -43,6 +43,8 @@ void CUvNetClient::OnNewDataRecv(uint32_t dwDataSize) {
       if (!CUVServer::GetInstance()->push_event(pEvent)) {
         LOG(ERROR) << "error add event to queue";
       }
+    } else {
+      LOG(ERROR) << "parse error !";
     }
     //     gl::user userinfo;
     // userinfo.ParseFromArray(_buffer, data_size_in_buff);

@@ -50,6 +50,8 @@ void UVTcpClient::SendMsg() {
   buf_struct.base = buffer;
   buf_struct.len = head->dwMsgLen;
   uv_write(req, m_connect_t.handle, &buf_struct, 1, write_cb);
+  LOG(INFO) << "send msg total size:" << head->dwMsgLen
+            << " buffer size:" << data_buffer.size();
 }
 
 void UVTcpClient::ConnectTo(const char *strIp, uint32_t port) {
