@@ -46,6 +46,9 @@ private:
   uv_tcp_t *m_pUvTcpHandle = nullptr;
 };
 
-typedef ObjectPool<CUvNetClient, 10> NetClientPool;
+class UVClientMgr : public ObjectPool<CUvNetClient, 10> {
+public:
+  SINGLETON_FUN_INBODY(UVClientMgr)
+};
 
 #endif /* B6B49D68_0202_4D26_8DDD_A34692670831 */

@@ -60,7 +60,7 @@ struct NSNewMessageEvent : public EventBase {
   MessageBase *m_pEvent;
   NSNewMessageEvent(uint32_t dwConnID, uint32_t dwServiceID,
                     MessageBase *pEvent)
-      : EventBase(EVENT_CONNECTION_CLOSE) {
+      : EventBase(EVENT_NEW_MESSAGE) {
     m_dwConnectionId = dwConnID;
     m_dwServiceId = dwServiceID;
     m_pEvent = pEvent;

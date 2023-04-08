@@ -17,12 +17,21 @@ protected:                                                                     \
   classname &operator=(classname &&) = delete;
 
 #define SINGLETON_FUN_BODY(classname)                                          \
-  classname *classname::GetInstance() {                                        \
+  inline classname *classname::GetInstance() {                                 \
     static std::once_flag _flag;                                               \
     static classname _instance;                                                \
     std::call_once(_flag, [&]() { (_instance).Init(); });                      \
     return &_instance;                                                         \
   }
+
+#define SINGLETON_FUN_INBODY(classname)                                        \
+  static classname *GetInstance() {                                            \
+    static std::once_flag _flag;                                               \
+    static classname _instance;                                                \
+    std::call_once(_flag, [&]() { (_instance).Init(); });                      \
+    return &_instance;                                                         \
+  }
+
 class CUvNetClient;
 CUvNetClient *init_tcp_connection(uv_tcp_t *client);
 

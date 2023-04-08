@@ -17,7 +17,7 @@ CUvNetClient *init_tcp_connection(uv_tcp_t *client) {
     LOG(ERROR) << "The socket fd get error";
   }
   CUvNetClient *pNetClient =
-      NetClientPool::GetInstance()->CreateObject((uint32_t)fd);
+      UVClientMgr::GetInstance()->CreateObject((uint32_t)fd);
   LOG(INFO) << "current desc:" << pNetClient->GetDesc();
   if (pNetClient == nullptr) {
     LOG(ERROR) << "create object failed! null ptr!";

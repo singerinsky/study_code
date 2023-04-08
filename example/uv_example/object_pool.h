@@ -48,9 +48,9 @@ public:
   T *GetObject(UNIQUE_ID id) {
     const auto &itr = m_mapKey2VecIndex.find(id);
     if (itr != m_mapKey2VecIndex.end()) {
-      return nullptr;
+      return &m_arrayObject[itr->second];
     }
-    return &m_arrayObject[itr.second];
+    return nullptr;
   }
 
   void ReleaseObject(UNIQUE_ID id) {
@@ -61,6 +61,7 @@ public:
     m_arrayObject[itr->second].~T();
     m_arrayUsedFlags.flip(itr->second);
     m_mapKey2VecIndex.erase(id);
+    LOG(INFO) << "release object id:" << id;
   }
 
 private:
@@ -69,13 +70,5 @@ private:
 
   std::unordered_map<UNIQUE_ID, uint32_t> m_mapKey2VecIndex;
 };
-
-template <typename T, uint32_t size, typename UNIQUE_ID>
-ObjectPool<T, size, UNIQUE_ID> *ObjectPool<T, size, UNIQUE_ID>::GetInstance() {
-  static std::once_flag _flag;
-  static ObjectPool _instance;
-  std::call_once(_flag, [&]() { (_instance).Init(); });
-  return &_instance;
-}
 
 #endif /* E827826B_1256_438C_8123_2A74732D0DE3 */

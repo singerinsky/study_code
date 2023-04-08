@@ -23,7 +23,10 @@ void client_close_cb(uv_handle_t *close_handle_t) {
   CUvNetClient *pClient = (CUvNetClient *)close_handle_t->data;
   LOG(INFO) << close_handle_t
             << "disconnection from client_close_cb id:" << pClient->GetID();
-  NetClientPool::GetInstance()->ReleaseObject(pClient->GetID());
+  NSConnectionCloseEvent *event = new NSConnectionCloseEvent();
+  event->m_dwConnectionId = pClient->GetID();
+  CUVServer::GetInstance()->push_event(event);
+  UVClientMgr::GetInstance()->ReleaseObject(pClient->GetID());
 }
 
 void client_recv_cb(uv_stream_t *stream, ssize_t nread, const uv_buf_t *buf) {

@@ -14,6 +14,7 @@ public:
 
 protected:
   static DWORD OnNewConnection(const NSNewConnectionEvent *pEvent);
+  static DWORD OnConnectionClose(const NSConnectionCloseEvent *pEvent);
 };
 
 #endif /* FB8641E6_34B6_46B1_AE2B_C389274CC391 */

@@ -63,6 +63,7 @@ int main(int argc, char **argv) {
       LOG(INFO) << "process message from uv engine! message_type:"
                 << event->m_wType;
       CMessageHandleMgr::ProcessMsgHandler(event);
+      delete event;
     }
   }
 
