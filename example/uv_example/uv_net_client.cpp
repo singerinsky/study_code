@@ -45,8 +45,5 @@ void CUvNetClient::OnNewDataRecv(uint32_t dwDataSize) {
     } else {
       LOG(ERROR) << "parse error !";
     }
-    //     gl::user userinfo;
-    // userinfo.ParseFromArray(_buffer, data_size_in_buff);
-    // LOG(INFO) << userinfo.ShortDebugString();
   }
 }

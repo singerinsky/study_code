@@ -1,0 +1,9 @@
+#ifndef BD573D8E_54AD_48A0_886D_B83B354017D7
+#define BD573D8E_54AD_48A0_886D_B83B354017D7
+
+#include <cstdint>
+typedef uint32_t DWORD;
+typedef int WORD;
+typedef uint64_t QWORD;
+
+#endif /* BD573D8E_54AD_48A0_886D_B83B354017D7 */

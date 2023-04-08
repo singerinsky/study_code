@@ -111,6 +111,11 @@ void CUVServer::on_connection(uv_stream_t *server, int status) {
       CUVServer::GetInstance()->add_client(pClient->GetID(), pClient);
       uv_read_start((uv_stream_t *)client, client_alloc_cb, client_recv_cb);
 
+      NSNewConnectionEvent *event = new NSNewConnectionEvent();
+      event->m_dwConnectionId = pClient->GetID();
+      event->m_dwServiceId = server->accepted_fd;
+      CUVServer::GetInstance()->push_event(event);
+
     } else {
       LOG(ERROR) << "accept client error";
     }

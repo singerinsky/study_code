@@ -28,7 +28,7 @@ struct RequestListen : public RequestBase {
 enum EventType {
   EVENT_NEW_CONNECTION = 1,   // 新连接
   EVENT_CONNECTION_CLOSE = 2, // 连接断开
-  EVENT_NEW_MESSAGE = 3,      // 新的消息
+  EVENT_NEW_MESSAGE = 3,      // 新的数据消息
 };
 
 struct EventBase {

@@ -1,4 +1,5 @@
 #include "../../header.h"
+#include "message_handle.h"
 #include "message_progress.hpp"
 #include "tcp_net_server.hpp"
 #include "uv_server.hpp"
@@ -57,10 +58,11 @@ int main(int argc, char **argv) {
 
   while (true) {
     std::this_thread::sleep_for(100ms);
-    EventBase *event = CUVServer::GetInstance()->pop_event();
+    const EventBase *event = CUVServer::GetInstance()->pop_event();
     if (event) {
       LOG(INFO) << "process message from uv engine! message_type:"
                 << event->m_wType;
+      CMessageHandleMgr::ProcessMsgHandler(event);
     }
   }
 

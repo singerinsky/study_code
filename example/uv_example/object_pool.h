@@ -1,6 +1,7 @@
 #ifndef E827826B_1256_438C_8123_2A74732D0DE3
 #define E827826B_1256_438C_8123_2A74732D0DE3
 
+#include "../util/uv_util.h"
 #include "common_uv.h"
 #include "glog/logging.h"
 #include <array>
@@ -16,7 +17,11 @@ class ObjectPool {
 public:
   void Init() { m_arrayUsedFlags.set(); }
 
-  T *CreateObject(UNIQUE_ID id) {
+  T *CreateObject(UNIQUE_ID id = 0) {
+    if (id == 0) {
+      id = GenerateUniqueID();
+    }
+
     const auto &itr = m_mapKey2VecIndex.find(id);
     if (itr != m_mapKey2VecIndex.end()) {
       LOG_ASSERT(false);

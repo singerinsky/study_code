@@ -24,7 +24,7 @@ void init_timer_loop() {
 
   auto r = uv_timer_init(uv_default_loop(), g_repeat_timer);
 
-  uv_timer_start(g_repeat_timer, client_timer_func, 0, 100);
+  uv_timer_start(g_repeat_timer, client_timer_func, 0, 1000);
 }
 
 int main() {
