@@ -8,6 +8,8 @@
 #include <gflags/gflags.h>
 #include <thread>
 
+volatile bool g_bIsRunning = false;
+
 void signal_handler(int sig) {
   switch (sig) {
   case SIGHUP:
@@ -19,7 +21,8 @@ void signal_handler(int sig) {
     break;
   case SIGINT:
     LOG(INFO) << " get server stop signal";
-    exit(EXIT_SUCCESS);
+    g_bIsRunning = false;
+    // exit(EXIT_SUCCESS);
     break;
   default:
     printf("Unhandled signal %s\n", strsignal(sig));
@@ -56,17 +59,21 @@ int main(int argc, char **argv) {
   RequestListen *request = new RequestListen(pService);
   CUVServer::GetInstance()->push_request(request);
 
-  while (true) {
-    std::this_thread::sleep_for(100ms);
+  g_bIsRunning = true;
+
+  while (g_bIsRunning) {
     const EventBase *event = CUVServer::GetInstance()->pop_event();
     if (event) {
       LOG(INFO) << "process message from uv engine! message_type:"
                 << event->m_wType;
       CMessageHandleMgr::ProcessMsgHandler(event);
       delete event;
+    } else {
+      LOG(INFO) << "g_bIsRunning:" << g_bIsRunning;
+      std::this_thread::sleep_for(1000ms);
     }
   }
-
+  CUVServer::GetInstance()->Stop();
   gflags::ShutDownCommandLineFlags();
   google::ShutdownGoogleLogging(); // 关闭日志系统
 

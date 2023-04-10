@@ -35,6 +35,8 @@ public:
 
   int progress_input_event(uint32_t per_count);
 
+  void Stop() { m_bRunning = false; }
+
 protected:
   uv_tcp_t *attach_net_service(NetServiceBase *pNetService);
 
@@ -54,6 +56,8 @@ private:
   uv_loop_t *m_pLoopHandle = nullptr;
 
   uv_idle_t *idle_t = nullptr;
+
+  bool m_bRunning = true;
 
   moodycamel::ConcurrentQueue<RequestBase *> m_requestInputQueue;
   moodycamel::ConcurrentQueue<EventBase *> m_eventOutputQueue;

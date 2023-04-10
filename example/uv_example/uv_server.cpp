@@ -197,7 +197,7 @@ int CUVServer::progress_input_event(uint32_t per_count) {
 void CUVServer::start() {
   if (m_pLoopHandle) {
     int rst = 0;
-    while (true) {
+    while (m_bRunning) {
       auto process_num = progress_input_event(100);
       rst = uv_run(m_pLoopHandle, UV_RUN_ONCE);
       // LOG(INFO) << "running uv server,after one round,rst:" << rst;
