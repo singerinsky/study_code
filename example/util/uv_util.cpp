@@ -1,7 +1,7 @@
 #include "uv_util.h"
 #include <atomic>
 
-static std::atomic_int32_t g_step_incr = 1;
+static std::atomic_int32_t g_step_incr(1);
 uint32_t GenerateUniqueID() {
   // Get current time as milliseconds since Unix epoch
   auto now = std::chrono::duration_cast<std::chrono::milliseconds>(
