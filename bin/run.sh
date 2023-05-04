@@ -70,6 +70,7 @@
 #./AllCppTest    --gtest_filter=Test_Map.Test001
 #./AllCppTest --gtest_filter=TestCpu.add_test
 #./AllCppTest --gtest_filter=TestUv.test002
-./AllCppTest --gtest_filter=TestUv.test_thread_pool
+#./AllCppTest --gtest_filter=TestUv.test_thread_pool
 #./AllCppTest --gtest_filter=BaseTest.test_terminate
+./AllCppTest --gtest_filter=RingBufferTest.test001
 #add for pick 

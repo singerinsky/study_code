@@ -10,10 +10,10 @@ using namespace luabridge;
 
 void game_parse_pb_to_c(const std::string& message_name,const std::string& message_content )
 {
- gl::user user_from_lua;
- user_from_lua.ParseFromString(message_content);
- LOG(INFO)<<"call from lua";
- LOG(INFO) << user_from_lua.name();
+  gl::CSRequireUserInfo user_from_lua;
+  user_from_lua.ParseFromString(message_content);
+  LOG(INFO) << "call from lua";
+  LOG(INFO) << user_from_lua.name();
 }
 
 void test_tran_pb_to_lua()

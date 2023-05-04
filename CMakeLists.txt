@@ -12,7 +12,8 @@ set(CMAKE_VERBOSE_MAKEFILE ON) # 输出详细日志
 # -gp 是gprof生成gmon.out,函数调用关系
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -pg -O0 -std=c++17 -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -DNDEBUG -Wl -wrap=time -pthread")
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -pg -O0 -std=c++17 -stdlib=libc++ -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -DNDEBUG -Werror=return-type")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -std=c++17 -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -DNDEBUG -Werror=return-type")
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -std=c++17 -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -DNDEBUG -Werror=return-type")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -DNDEBUG")
 
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG ")
 
@@ -89,10 +90,10 @@ find_library(libmessagelib messagelib ${WORKING_DIRECTORY}/libs)
 SET(MESSAGE_LIB messagelib)
 
 # 暂时屏蔽
-# add_subdirectory(src)
-# add_subdirectory(benchmark_one)
-add_subdirectory(example/util)
-add_subdirectory(example/uv_example)
-add_subdirectory(example/tcp_client)
+add_subdirectory(src)
+#add_subdirectory(benchmark_one)
+#add_subdirectory(example/util)
+#add_subdirectory(example/uv_example)
+#add_subdirectory(example/tcp_client)
 
 # execute_process(COMMAND "./AllCppTest")

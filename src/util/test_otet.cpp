@@ -28,13 +28,13 @@ TEST(OtectTest,test_02)
 
 TEST(OtectTest,test_03)
 {
-    gl::user user_data;
+    gl::CSRequireUserInfo user_data;
     user_data.set_age(100);
     user_data.set_name("name");
     Octets octets;
     octets.resize(user_data.ByteSizeLong());
     user_data.SerializePartialToArray(octets.begin(),user_data.ByteSizeLong());
-    gl::user new_data;
+    gl::CSRequireUserInfo new_data;
     new_data.ParseFromArray(octets.begin(), octets.size());
     LOG(INFO)<<"after decodeing "<<new_data.name()<<":"<<new_data.age()<<" datalength:"<<user_data.ByteSizeLong();
     LOG(INFO)<<"octets size "<<octets.size();
