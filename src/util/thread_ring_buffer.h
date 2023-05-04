@@ -35,7 +35,7 @@ public:
       return false;
     }
     _DoEnqueue(pStart, dwProdHead, dwAddCount);
-    UpdateConsTail(dwProdHead, dwProdHeadNext);
+    UpdateProdTail(dwProdHead, dwProdHeadNext);
     return true;
   }
 
@@ -46,7 +46,8 @@ public:
     if (dwDequeuCount == 0) {
       return false;
     }
-
+    _DoDequeue(pOut, dwConsHead, dwOutCount);
+    UpdateConsTail(dwConsHead, dwConsNextHead);
     return false;
   }
 
@@ -122,7 +123,7 @@ protected:
   }
 
   // head 最终是要和head相等的
-  void UpdateConsTail(uint32_t dwProdOldHead, uint32_t dwProdHeadNext) {
+  void UpdateProdTail(uint32_t dwProdOldHead, uint32_t dwProdHeadNext) {
 
     bool success = false;
     do {
@@ -132,6 +133,22 @@ protected:
         // asm volatile("pause" ::: "memory");
       } else {
         m_oProdCursor.tail.exchange(dwProdHeadNext);
+        success = true;
+      }
+
+    } while (!success);
+  }
+
+  void UpdateConsTail(uint32_t dwConsOldHead, uint32_t dwConsHeadNext) {
+
+    bool success = false;
+    do {
+      if (!m_bSP) {
+        success = m_oConsCursor.tail.compare_exchange_weak(dwConsOldHead,
+                                                           dwConsHeadNext);
+        // asm volatile("pause" ::: "memory");
+      } else {
+        m_oConsCursor.tail.exchange(dwConsHeadNext);
         success = true;
       }
 
@@ -168,8 +185,8 @@ protected:
     }
   }
 
-  void _DoDequeue(T *pOut, uint32_t dwCount, uint32_t dwConsTail) {
-    uint32_t idx = dwConsTail & m_mask;
+  void _DoDequeue(T *pOut, uint32_t dwConsHead, uint32_t dwCount) {
+    uint32_t idx = dwConsHead & m_mask;
     int incr = 0;
     if (idx + dwCount < m_size) {
       for (; incr < (dwCount & ((~(unsigned)0x3))); incr += 4, idx += 4) {

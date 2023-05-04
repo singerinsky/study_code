@@ -9,6 +9,8 @@ TEST(RingBufferTest, test001) {
   const char *name = "guanlei";
   for (int i = 0; i < 1024; i++) {
     buffer->EnqueueBulk(name, 4);
+    // char buff[64];
+    //  buffer->DequeueBulk(, uint32_t dwOutCount)
   }
   buffer->EnqueueBulk(name, 1);
   buffer->DumpQueue();
