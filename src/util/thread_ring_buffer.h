@@ -14,7 +14,8 @@
 #endif
 #endif /* unlikely */
 
-template <typename T, uint32_t BufferSize = 4096> class CRingBuffer {
+template <typename T, uint32_t BufferSize = 4096, bool IsSingleProd = true>
+class CRingBuffer {
 public:
   struct CursorInfo {
     std::atomic<uint32_t> tail;
@@ -234,7 +235,7 @@ private:
   uint32_t m_size = BufferSize;
   uint32_t m_mask = BufferSize - 1;
   uint32_t m_capacity = BufferSize - 1;
-  bool m_bSP = true; // 如果是单个生产者的话
+  bool m_bSP = IsSingleProd; // 如果是单个生产者的话
   CursorInfo m_oConsCursor;
   CursorInfo m_oProdCursor;
 };
