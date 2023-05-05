@@ -24,6 +24,15 @@ public:
 
   uint32_t GetSize() const { return m_size; }
 
+  uint32_t GetCurrentCapacity() {
+    uint32_t dwProdTail = m_oProdCursor.tail.load();
+    uint32_t dwConsTail = m_oConsCursor.tail.load();
+    uint32_t dwCount = (dwProdTail - dwConsTail) & m_mask;
+    LOG(INFO) << "dwCount:" << dwCount << " m_capacity:" << m_capacity
+              << " dwProdTail:" << dwProdTail << " dwConsTail:" << dwConsTail;
+    return (dwCount > m_capacity) ? m_capacity : dwCount;
+  }
+
   bool EnqueueBulk(const T *pStart, uint32_t dwCount) {
     uint32_t dwProdHead, dwProdHeadNext; // = m_oProdCursor.head;
     uint32_t dwCurrentFreeCount = 0; // = m_oConsCursor.tail;
@@ -76,7 +85,7 @@ protected:
       dwProdHeadOut = m_oProdCursor.head.load();
       uint32_t dwConsTail = m_oConsCursor.tail.load();
 
-      dwCurrentFreeCount = BufferSize + dwConsTail - dwProdHeadOut;
+      dwCurrentFreeCount = m_capacity + dwConsTail - dwProdHeadOut;
 
       if (dwCurrentFreeCount < dwCount) {
         return 0;
@@ -219,6 +228,7 @@ private:
   std::array<T, BufferSize> m_buffer;
   uint32_t m_size = BufferSize;
   uint32_t m_mask = BufferSize - 1;
+  uint32_t m_capacity = BufferSize - 1;
   bool m_bSP = true; // 如果是单个生产者的话
   CursorInfo m_oConsCursor;
   CursorInfo m_oProdCursor;
