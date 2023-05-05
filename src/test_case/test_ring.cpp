@@ -29,7 +29,27 @@ TEST(RingBufferTest, test001) {
       }
     }
   });
-  // putThread.join();
+  putThread.join();
   getThread.join();
   // buffer->DumpQueue();
+}
+void busyWait(long long count) {
+  for (long long i = 0; i < count; i++) {
+    asm volatile("pause;" ::: "memory");
+  }
+}
+TEST(RingBufferTest, test002) {
+  typedef std::chrono::high_resolution_clock clock;
+  typedef std::chrono::microseconds microseconds;
+
+  const long long total = 100000000;
+  LOG(INFO) << "start";
+  clock::time_point start = clock::now();
+  busyWait(total);
+  clock::time_point end = clock::now();
+  std::cout << "Execution time: "
+            << std::chrono::duration_cast<microseconds>(end - start).count() /
+                   1000
+            << " ms" << std::endl;
+  LOG(INFO) << "end";
 }

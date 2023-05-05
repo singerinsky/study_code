@@ -214,6 +214,27 @@ void function_test_loop_without_op(benchmark::State &state) {
 }
 BENCHMARK(function_test_loop_without_op);
 
+void function_test_pause(benchmark::State &state) {
+  for (auto _ : state) {
+    // LOG(INFO) << "with pause";
+    std::vector vec = {1, 2, 4, 39, 32, 2};
+    std::sort(vec.begin(), vec.end());
+    for (int i = 0; i < 10; i++)
+      asm volatile("pause" ::: "memory");
+  }
+}
+BENCHMARK(function_test_pause);
+
+void function_test_pause_no(benchmark::State &state) {
+  for (auto _ : state) {
+    std::vector vec = {1, 2, 4, 39, 32, 2};
+    std::sort(vec.begin(), vec.end());
+    for (int i = 0; i < 10; i++)
+      ;
+  }
+}
+BENCHMARK(function_test_pause_no);
+
 // BENCHMARK_MAIN()
 // {
 //     ::benchmark::Initialize(&argc, argv);

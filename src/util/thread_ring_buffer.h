@@ -36,7 +36,7 @@ public:
 
   bool EnqueueBulk(const T *pStart, uint32_t dwCount) {
     uint32_t dwProdHead, dwProdHeadNext; // = m_oProdCursor.head;
-    uint32_t dwCurrentFreeCount = 0; // = m_oConsCursor.tail;
+    uint32_t dwCurrentFreeCount = 0;     // = m_oConsCursor.tail;
     uint32_t dwAddCount = TryMoveProdHead(dwCount, dwProdHead, dwProdHeadNext,
                                           dwCurrentFreeCount);
     if (dwAddCount == 0) {
@@ -148,12 +148,10 @@ protected:
         m_oProdCursor.tail.exchange(dwProdHeadNext);
         success = true;
       }
-
     } while (!success);
   }
 
   void UpdateConsTail(uint32_t dwConsOldHead, uint32_t dwConsHeadNext) {
-
     bool success = false;
     do {
       if (!m_bSP) {
