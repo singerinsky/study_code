@@ -25,8 +25,8 @@ public:
   uint32_t GetSize() const { return m_size; }
 
   uint32_t GetCurrentCapacity() {
-    uint32_t dwProdTail = m_oProdCursor.tail.load();
-    uint32_t dwConsTail = m_oConsCursor.tail.load();
+    uint32_t dwProdTail = m_oProdCursor.tail.load(std::memory_order_relaxed);
+    uint32_t dwConsTail = m_oConsCursor.tail.load(std::memory_order_relaxed);
     uint32_t dwCount = (dwProdTail - dwConsTail) & m_mask;
     LOG(INFO) << "dwCount:" << dwCount << " m_capacity:" << m_capacity
               << " dwProdTail:" << dwProdTail << " dwConsTail:" << dwConsTail;
@@ -62,10 +62,13 @@ public:
 
   void DumpQueue(bool bDumpContent = false) {
     std::stringstream str;
-    str << "Producer tail:" << m_oProdCursor.tail.load()
-        << " head:" << m_oProdCursor.head.load()
-        << " Consumer tail:" << m_oConsCursor.tail.load()
-        << " head:" << m_oConsCursor.head.load() << " buffer:";
+    str << "Producer tail:"
+        << m_oProdCursor.tail.load(std::memory_order_relaxed)
+        << " head:" << m_oProdCursor.head.load(std::memory_order_relaxed)
+        << " Consumer tail:"
+        << m_oConsCursor.tail.load(std::memory_order_relaxed)
+        << " head:" << m_oConsCursor.head.load(std::memory_order_relaxed)
+        << " buffer:";
 
     if (bDumpContent) {
       for (uint32_t i = 0; i < BufferSize; i++) {
@@ -82,8 +85,8 @@ protected:
                            uint32_t &dwCurrentFreeCount) {
     bool success = false;
     do {
-      dwProdHeadOut = m_oProdCursor.head.load();
-      uint32_t dwConsTail = m_oConsCursor.tail.load();
+      dwProdHeadOut = m_oProdCursor.head.load(std::memory_order_relaxed);
+      uint32_t dwConsTail = m_oConsCursor.tail.load(std::memory_order_relaxed);
 
       dwCurrentFreeCount = m_capacity + dwConsTail - dwProdHeadOut;
 
@@ -110,8 +113,8 @@ protected:
                            uint32_t &dwCurrentCount, uint32_t dwCountNeeded) {
     bool success;
     do {
-      dwOldHead = m_oConsCursor.head.load();
-      uint32_t dwProdTail = m_oProdCursor.tail.load();
+      dwOldHead = m_oConsCursor.head.load(std::memory_order_relaxed);
+      uint32_t dwProdTail = m_oProdCursor.tail.load(std::memory_order_relaxed);
       dwCurrentCount = (dwProdTail - dwOldHead);
 
       if (dwCountNeeded > dwCurrentCount) {
@@ -155,7 +158,9 @@ protected:
       if (!m_bSP) {
         success = m_oConsCursor.tail.compare_exchange_weak(dwConsOldHead,
                                                            dwConsHeadNext);
-        // asm volatile("pause" ::: "memory");
+        if (!success) {
+          asm volatile("pause" ::: "memory");
+        }
       } else {
         m_oConsCursor.tail.exchange(dwConsHeadNext);
         success = true;
