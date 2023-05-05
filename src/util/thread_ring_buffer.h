@@ -58,7 +58,7 @@ public:
     }
     _DoDequeue(pOut, dwConsHead, dwOutCount);
     UpdateConsTail(dwConsHead, dwConsNextHead);
-    return false;
+    return true;
   }
 
   void DumpQueue(bool bDumpContent = false) {
