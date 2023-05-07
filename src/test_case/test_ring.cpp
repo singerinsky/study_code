@@ -1,23 +1,38 @@
 #include "../header.h"
 #include "../util/thread_ring_buffer.h"
 
-template class CRingBuffer<char>;
+template class CRingBuffer<char, 1024>;
 
 TEST(RingBufferTest, test001) {
   LOG(INFO) << "start test ringbuffertest";
   CRingBuffer<char> *buffer = new CRingBuffer<char>;
 
-  std::thread putThread([&buffer]() {
+  std::thread putThreadOne([&buffer]() {
     const char *name = "guanlei";
-    for (int i = 0; i < 4096; i++) {
+    for (int i = 0; i < 2048; i++) {
       bool rst = buffer->EnqueueBulk(name, 4);
       if (rst) {
-        LOG(INFO) << "add success i=" << i;
+        LOG(INFO) << "one add success i=" << i;
+      } else {
+        i = i - 1;
       }
     }
   });
 
-  std::thread getThread([&buffer]() {
+  std::thread putThreadTwo([&buffer]() {
+    const char *name = "guanlei";
+    for (int i = 0; i < 2048; i++) {
+      bool rst = buffer->EnqueueBulk(name, 4);
+      if (rst) {
+        LOG(INFO) << "two add success i=" << i;
+      } else {
+        i = i - 1;
+      }
+    }
+  });
+
+  std::atomic<int> get_count(0);
+  std::thread getThread([&buffer, &get_count]() {
     int successrst = 0;
     while (true) {
       char buff[64];
@@ -25,12 +40,32 @@ TEST(RingBufferTest, test001) {
       bool rst = buffer->DequeueBulk(buff, 4);
       if (rst) {
         successrst++;
-        LOG(INFO) << "get success successrst=" << successrst;
+        // LOG(INFO) << "get success successrst=" << successrst;
+        get_count.fetch_add(1);
+      } else {
+        LOG(INFO) << "one current get count=" << get_count.load();
       }
     }
   });
-  putThread.join();
+  std::thread getThreadTwo([&buffer, &get_count]() {
+    int successrst = 0;
+    while (true) {
+      char buff[64];
+      memset(buffer, 0, 64);
+      bool rst = buffer->DequeueBulk(buff, 4);
+      if (rst) {
+        successrst++;
+        // LOG(INFO) << "get success successrst=" << successrst;
+        get_count.fetch_add(1);
+      } else {
+        LOG(INFO) << "two current get count=" << get_count.load();
+      }
+    }
+  });
+  putThreadOne.join();
+  putThreadTwo.join();
   getThread.join();
+  getThreadTwo.join();
   // buffer->DumpQueue();
 }
 void busyWait(long long count) {
