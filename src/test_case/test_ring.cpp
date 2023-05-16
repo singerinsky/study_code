@@ -183,3 +183,86 @@ TEST(atomic_mutex, test002) {
                    1000
             << " ms" << std::endl;
 }
+#include <sched.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+TEST(system, test003) {
+  // fork();
+  pid_t pid = getpid();
+  struct sched_param param;
+  int policy;
+
+  // 获取当前进程的调度策略
+  if ((policy = sched_getscheduler(pid)) == -1) {
+    perror("Failed to get scheduler");
+    return;
+  }
+
+  // 打印当前进程的调度策略，RR或者FIFO
+  if (policy == SCHED_FIFO) {
+    printf("Current policy: SCHED_FIFO\n");
+  } else if (policy == SCHED_RR) {
+    printf("Current policy: SCHED_RR\n");
+  } else if (policy == SCHED_OTHER) {
+    printf("Current policy: SCHED_OTHER\n");
+  }
+
+  // 改变调度策略为RR
+  param.sched_priority = 1;
+  if (sched_setscheduler(pid, SCHED_RR, &param) == -1) {
+    perror("Failed to set scheduler");
+    return;
+  }
+
+  // 获取更新后的调度策略
+  if ((policy = sched_getscheduler(pid)) == -1) {
+    perror("Failed to get scheduler");
+    return;
+  }
+  pid = getpid();
+  struct timespec tp;
+  sched_rr_get_interval(pid, &tp);
+  printf("Time quantum: %ld seconds, %ld nanoseconds\n", tp.tv_sec, tp.tv_nsec);
+  // 100MS
+  // 100000000 nanoseconds
+}
+
+TEST(system, test004) {
+  // fork();
+  typedef std::chrono::high_resolution_clock clock;
+  typedef std::chrono::microseconds microseconds;
+  pid_t pid = getpid();
+  struct timespec tp;
+  sched_rr_get_interval(pid, &tp);
+
+  int index = 10000;
+  while (index > 0) {
+    clock::time_point start = clock::now();
+
+    // LOG(INFO) << "current time";
+    for (int i = 0; i < 100; i++)
+      cpuIntensiveFunction();
+    index--;
+    clock::time_point end = clock::now();
+    int cost =
+        std::chrono::duration_cast<microseconds>(end - start).count() / 1000;
+    if (cost > 3)
+      std::cout << "Execution time: " << cost << " ms" << std::endl;
+  }
+  // 20MS
+  // 20000000 nanoseconds
+  printf("Time quantum: %ld seconds, %ld nanoseconds\n", tp.tv_sec, tp.tv_nsec);
+}
+
+TEST(system, test005) {
+  // fork();
+  pid_t pid = getpid();
+
+  struct timespec tp;
+  sched_rr_get_interval(pid, &tp);
+  printf("Time quantum: %ld seconds, %ld nanoseconds\n", tp.tv_sec, tp.tv_nsec);
+  while (true) {
+    LOG(INFO) << "current time";
+  }
+}
