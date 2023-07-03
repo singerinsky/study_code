@@ -76,7 +76,7 @@ execute_process(COMMAND sh ${WORKING_DIRECTORY}/src/protofile/gen.sh ${WORKING_D
 
 # message("${WORKING_DIRECTORY}")
 SET(EXECUTABLE_OUTPUT_PATH ${WORKING_DIRECTORY}/bin)
-SET(ALL_LIBS gtest pthread gflags glog tcmalloc zmq lua dl protobuf benchmark hookstaticlib profiler ${libzookeeper} ${libhashtable} ${libuv} ssl)
+SET(ALL_LIBS gtest pthread gflags glog tcmalloc zmq lua dl protobuf benchmark hookstaticlib profiler ${libzookeeper} ${libhashtable} ${libuv} ssl numa)
 
 # add_custom_target(protobuild COMMAND sh ${WORKING_DIRECTORY}/src/protofile/gen.sh ${WORKING_DIRECTORY} ${PROTO_SOURCES})
 
@@ -90,7 +90,8 @@ find_library(libmessagelib messagelib ${WORKING_DIRECTORY}/libs)
 SET(MESSAGE_LIB messagelib)
 
 add_subdirectory(src)
-add_subdirectory(benchmark_one)
+
+# add_subdirectory(benchmark_one)
 
 # add_subdirectory(example/util)
 # add_subdirectory(example/uv_example)

@@ -235,6 +235,50 @@ void function_test_pause_no(benchmark::State &state) {
 }
 BENCHMARK(function_test_pause_no);
 
+struct data_for_test {
+  int i = 0;
+  int j = 1;
+
+  bool operator>(const data_for_test &data) const { return i > data.i; }
+  bool operator<(const data_for_test &data) const { return i < data.i; }
+  bool operator==(const data_for_test &data) const {
+    return i == data.i && j == data.j;
+  }
+};
+
+void function_compare_set_use_equal(benchmark::State &state) {
+  std::set<data_for_test> set_one = {{1}};
+  std::set<data_for_test> set_two = {{2}};
+
+  bool bEqual = false;
+  for (auto _ : state) {
+    if (set_one == set_two) {
+      bEqual = true;
+    }
+  }
+  LOG(INFO) << bEqual;
+}
+BENCHMARK(function_compare_set_use_equal);
+void function_compare_set_use_diff(benchmark::State &state) {
+  std::set<int> set_one = {1, 2, 3, 4, 5, 6, 7, 8};
+  std::set<int> set_two = {1, 2, 3, 4, 5, 6, 7, 0};
+  bool bEqual = false;
+
+  for (auto _ : state) {
+    vector<int> vec;
+    vec.resize(10);
+    std::set_symmetric_difference(set_one.begin(), set_one.end(),
+                                  set_two.begin(), set_two.end(), vec.begin());
+    if (vec.empty()) {
+      // LOG(INFO) << "equal";
+      bEqual = true;
+    }
+  }
+  LOG(INFO) << bEqual;
+}
+
+BENCHMARK(function_compare_set_use_diff);
+
 // BENCHMARK_MAIN()
 // {
 //     ::benchmark::Initialize(&argc, argv);
