@@ -81,5 +81,7 @@ TEST(BaseTest, test_terminate) {
   }
 }
 
-
-
+TEST(BaseTest, test_remove) {
+  std::list<int> vec = {1, 2, 3};
+  vec.remove(1);
+}

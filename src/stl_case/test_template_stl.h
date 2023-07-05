@@ -1,6 +1,7 @@
 #ifndef C3D21E3C_80A5_4FE8_B8CC_4642BCE537E3
 #define C3D21E3C_80A5_4FE8_B8CC_4642BCE537E3
 
+#include <iostream>
 template <class N>
 class tree_iterator{
     const N *pos_;
@@ -47,10 +48,25 @@ bool operator != (tree_iterator<N> const &left,tree_iterator<N>const &right)
     return !(left == right);
 }
 
+template <typename... Mixins> class Point : public Mixins... {
+  public:
+    double x, y;
+    Point() : Mixins()..., x(0.0), y(0.0) {}
+    Point(double x, double y) : Mixins()..., x(x), y(y) {}
+    void Display() const { std::cout << "(" << x << ", " << y << ")"; }
+};
 
+class Label {
+  public:
+    std::string label;
+    Label() : label("Y") {}
+};
 
+class Color {
+  public:
+    unsigned char red = 1, green = 1, blue = 1;
+};
 
-
-
+using MixClass = Point<Label, Color>;
 
 #endif /* C3D21E3C_80A5_4FE8_B8CC_4642BCE537E3 */

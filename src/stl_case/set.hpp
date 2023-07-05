@@ -106,4 +106,10 @@ TEST(Test_stl_copy,test_set)
     LOG(INFO)<<set.depth();
 }
 
+TEST(TEST_stl_mix, test001) {
+    MixClass mixClass;
+    Label *pLabel = static_cast<Label *>(&mixClass);
+    LOG(INFO) << "now :" << pLabel->label;
+}
+
 #endif /* A31FC442_2327_44FC_9099_054C338D843A */
