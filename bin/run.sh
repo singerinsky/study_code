@@ -73,7 +73,6 @@
 #./AllCppTest --gtest_filter=TestUv.test_thread_pool
 #./AllCppTest --gtest_filter=BaseTest.test_terminate
 #./AllCppTest --gtest_filter=RingBufferTest.test001
-#./AllCppTest --gtest_filter=system.test004
-#./AllCppTest --gtest_filter=TestSys.test_page_size
-./AllCppTest --gtest_filter=TestSys.get_numa
+#./AllCppTest --gtest_filter=TEST_stl_mix.test001
+./AllCppTest --gtest_filter=BaseTest.test_p1
 #add for pick 

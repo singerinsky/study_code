@@ -2,6 +2,7 @@
 #include "../header.h"
 #include <initializer_list>
 #include <mutex>
+#include <typeinfo>
 
 TEST(BaseTest, test_std_parition) {
   std::vector<int> vec_value = {1, 2, 34, 4, 5, 6, 7};
@@ -84,4 +85,45 @@ TEST(BaseTest, test_terminate) {
 TEST(BaseTest, test_remove) {
   std::list<int> vec = {1, 2, 3};
   vec.remove(1);
+}
+
+class Bank {
+private:
+  double money = 999'999'999;
+
+public:
+  void check() { std::cout << "check:" << money << "\n"; }
+};
+
+template <auto M> struct Tunnel;
+
+template <class T, class U, T U::*M> struct Tunnel<M> {
+  friend T &sneak(U &u) { return u.*M; }
+};
+
+template struct Tunnel<&Bank::money>;
+double &sneak(Bank &);
+
+TEST(BaseTest, test_p) {
+  Bank bank;
+  bank.check();
+
+  auto &take_control = sneak(bank);
+  auto booty = take_control;
+  take_control = 0.114514;
+  std::cout << "booty: " << booty << "\n";
+
+  bank.check();
+}
+
+template <auto T> class auto_class {
+public:
+  typedef decltype(T) value_type;
+  decltype(T) *t;
+};
+
+TEST(BaseTest, test_p1) {
+  auto_class<1> class1;
+  auto_class<1>::value_type t = 111;
+  LOG(INFO) << typeid(auto_class<1>::value_type).name();
 }

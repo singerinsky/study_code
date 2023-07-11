@@ -37,35 +37,35 @@ TEST(TestSys, run_core) {
   pthread_join(thread, NULL);
 }
 
-#include <numa.h>
+// #include <numa.h>
 
-TEST(TestSys, get_numa) {
-  struct bitmask *cpu_mask;
-  int cpu_id, node;
+// TEST(TestSys, get_numa) {
+//   struct bitmask *cpu_mask;
+//   int cpu_id, node;
 
-  // 初始化NUMA库
-  // numa_init();
+//   // 初始化NUMA库
+//   // numa_init();
 
-  // 获取系统中的CPU核数
-  int num_cpus = numa_num_configured_cpus();
+//   // 获取系统中的CPU核数
+//   int num_cpus = numa_num_configured_cpus();
 
-  // 遍历每个CPU核
-  int numNodes = numa_num_configured_nodes();
-  printf("Number of NUMA nodes: %d\n", numNodes);
+//   // 遍历每个CPU核
+//   int numNodes = numa_num_configured_nodes();
+//   printf("Number of NUMA nodes: %d\n", numNodes);
 
-  // 获取每个NUMA节点的信息
-  for (int i = 0; i < numNodes; i++) {
-    struct bitmask *mask = numa_allocate_nodemask();
-    numa_node_to_cpus(i, mask);
-    printf("CPUs on NUMA node %d: ", i);
-    for (int j = 0; j < numa_num_possible_cpus(); j++) {
-      if (numa_bitmask_isbitset(mask, j)) {
-        printf("%d ", j);
-      }
-    }
-    printf("\n");
-    numa_bitmask_free(mask);
-  }
-  // 释放NUMA库资源
-  // numa_exit();
-}
+//   // 获取每个NUMA节点的信息
+//   for (int i = 0; i < numNodes; i++) {
+//     struct bitmask *mask = numa_allocate_nodemask();
+//     numa_node_to_cpus(i, mask);
+//     printf("CPUs on NUMA node %d: ", i);
+//     for (int j = 0; j < numa_num_possible_cpus(); j++) {
+//       if (numa_bitmask_isbitset(mask, j)) {
+//         printf("%d ", j);
+//       }
+//     }
+//     printf("\n");
+//     numa_bitmask_free(mask);
+//   }
+//   // 释放NUMA库资源
+//   // numa_exit();
+// }
