@@ -49,3 +49,4 @@ target_link_libraries(AllCppTest ${ALL_LIBS})
 add_subdirectory(common_lib library)
 add_subdirectory(benchmark_one benchmark_bin)
 #execute_process(COMMAND "./AllCppTest")
+#test for pick
