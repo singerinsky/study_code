@@ -1,7 +1,9 @@
 #include "test_std.h"
 #include "../header.h"
+#include <functional>
 #include <initializer_list>
 #include <mutex>
+#include <type_traits>
 #include <typeinfo>
 
 TEST(BaseTest, test_std_parition) {
@@ -126,4 +128,32 @@ TEST(BaseTest, test_p1) {
   auto_class<1> class1;
   auto_class<1>::value_type t = 111;
   LOG(INFO) << typeid(auto_class<1>::value_type).name();
+  LOG(INFO) << std::string(10, ' ') << "end";
+}
+
+template <typename T>
+typename std::enable_if<std::is_integral<T>::value == true, void>::type
+print_internal(T value, size_t indent = 0,
+               const std::string &line_terminator = "\n", size_t level = 0) {
+  LOG(INFO) << value;
+}
+
+template <typename T>
+typename std::enable_if<std::is_function<T>::value == true, void>::type
+print_internal(T value, size_t indent = 0,
+               const std::string &line_terminator = "\n", size_t level = 0) {
+  value();
+}
+
+// 示例函数
+void myFunction() { std::cout << "Hello, world!" << std::endl; }
+
+TEST(BaseTest, test_enable_if) {
+
+  print_internal(1);
+  print_internal<decltype(myFunction)>(myFunction);
+
+  LOG(INFO) << std::string(10, ' ') << "end";
+  // 函数无法推导
+  //  print_internal(std::function<void()>(myFunction));
 }
