@@ -6,8 +6,8 @@
 struct StudyCmakeBuildInfo
 {
     static inline const std::string GitBranch           = "dev";
-    static inline const std::string CommitSHA           = "0bf41c23bd651bc34b02e0acc1904339c30e2c7f";
-    static inline const std::string Timestamp           = "2023-07-20T17:42:53";
+    static inline const std::string CommitSHA           = "aff3765c0682ed00f61fe798216e85ba8d9b2ad9";
+    static inline const std::string Timestamp           = "2023-07-22T23:51:19";
     static inline const std::string StudyCmakeVersion   = "";
 };
 

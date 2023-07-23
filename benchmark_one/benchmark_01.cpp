@@ -287,6 +287,8 @@ BENCHMARK(function_compare_set_use_diff);
 // }
 int main(int argc, char **argv) {
   ::benchmark::Initialize(&argc, argv);
-  ::benchmark::RunSpecifiedBenchmarks();
+  ::benchmark::ConsoleReporter log_reporter;
+
+  ::benchmark::RunSpecifiedBenchmarks(&log_reporter);
   return 1;
 }

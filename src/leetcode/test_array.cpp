@@ -1,7 +1,7 @@
 #include "../header.h"
 #include <algorithm>
 #include <array>
-
+#include <gtest/gtest.h>
 
 template <int ArraySize, class T, class elefunc>
 std::array<T, ArraySize> build_array_sort(elefunc &func) {
@@ -68,40 +68,39 @@ TEST(Test_Array, array_duplicate) {
   containsDuplicate(vec);
 }
 
-class TestRepeated
-{
+class TestRepeated {
 public:
-    TestRepeated(){
-        _value[0]=0;
-        _value[1]=1;
-        _value[2]=2;
-        _value[3]=3;
-        _value[4]=4;
-        _value[5]=5;
-        _value[6]=6;
-        _value[7]=7;
-        _value[8]=8;
-        _value[9]=9;
-    }
-    using iterator=int*;
-    iterator begin(){
-        return _value;
-    }
-    iterator end(){
-        return _value+10;
-    }
+  TestRepeated() {
+    _value[0] = 0;
+    _value[1] = 1;
+    _value[2] = 2;
+    _value[3] = 3;
+    _value[4] = 4;
+    _value[5] = 5;
+    _value[6] = 6;
+    _value[7] = 7;
+    _value[8] = 8;
+    _value[9] = 9;
+  }
+  using iterator = int *;
+  iterator begin() { return _value; }
+  iterator end() { return _value + 10; }
+
 private:
-    int _value[10];
+  int _value[10];
 };
 
-TEST(Test_Array,itr)
-{
-    TestRepeated repeated;
-    for(auto i :repeated){
-        LOG(INFO)<<i;
-    }
-
+TEST(Test_Array, itr) {
+  TestRepeated repeated;
+  for (auto i : repeated) {
+    LOG(INFO) << i;
+  }
 }
 
-
-
+TEST(Test_Array, point_number) {
+  constexpr int array[] = {1, 2, 3};
+  ASSERT_TRUE(2 [array] == array[2]);
+  ASSERT_TRUE(*(array + 1) == array[1]);
+  ASSERT_FALSE(*(array + 1) == array[1]);
+  LOG(INFO) << *(array + 1);
+}

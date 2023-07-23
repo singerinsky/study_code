@@ -157,3 +157,43 @@ TEST(BaseTest, test_enable_if) {
   // 函数无法推导
   //  print_internal(std::function<void()>(myFunction));
 }
+template <typename... CS> std::string_view char_to_string() { return ""; }
+
+template <char... CS> std::string_view char_to_string() {
+  static char p[sizeof...(CS)] = {CS...};
+  return std::string_view(p, sizeof...(CS));
+}
+
+TEST(BaseTest, test_char_template_to_string) {
+  std::string_view str = char_to_string<'a', 'b'>();
+
+  auto func_addr_one = &char_to_string<'a', 'b'>;
+  auto func_addr_two = &char_to_string<'a', 'c'>;
+  // use LOG(INFO) print func_addr_one and func_addr_two
+  LOG(INFO) << func_addr_one << " func_addr_one";
+  LOG(INFO) << func_addr_two << " func_addr_two";
+  printf("函数地址：%p\n", func_addr_one);
+  printf("函数地址：%p\n", func_addr_two);
+  LOG(INFO) << str;
+  str = char_to_string<1, 2, 3>();
+  LOG(INFO) << str;
+}
+
+struct HasStdHash {
+private:
+  template <class T, class Dummy = decltype(std::hash<T>{})>
+  static constexpr bool exists(int) {
+    return true;
+  }
+
+  template <class T> static constexpr bool exists(char) { return false; }
+
+public:
+  template <class T> static constexpr bool check() { return exists<T>(43); }
+};
+TEST(BaseTest, test_check_hash) {
+  std::cout << "Does std::string have std::hash? "
+            << HasStdHash::check<std::string>() << endl;
+  std::cout << "Does std::string_view have std::hash? "
+            << HasStdHash::check<std::string_view>();
+}

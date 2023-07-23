@@ -74,5 +74,10 @@
 #./AllCppTest --gtest_filter=BaseTest.test_terminate
 #./AllCppTest --gtest_filter=RingBufferTest.test001
 #./AllCppTest --gtest_filter=TEST_stl_mix.test001
-./AllCppTest --gtest_filter=BaseTest.test_p1
+#./AllCppTest --gtest_filter=BaseTest.test_p1
+#./AllCppTest --gtest_filter=system.test004
+#./AllCppTest --gtest_filter=TestSys.test_page_size
+#./AllCppTest --gtest_filter=BaseTest.test_check_hash
+#./AllCppTest --gtest_filter=Test_Array.point_number
+./AllCppTest --gtest_filter=LockTest.SeqLock
 #add for pick 
