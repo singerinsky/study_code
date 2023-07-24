@@ -21,7 +21,7 @@ template <typename T> void SeqLock<T>::Store(const T &value) {
   // 增加版本号
   mVersion += 1;
   // 将 value 拷贝到 mData 中
-  std::memcpy(&mData, &value, sizeof(T));
+  memcpy(&mData, &value, sizeof(T));
   // 增加版本号
   mVersion += 1;
 }
@@ -35,7 +35,7 @@ template <typename T> bool SeqLock<T>::Load(T &value) {
     return false;
   }
   // 将 mData 拷贝到 value 中
-  std::memcpy(&value, &mData, sizeof(T));
+  memcpy(&value, &mData, sizeof(T));
   // 判断当前版本号是否与加载时的版本号相同
   return version == mVersion;
 }
