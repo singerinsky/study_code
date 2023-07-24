@@ -145,6 +145,14 @@ print_internal(T value, size_t indent = 0,
   value();
 }
 
+template <typename T>
+typename std::enable_if<std::is_pointer<T>::value == true, int>::type
+print_internal(T value, size_t indent = 0,
+               const std::string &line_terminator = "\n", size_t level = 0) {
+  LOG(INFO) << value;
+  return 1;
+}
+
 // 示例函数
 void myFunction() { std::cout << "Hello, world!" << std::endl; }
 
@@ -152,6 +160,7 @@ TEST(BaseTest, test_enable_if) {
 
   print_internal(1);
   print_internal<decltype(myFunction)>(myFunction);
+  LOG(INFO) << typeid(decltype(print_internal((new int())))).name();
 
   LOG(INFO) << std::string(10, ' ') << "end";
   // 函数无法推导
@@ -196,4 +205,19 @@ TEST(BaseTest, test_check_hash) {
             << HasStdHash::check<std::string>() << endl;
   std::cout << "Does std::string_view have std::hash? "
             << HasStdHash::check<std::string_view>();
+}
+
+int func_return_int(float fValue) { return 0; }
+
+template <class F, class... Args>
+auto print_result(F &&f, Args &&...args) ->
+    typename std::result_of<F(Args...)>::type {
+  using return_type = typename std::invoke_result<F, Args...>::type;
+  LOG(INFO) << typeid(return_type).name();
+}
+
+TEST(BaseTest, test_get_return) {
+  decltype(print_result(func_return_int, 0.1f)) value;
+  value = 1.0f;
+  LOG(INFO) << value;
 }
