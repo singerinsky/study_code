@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>服务器列表</title>
+    </head>
+    <body>
+        <h1>server list</h1>
+        {{range .Serverlist}} 
+        <div style="display: flex; ">
+            
+        <span>
+            <div  style="border-radius: 20px; padding: 10px; background-color: #bdcf1a;">
+            <p>{{.Sid}}  </p>运行目录 {{.Path}} <p>当前时间:{{.CurrentTime}}</p><p>分支名:{{.BranchName}}</p>
+            <input type=button value="重启" onclick="reboot({{.Sid}})"/>
+            <input type=button value="拉新重启" onclick="new_reboot({{.Sid}})"/>
+            </br>
+            设置起服时间:<input type="text" value="2023-05-17 19:13:37" id="reboottime{{.Sid}}" onfocus="while_onfocus()"/>
+            </div>
+        </span>
+        <span style="text-align: left;">
+            <div style="text-align: center; background-color:#ff44ff">可用高级账号</div>
+            <div  style="border-radius: 20px; padding: 10px; background-color: #e7e7e7;">
+                    {{range .AccountList}} 
+                    
+                    <span  style="font-size: 12px;">
+ 
+                         {{.}}
+
+                    </span>
+                
+                    {{end}}                           </div> 
+                 
+        </span>
+        </div>
+        <hr />
+        {{end}}
+    </body>
+    	<style>
+		body {
+			background-color: #f4f4f4;
+			font-family: Arial, sans-serif;
+		}
+		h1 {
+			color: #333;
+			font-size: 28px;
+			margin-bottom: 20px;
+		}
+		p {
+			color: #666;
+			font-size: 16px;
+			line-height: 1.5;
+			margin-bottom: 10px;
+		}
+	</style>
+</html>
+
+<script>
+    
+    bIsInLoading = false
+    bWhileFocused = false
+
+    function reload(){
+        if(bIsInLoading == false){
+            location.reload();
+        }
+    }
+
+    setTimeout(function() {
+        if(bWhileFocused){
+            reload();
+        }else{
+            console.log("while input disable reload")
+        }
+    }, 10000);
+
+    function while_onfocus()
+    {
+        //alert("while reload")
+        bWhileFocused = true;
+    }
+
+
+    function reboot(serverid){
+        var reboot_time = document.getElementById("reboottime"+serverid).value;
+        var timestamp = 0
+        if(reboot_time != "2023-05-17 19:13:37"){
+            timestamp = Date.parse(reboot_time)/1000;
+        }
+
+        bIsInLoading = true
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // 处理响应数据
+                
+            }
+            bIsInLoading = false
+        }
+        xhr.open("GET", "/reboot?serverid="+serverid+"&starttime="+timestamp, true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send();
+    }
+
+    function new_reboot(serverid){
+        bIsInLoading = true
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // 处理响应数据
+            }
+            bIsInLoading = false
+        }
+        xhr.open("GET", "/get_new_reboot?serverid="+serverid, true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send();
+    }
+
+</script>

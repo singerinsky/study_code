@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tabbed Content</title>
+    <style>
+        .tab-group {
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        .tab-group .tab {
+            display: inline-block;
+            background-color: #eee;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 3px 3px 0 0;
+            margin-right: 4px;
+        }
+        .tab-group .tab.active {
+            background-color: #093a1f;
+            border-bottom: none;
+        }
+        .tab-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 0 3px 3px 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="tab-group">
+        <div class="tab active" data-url="http://10.94.28.13:8081/checklua_master">Master</div>
+        <div class="tab" data-url="http://10.94.28.13:8081/checklua_bugfix">BugFix0718</div>
+        <div class="tab" data-url="http://10.94.28.13:8081/checklua_mirror">Mirror0531</div>
+        <div class="tab" data-url="http://10.94.28.13:8081/checklua_0531">0531</div>
+    </div>
+    <div class="tab-content"></div>
+
+    <script>
+        var tabs = document.querySelectorAll('.tab');
+        var content = document.querySelector('.tab-content');
+
+        function setActiveTab(tab) {
+            // Remove active class from all tabs
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+
+            // Add active class to selected tab
+            tab.classList.add('active');
+
+            // Load content from URL provided by data attribute
+            var url = tab.getAttribute('data-url');
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    content.innerHTML = xhr.responseText;
+                }
+                else {
+                    console.log('Error loading content');
+                }
+            };
+            xhr.send();
+        }
+
+        for (var i = 0; i < tabs.length; i++) {
+            tabs[i].addEventListener('click', function() {
+                setActiveTab(this);
+            });
+        }
+
+        // Set initial active tab
+        setActiveTab(tabs[0]);
+    </script>
+</body>
+</html>

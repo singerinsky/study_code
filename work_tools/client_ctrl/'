@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>服务器列表</title>
+    </head>
+    <body>
+        <h1>server list</h1>
+        {{range .Serverlist}}
+        <span>
+            <p>{{.}}</p>
+            <input type=button value="重启" onclick="reboot({{.}})"/>
+        </span>
+        {{end}}
+    </body>
+</html>
+
+<script>
+    function reboot(serverid){
+        alert(serverid)
+    }
+
+</script>
