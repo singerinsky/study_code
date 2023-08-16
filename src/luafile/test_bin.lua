@@ -8,7 +8,7 @@ end
 
 print(get_flag(2,2))
 
-local eIndexFlagName
+local eIndexFlagName =
 {
     IndexName = 1,
     IndexAge = 2,

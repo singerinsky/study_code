@@ -82,3 +82,11 @@ TEST(Test20, cbegin) {
   const std::vector<DataForCbegin>::iterator itr_one = vec.begin();
   LOG(INFO) << itr_one->id;
 }
+
+TEST(Test20, unique_ptr_001) {
+  using FunDel = std::function<void(int *)>;
+  std::unique_ptr<int, FunDel> ptr(new int(1), [](int *p) {
+    LOG(INFO) << "delete p";
+    LOG(INFO) << *p;
+  });
+}
