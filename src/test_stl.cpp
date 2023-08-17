@@ -72,19 +72,25 @@ struct DataForCbegin {
   int id = 0;
 };
 
+// 在vector上使用cbegin()函数的测试
 TEST(Test20, cbegin) {
-  std::vector<DataForCbegin> vec = {{
-                                        1,
-                                    },
-                                    {2}};
+  // 创建一个vector，并初始化两个元素
+  std::vector<DataForCbegin> vec = {{1}, {2}};
+
+  // 使用cbegin()获取vector的const_iterator
   std::vector<DataForCbegin>::const_iterator itr = vec.begin();
-  LOG(INFO) << itr->id;
+  LOG(INFO) << itr->id; // 输出第一个元素的id
+
+  // 使用cbegin()获取vector的iterator，并将其声明为const iterator
   const std::vector<DataForCbegin>::iterator itr_one = vec.begin();
-  LOG(INFO) << itr_one->id;
+  LOG(INFO) << itr_one->id; // 输出第一个元素的id
 }
 
+// 使用std::unique_ptr的测试
 TEST(Test20, unique_ptr_001) {
+  // 定义一个函数对象FunDel，用作std::unique_ptr的删除器
   using FunDel = std::function<void(int *)>;
+  // 创建一个std::unique_ptr，并指定删除器
   std::unique_ptr<int, FunDel> ptr(new int(1), [](int *p) {
     LOG(INFO) << "delete p";
     LOG(INFO) << *p;
