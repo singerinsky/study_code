@@ -20,7 +20,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -DNDEBUG ")
 # cmake 合并编译
 SET(CMAKE_UNITY_BUILD ON)
 set(CMAKE_UNITY_BUILD_BATCH_SIZE 5)
-set(WORKING_DIRECTORY "/home/gl/workspace/study_code")
+set(WORKING_DIRECTORY "/root/workspace/study_code")
 add_definitions(-DTHREADED)
 set(CMAKE_CXX_EXTENSIONS OFF) # 开关是告诉CMake采用更加通用的编译参数，比如这个开关打开，传递给GCC的参数就会是-std=c++14 而不是-std=gnu++14
 
@@ -70,13 +70,14 @@ find_library(gtest /usr/local/lib)
 find_library(libzookeeper zookeeper ${WORKING_DIRECTORY}/libs)
 find_library(libhashtable hashtable ${WORKING_DIRECTORY}/libs)
 find_library(libuv uv ${WORKING_DIRECTORY}/libs)
+find_library(liblua lua ${WORKING_DIRECTORY}/libs)
 
 file(GLOB PROTO_SOURCES ${WORKING_DIRECTORY}/src/protofile/*.proto)
 execute_process(COMMAND sh ${WORKING_DIRECTORY}/src/protofile/gen.sh ${WORKING_DIRECTORY} ${PROTO_SOURCES})
 
 # message("${WORKING_DIRECTORY}")
 SET(EXECUTABLE_OUTPUT_PATH ${WORKING_DIRECTORY}/bin)
-SET(ALL_LIBS gtest pthread gflags glog tcmalloc zmq lua dl protobuf benchmark hookstaticlib profiler ${libzookeeper} ${libhashtable} ${libuv} ssl numa)
+SET(ALL_LIBS gtest pthread gflags glog tcmalloc zmq ${liblua} dl protobuf benchmark hookstaticlib profiler ${libzookeeper} ${libhashtable} ${libuv} ssl numa)
 
 # add_custom_target(protobuild COMMAND sh ${WORKING_DIRECTORY}/src/protofile/gen.sh ${WORKING_DIRECTORY} ${PROTO_SOURCES})
 

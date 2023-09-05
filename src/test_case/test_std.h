@@ -167,5 +167,5 @@ void quick_sort(int arr[], int left, int right)
     quick_sort(arr, left, j - 1);
     quick_sort(arr, j + 1, right);
 }
-
+ std::vector<int> get_vec_one();
 #endif // __TEST_STD_H__

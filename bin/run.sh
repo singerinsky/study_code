@@ -37,6 +37,7 @@
 #./AllCppTest --gtest_filter=Test_template.*
 #./AllCppTest --gtest_filter=TestTemplate.args_call
 #./AllCppTest --gtest_filter=BaseTest.test_initlizelist
+./AllCppTest --gtest_filter=BaseTest.ref_right
 #./AllCppTest --gtest_filter=BaseTest.test_class_forward
 #./AllCppTest --gtest_filter=OtectTest.test_03
 #-------------执行相对应的模块         --执行1000次
@@ -79,8 +80,8 @@
 #./AllCppTest --gtest_filter=TestSys.test_page_size
 #./AllCppTest --gtest_filter=BaseTest.test_check_hash
 #./AllCppTest --gtest_filter=Test_Array.point_number
-./AllCppTest --gtest_filter=LockTest.SeqLock
-./AllCppTest --gtest_filter=BaseTest.test_get_return
-./AllCppTest --gtest_filter=BaseTest.test_enable_if
+# ./AllCppTest --gtest_filter=LockTest.SeqLock
+# ./AllCppTest --gtest_filter=BaseTest.test_get_return
+# ./AllCppTest --gtest_filter=BaseTest.test_enable_if
 
 #add for pick 

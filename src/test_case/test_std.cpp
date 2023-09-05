@@ -221,3 +221,30 @@ TEST(BaseTest, test_get_return) {
   value = 1.0f;
   LOG(INFO) << value;
 }
+
+std::vector<int> get_vec_one()
+{
+  return {1};
+}
+
+TEST(BaseTest,ref_right){
+
+  auto func = []()->std::vector<int>
+  { 
+    //std::vector<int> vec= {1};
+    //return vec;
+    return {1};
+  };
+  std::vector<int>&& ref_one = get_vec_one();
+  std::vector<int>&& ref = func();
+  LOG(INFO)<<"xxxx";
+  ref.push_back(1);
+  //ref_one.push_back(1);
+  LOG(INFO)<<ref.size();
+
+
+
+  int&& int_ref = 1;
+  int_ref = 10;
+  LOG(INFO)<<int_ref;
+}
