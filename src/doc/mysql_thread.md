@@ -14,7 +14,10 @@ graph TB
     style 数据库引擎 fill:#e5e5e5,stroke:#a2a2a2,stroke-width:2px;
     style 数据 fill:#e5e5e5,stroke:#a2a2a2,stroke-width:2px;
 
-    客户端S <==客户端/服务器通讯协议==> 查询缓存-->解析器-->解析树-->预处理器-->新解析树新解析树-->查询优化器-->执行计划-->查询执行引擎    
+    IO多路复用器 == push==> 客户端socket队列
+
+    执行线程池==pop 获取会话socket==>客户端socket队列
+
     查询执行引擎<==缓存结果==>查询缓存
     查询执行引擎<==API接口查询==>数据库引擎<-->数据
     查询执行引擎-->结果-->客户端
