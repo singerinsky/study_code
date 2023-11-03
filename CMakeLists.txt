@@ -72,13 +72,14 @@ find_library(libhashtable hashtable ${WORKING_DIRECTORY}/libs)
 find_library(libuv uv ${WORKING_DIRECTORY}/libs)
 find_library(liblua lua ${WORKING_DIRECTORY}/libs)
 find_library(libmysqlclient mysqlclient ${WORKING_DIRECTORY}/libs)
+find_library(libprotobuf protobuf ${WORKING_DIRECTORY}/libs})
 
 file(GLOB PROTO_SOURCES ${WORKING_DIRECTORY}/src/protofile/*.proto)
 execute_process(COMMAND sh ${WORKING_DIRECTORY}/src/protofile/gen.sh ${WORKING_DIRECTORY} ${PROTO_SOURCES})
 
 # message("${WORKING_DIRECTORY}")
 SET(EXECUTABLE_OUTPUT_PATH ${WORKING_DIRECTORY}/bin)
-SET(ALL_LIBS gtest pthread gflags glog tcmalloc zmq ${liblua} dl protobuf benchmark hookstaticlib profiler ${libzookeeper} ${libhashtable} ${libuv} crypto ssl numa ${libmysqlclient})
+SET(ALL_LIBS gtest pthread gflags glog tcmalloc zmq ${liblua} dl ${libprotobuf} benchmark hookstaticlib profiler ${libzookeeper} ${libhashtable} ${libuv} crypto ssl numa ${libmysqlclient})
 
 # add_custom_target(protobuild COMMAND sh ${WORKING_DIRECTORY}/src/protofile/gen.sh ${WORKING_DIRECTORY} ${PROTO_SOURCES})
 
@@ -90,6 +91,7 @@ add_subdirectory(src/cpp_proto messagelib)
 find_library(libmessagelib messagelib ${WORKING_DIRECTORY}/libs)
 
 SET(MESSAGE_LIB messagelib)
+
 
 add_subdirectory(src)
 

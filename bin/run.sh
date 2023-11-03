@@ -37,7 +37,7 @@
 #./AllCppTest --gtest_filter=Test_template.*
 #./AllCppTest --gtest_filter=TestTemplate.args_call
 #./AllCppTest --gtest_filter=BaseTest.test_initlizelist
-./AllCppTest --gtest_filter=BaseTest.ref_right
+#./AllCppTest --gtest_filter=BaseTest.ref_right
 #./AllCppTest --gtest_filter=BaseTest.test_class_forward
 #./AllCppTest --gtest_filter=OtectTest.test_03
 #-------------执行相对应的模块         --执行1000次
@@ -89,5 +89,8 @@
 #./AllCppTest --gtest_filter=BaseTest.test_enable_if
 #./AllCppTest --gtest_filter=Test20.unique_ptr_001
 #./AllCppTest --gtest_filter=Test_template.test_bool_and_int
-./AllCppTest --gtest_filter=MysqlTest.test001
+#./AllCppTest --gtest_filter=MysqlTest.test001
+./AllCppTest --gtest_filter=LuaTest.test_mem
+
+
 #add for pick 
