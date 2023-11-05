@@ -24,4 +24,10 @@ function __G__TRACKBACK__(msg)
     print(debug.traceback())
     print("----------------------------------------")
 end
+
+function DumpLuaMem()
+    print(collectgarbage("count"))--打印当前的内存使用情况
+end
+print("init define....!")
+
 -- debug.sethook(__debug_info,"c")

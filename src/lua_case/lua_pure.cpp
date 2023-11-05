@@ -37,16 +37,25 @@ void test_mem() {
     LOG(ERROR) << " lua state is null!";
     return;
   }
+
+  // lua_setglobal(L, 0);
+  lua_getglobal(L, "DumpLuaMem");
+  if (lua_isfunction(L, -1)) {
+    lua_pcall(L, 0, 0, 0);
+  }
+
   for (int i = 1; i < 100; i++) {
-    ::sleep(1);
-    for (int i = 1; i < 1000000; i++) {
+    usleep(100000);
+    for (int j = 1; j < 100; j++) {
+      LOG(INFO) << "push int size:" << 100 * i + j;
       lua_pushinteger(L, 100);
     }
 
-    // lua_getglobal(L, function_name);
-    // if (lua_isfunction(state, -1)) {
-    //   lua_pcall(state, 0, 1, 0);
+    // lua_getglobal(L, "DumpLuaMem");
+    // if (lua_isfunction(L, -1)) {
+    //   lua_pcall(L, 0, 0, 0);
     // }
+    // lua_setglobal(L, 0);
   }
 }
 

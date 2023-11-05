@@ -120,7 +120,6 @@ lua_State *init_lua_state() {
 
   for (auto file_str : custom_lua_file) {
     std::string strFilePath = buffDir;
-    LOG(INFO) << "word dir: " << strFilePath;
     strFilePath.append(file_str);
     int ret = luaL_dofile(L, strFilePath.c_str());
     if (ret) {
