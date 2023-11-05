@@ -1,23 +1,27 @@
 # Mysql语句执行流程
 
+
 ```mermaid
 graph TB
-    style 客户端 fill:#e2f8ff,stroke:#3591cd,stroke-width:2px;
-    style 查询缓存 fill:#d3f0ef,stroke:#37a593,stroke-width:2px;
+    style S fill:#e2f8ff,stroke:#3591cd,stroke-width:2px;
+
     style 解析器 fill:#f9ebdd,stroke:#cd7639,stroke-width:2px;
     style 解析树 fill:#fbe5cd,stroke:#cd7639,stroke-width:2px;
     style 预处理器 fill:#e5e5e5,stroke:#a2a2a2,stroke-width:2px;
-    style 新解析树新解析树 fill:#f7f7f7,stroke:#d9d9d9,stroke-width:2px;
+
     style 查询优化器 fill:#ffebde,stroke:#e69240,stroke-width:2px;
     style 执行计划 fill:#f6e4e1,stroke:#db799f,stroke-width:2px;
     style 查询执行引擎 fill:#e5e5e5,stroke:#a2a2a2,stroke-width:2px;
     style 数据库引擎 fill:#e5e5e5,stroke:#a2a2a2,stroke-width:2px;
-    style 数据 fill:#e5e5e5,stroke:#a2a2a2,stroke-width:2px;
+    style 数据文件 fill:#e5e5e5,stroke:#a2a2a2,stroke-width:2px;
 
-    客户端S <==客户端/服务器通讯协议==> 查询缓存-->解析器-->解析树-->预处理器-->新解析树新解析树-->查询优化器-->执行计划-->查询执行引擎    
-    查询执行引擎<==缓存结果==>查询缓存
-    查询执行引擎<==API接口查询==>数据库引擎<-->数据
-    查询执行引擎-->结果-->客户端
+    S{客户端} <==客户端/服务器通讯协议==> c{缓存管理器}
+    c-->|没有命中缓存|解析器-->解析树-->预处理器-->查询优化器-->执行计划-->查询执行引擎  
+    c-->|命中缓存|直接返回-->S  
+
+    查询执行引擎<==API接口查询==>数据库引擎<-->数据文件
+    查询执行引擎-->结果-->S
+    结果<==更新结果==>c
 
 
 ```
