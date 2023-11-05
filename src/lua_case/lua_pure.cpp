@@ -32,30 +32,33 @@ void test_01() {
 
 void test_mem() {
   lua_State *L = init_lua_state();
-
   if (L == nullptr) {
     LOG(ERROR) << " lua state is null!";
     return;
   }
-
   // lua_setglobal(L, 0);
   lua_getglobal(L, "DumpLuaMem");
   if (lua_isfunction(L, -1)) {
     lua_pcall(L, 0, 0, 0);
   }
 
-  for (int i = 1; i < 100; i++) {
-    usleep(100000);
-    for (int j = 1; j < 100; j++) {
-      LOG(INFO) << "push int size:" << 100 * i + j;
+  for (int i = 1; i < 10; i++) {
+    usleep(1000);
+    for (int j = 1; j < 10; j++) {
+
       lua_pushinteger(L, 100);
     }
-
-    // lua_getglobal(L, "DumpLuaMem");
-    // if (lua_isfunction(L, -1)) {
-    //   lua_pcall(L, 0, 0, 0);
-    // }
-    // lua_setglobal(L, 0);
+    LOG(INFO) << "push int size:" << 100 * 4;
+    if (lua_isinteger(L, -1)) {
+      LOG(INFO) << "top is integer!";
+    }
+    int stackSize = lua_gettop(L);
+    LOG(INFO) << "current stack size:" << stackSize;
+    // lua_settop(L, 0);
+  }
+  lua_getglobal(L, "DumpLuaMem");
+  if (lua_isfunction(L, -1)) {
+    lua_pcall(L, 0, 0, 0);
   }
 }
 
