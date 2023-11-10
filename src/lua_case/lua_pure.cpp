@@ -44,7 +44,7 @@ void test_mem() {
 
   for (int i = 1; i < 10; i++) {
     usleep(1000);
-    for (int j = 1; j < 10; j++) {
+    for (int j = 1; j < 40; j++) {
 
       lua_pushinteger(L, 100);
     }
@@ -55,6 +55,10 @@ void test_mem() {
     int stackSize = lua_gettop(L);
     LOG(INFO) << "current stack size:" << stackSize;
     // lua_settop(L, 0);
+    lua_getglobal(L, "DumpLuaMem");
+    if (lua_isfunction(L, -1)) {
+      lua_pcall(L, 0, 0, 0);
+    }
   }
   lua_getglobal(L, "DumpLuaMem");
   if (lua_isfunction(L, -1)) {
