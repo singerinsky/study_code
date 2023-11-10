@@ -24,6 +24,9 @@ find_file(exe_build NAMES AllCppTest PATHS .)
 # endmacro(use_precompiled_header)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${WORKING_DIRECTORY}/bin)
 add_executable(AllCppTest ${SRC_FILES} ${SRC_HEADS})
+
+link_directories(${WORKING_DIRECTORY}/library)
+
 target_link_libraries(AllCppTest ${ALL_LIBS})
 
 # add_dependencies(AllCppTest protobuild)

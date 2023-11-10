@@ -78,10 +78,7 @@ file(GLOB PROTO_SOURCES ${WORKING_DIRECTORY}/src/protofile/*.proto)
 execute_process(COMMAND sh ${WORKING_DIRECTORY}/src/protofile/gen.sh ${WORKING_DIRECTORY} ${PROTO_SOURCES})
 
 # message("${WORKING_DIRECTORY}")
-SET(EXECUTABLE_OUTPUT_PATH ${WORKING_DIRECTORY}/bin)
-SET(ALL_LIBS gtest pthread gflags glog tcmalloc zmq ${liblua} dl ${libprotobuf} benchmark hookstaticlib profiler ${libzookeeper} ${libhashtable} ${libuv} crypto ssl numa ${libmysqlclient})
-
-# add_custom_target(protobuild COMMAND sh ${WORKING_DIRECTORY}/src/protofile/gen.sh ${WORKING_DIRECTORY} ${PROTO_SOURCES})
+add_custom_target(protobuild COMMAND sh ${WORKING_DIRECTORY}/src/protofile/gen.sh ${WORKING_DIRECTORY} ${PROTO_SOURCES})
 
 # target_precompile_headers(AllCppTest PUBLIC "${WORKING_DIRECTORY}/src/header.h" PRIVATE <list> <vector> <map>)
 add_subdirectory(common_lib library)
@@ -90,8 +87,14 @@ add_subdirectory(src/cpp_proto messagelib)
 
 find_library(libmessagelib messagelib ${WORKING_DIRECTORY}/libs)
 
+link_directories(${WORKING_DIRECTORY}/library)
+
 SET(MESSAGE_LIB messagelib)
 
+SET(EXECUTABLE_OUTPUT_PATH ${WORKING_DIRECTORY}/bin)
+SET(ALL_LIBS gtest pthread gflags glog tcmalloc zmq ${liblua} dl ${libprotobuf} benchmark hookstaticlib profiler ${libzookeeper} ${libhashtable} ${libuv} crypto ssl numa ${libmysqlclient} libluatestlib.so)
+
+# 
 
 add_subdirectory(src)
 
