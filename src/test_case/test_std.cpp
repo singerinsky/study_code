@@ -248,3 +248,51 @@ TEST(BaseTest,ref_right){
   int_ref = 10;
   LOG(INFO)<<int_ref;
 }
+
+class CBaseForPtr{
+public:
+    virtual void call1(){
+        LOG(INFO)<<"base call 1!"<<endl;
+    }
+    virtual void call2(){
+        LOG(INFO)<<"base call 2!"<<endl;
+    }
+    virtual void call3(){}
+
+
+};
+
+class CSubForPtr:public CBaseForPtr {
+public:
+    void call1(){
+        LOG(INFO)<<"sub call!"<<endl;
+    }
+};
+
+TEST(BaseTest,test_ptr)
+{
+    CBaseForPtr* pBasePtr = new CBaseForPtr();
+    long* pFuncPtr = (long*)(*(long*)(pBasePtr));
+    for(int i =0;i<4;i++){
+        LOG(INFO)<<(pFuncPtr[i]);
+    }
+    typedef void(*FP)();
+    FP* p1 = (FP*)(pFuncPtr + 1);
+    (*p1)();
+
+    pBasePtr = new CSubForPtr();
+    pFuncPtr = (long*)(*(long*)(pBasePtr));
+    for(int i =0;i<4;i++){
+        LOG(INFO)<<(pFuncPtr[i]);
+    }
+    p1 = (FP*)pFuncPtr;
+    (*p1)();
+}
+
+
+
+
+
+
+
+

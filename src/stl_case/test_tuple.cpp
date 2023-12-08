@@ -24,7 +24,12 @@ constexpr auto get_initlist_ele(std::initializer_list<T>& tmp)
 {
     // static_assert(index < sizeof...(T));
     LOG(INFO) << sizeof(tmp);
-    static_assert(index < sizeof(tmp));
+    if (index >= tmp.size())
+    {
+        LOG(INFO)<<" out of range";
+        return 0;
+    }
+
     return *(tmp.begin() + index); /* return (index < tmp.size())
               ? *(tmp.begin() + index)
               : (throw std::logic_error("get index must less than size"));*/
@@ -38,9 +43,9 @@ template <typename... T> void test_initlist(std::initializer_list<T...>&& tmp)
 
 TEST(TestStd, test_tuple)
 {
-    std::tuple<int, int> two_int = {1, 2};
+    std::tuple<int, int,int> two_int = {1, 2,3};
     test_tuple(two_int);
-    auto auto_int = {1, 2, 4, 4};
+    auto auto_int = {1, 2, 4, 4,6};
     test_initlist(std::move(auto_int));
     auto i = 0;
     auto j = 0;
