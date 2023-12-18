@@ -259,6 +259,13 @@ public:
     }
     virtual void call3(){}
 
+    void SetValueI(int value){
+        valueI = value;
+    }
+private:
+protected:
+    int valueI = 1;
+    char valueC = 2;
 
 };
 
@@ -267,6 +274,15 @@ public:
     void call1(){
         LOG(INFO)<<"sub call!"<<endl;
     }
+    void SetValueD(double value){
+        valueD = value;
+    }
+
+    void Dump(){
+        LOG(INFO)<<"valued"<<valueD<<"   valueI"<<valueI<<" valueC"<<valueC;
+    }
+protected:
+    double valueD = 2.0;
 };
 
 TEST(BaseTest,test_ptr)
@@ -287,6 +303,27 @@ TEST(BaseTest,test_ptr)
     }
     p1 = (FP*)pFuncPtr;
     (*p1)();
+}
+
+TEST(BaseTest,TestAlign001)
+{
+    void * pSource = malloc(100);
+    LOG(INFO)<<pSource<<endl;
+    std::size_t alignment = 32;
+    std::size_t space = 100;
+    void* aligned_ptr = std::align(alignment, 32, pSource, space);
+    LOG(INFO)<<aligned_ptr<<endl;
+}
+
+TEST(BaseTest,TestAlign002)
+{
+    CBaseForPtr* pBase = new CBaseForPtr();
+    pBase->SetValueI(99);
+    CSubForPtr* pSub = new CSubForPtr();
+    pSub->SetValueD(999.0);
+    pBase->SetValueI(199);
+    *pSub = *(CSubForPtr*)pBase;
+    pSub->Dump();
 }
 
 

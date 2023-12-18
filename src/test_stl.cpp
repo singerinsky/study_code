@@ -1,4 +1,5 @@
 #include "test_stl.h"
+#include "algorithm/test_algorithm.h"
 #include "header.h"
 #include "util/class_sample.h"
 #include <functional>
@@ -95,4 +96,10 @@ TEST(Test20, unique_ptr_001) {
     LOG(INFO) << "delete p";
     LOG(INFO) << *p;
   });
+}
+//测试左边界查询
+TEST(test_binary_seach, test001) {
+  std::vector<float> fVec = {1.0f, 2.0f, 3.f, 4.f, 4.5f, 4.7f};
+  int dwTargetIndex = binarySearchLowerBound(fVec, 1.f);
+  LOG(INFO) << "find target:" << dwTargetIndex;
 }
