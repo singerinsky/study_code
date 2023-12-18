@@ -1,0 +1,14 @@
+{
+    "name": "C++ Launch",
+    "type": "cppdbg",
+    "request": "launch",
+    "program": "${workspaceFolder}/bin/AllCppTest",
+    "args": ["arg1", "arg2"],
+    "environment": [{ "name": "config", "value": "Debug" }],
+    "cwd": "${workspaceFolder}",
+    "launchCompleteCommand": "exec-run",
+    "linux": {
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb"
+    },
+}

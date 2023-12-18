@@ -30,7 +30,7 @@
         "type": "cppdbg",
         "request": "launch",
         "program": "${workspaceFolder}/bin/AllCppTest",
-        "args": ["--gtest_filter=MysqlTest.test001"],
+        "args": ["--gtest_filter=ThreadTest.Test001"],
         "stopAtEntry": false,
         "cwd": "${fileDirname}",
         "environment": [],
