@@ -1,9 +1,9 @@
 #include "test_algorithm.h"
 #include <algorithm>
 #include <gtest/gtest.h>
+#include <random>
 #include <string>
 #include <vector>
-#include <random>
 
 std::random_device rd;
 
