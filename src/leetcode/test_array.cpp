@@ -104,3 +104,12 @@ TEST(Test_Array, point_number) {
   ASSERT_FALSE(*(array + 1) == array[1]);
   LOG(INFO) << *(array + 1);
 }
+
+constexpr int threeadd(int x, int y) { return (x + y) * 3; }
+
+TEST(Test_constexpr, test001) {
+  LOG(INFO) << threeadd(1, 2);
+  int x = 0;
+  int y = 0;
+  LOG(INFO) << threeadd(x, y);
+}
