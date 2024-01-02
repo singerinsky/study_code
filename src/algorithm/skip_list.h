@@ -60,6 +60,7 @@ public:
       newNode->nextList[i] = update[i]->nextList[i];
       update[i]->nextList[i] = newNode;
     }
+    size_++;
   }
   //   void remove(T &value);
   bool contains(const T &value) {
@@ -77,7 +78,17 @@ public:
 
     return false;
   }
-  //   void clear();
+  void clear() {
+    SN *start = head;
+    while (start) {
+      SN *temp = start;
+      start = start->nextList[0];
+      delete temp;
+    }
+    size_ = 0;
+    level_ = 0;
+    LOG(INFO) << "do clear!";
+  }
   //   int size();
   //   void print();
 
