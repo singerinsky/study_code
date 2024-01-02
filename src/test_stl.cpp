@@ -103,3 +103,14 @@ TEST(test_binary_seach, test001) {
   int dwTargetIndex = binarySearchLowerBound(fVec, 1.f);
   LOG(INFO) << "find target:" << dwTargetIndex;
 }
+
+TEST(test_binary_seach, test002) {
+  int **p = new int *[10];
+  for (int i = 0; i < 10; i++) {
+    LOG(INFO) << p[i];
+  }
+  int **q = new int *[10]();
+  for (int i = 0; i < 10; i++) {
+    LOG(INFO) << q[i];
+  }
+}
