@@ -16,9 +16,12 @@ int MinDistanceWithLambda(const char *str1, const char *str2) {
       LOG(INFO) << str1[index_1];
       return dp_func(index_1 - 1, index_2 - 1);
     } else {
-      int value1 = dp_func(index_1, index_2 - 1) + 1;
-      int value2 = dp_func(index_1 - 1, index_2) + 1;
-      int value3 = dp_func(index_1 - 1, index_2 - 1) + 1;
+      int value1 =
+          dp_func(index_1, index_2 - 1) + 1; //删除一个str1的字符，检查是否匹配
+      int value2 =
+          dp_func(index_1 - 1, index_2) + 1; //插入一个str1的字符，检查是否匹配
+      int value3 =
+          dp_func(index_1 - 1, index_2 - 1) + 1; //选择一个str2的字符到str1
       return std::min(value1, std::min(value2, value3));
     }
   };

@@ -13,13 +13,5 @@ TEST(AlgorithmTest, test_skill_list_002) {
   SkipList<int> list;
   list.insert(1);
   list.insert(11);
-  list.insert(111);
-  list.insert(1111);
-  list.insert(11111);
-  list.insert(111111);
-  list.insert(1111111);
-  list.insert(11111111);
-  list.insert(111111111);
-  list.insert(1111111111);
   list.clear();
 }

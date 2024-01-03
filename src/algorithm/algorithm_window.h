@@ -7,6 +7,7 @@
 inline std::string SearchMinWindow(const std::string &source,
                                    const std::string &target) {
   std::map<char, int> need, window;
+  //先统计所有需要的字符的数量
   for (char c : target) {
     need[c]++;
   }
@@ -21,7 +22,7 @@ inline std::string SearchMinWindow(const std::string &source,
     right++;
     //如果是我们需要的字符
     if (need.count(c)) {
-      //更新窗口的数据
+      //更新窗口中获取的数据
       window[c]++;
       if (window[c] == need[c])
         //更新整个满足的数量

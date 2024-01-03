@@ -1,9 +1,10 @@
 #ifndef F828622B_1437_47D6_B9E2_B046A7E31627
 #define F828622B_1437_47D6_B9E2_B046A7E31627
 #include "../header.h"
+#include <cstdint>
 
-template <typename T, int MinValue = 0> struct SkipNode {
-  T value = MinValue;
+template <typename T> struct SkipNode {
+  T value;
   SkipNode<T> **nextList = nullptr;
 };
 
@@ -46,7 +47,7 @@ public:
     }
 
     int newLevel = randomLevel();
-    //如果新增节点大于现有的,要修改的节点要包括首节点
+    //如果新增节点大于现有的,要修改的节点要包括首节点,首节点要全部指向新增的层数
     if (newLevel > level_) {
       for (int i = level_ + 1; i <= newLevel; i++) {
         update[i] = head;
@@ -62,7 +63,33 @@ public:
     }
     size_++;
   }
-  //   void remove(T &value);
+  bool remove(T &value) {
+    SN *update[MaxLevel] = {};
+    SN *cur = head;
+
+    //重新找出前置节点
+    for (int i = level_; i >= 0; i--) {
+      while (cur->nextList[i] && cur->nextList[i]->value < value) {
+        cur = cur->nextList[i];
+      }
+      update[i] = cur;
+    }
+    cur = cur->nextList[0];
+
+    //如果要删除的节点不存在，则直接返回
+    if (!cur || cur->value != value) {
+      return false;
+    }
+
+    //更新前置节点的下一个节点为下下个节点
+    for (int i = 0; i <= level_; i++) {
+      if (update[i]->nextList[i] == cur) {
+        update[i]->nextList[i] = cur->nextList[i];
+      }
+    }
+    return true;
+  }
+
   bool contains(const T &value) {
     const SN *cur = head;
     for (int i = level_; i >= 0; i--) {
@@ -75,22 +102,45 @@ public:
       LOG(INFO) << "find target before:" << cur->value;
       return cur->nextList[0]->value == value;
     }
-
     return false;
   }
+
+  SN *Search(const T &t) {
+    const SN *start = head;
+    for (int i = level_; i >= 0; i--) {
+      while (start->nextList[i] && start->nextList[i]->value < t) {
+        start = start->nextList[i];
+      }
+    }
+    if (start && start->nextList[0]) {
+      if (start->nextList[0]->value == t) {
+        return start->nextList[0];
+      }
+    }
+    return nullptr;
+  }
+
   void clear() {
     SN *start = head;
+    int i = 0;
     while (start) {
       SN *temp = start;
       start = start->nextList[0];
       delete temp;
+      LOG(INFO) << "do clear!" << ++i;
     }
     size_ = 0;
     level_ = 0;
     LOG(INFO) << "do clear!";
   }
   //   int size();
-  //   void print();
+  void print() {
+    SN *start = head;
+    while (start) {
+      LOG(INFO) << start->value;
+      start = start->nextList[0];
+    }
+  }
 
 private:
   int level_ = 0;

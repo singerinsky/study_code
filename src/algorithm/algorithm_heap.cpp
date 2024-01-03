@@ -45,7 +45,7 @@ template <class T> void TraversalHeap(std::vector<T> &heap, int nStart) {
 }
 
 TEST(AlgorithmTest, test_heap) {
-  std::vector<int> arr = {9, 2, 5, 7, 1, 6, 3};
+  std::vector<int> arr = {9, 2, 5, 7, 1, 16, 3};
 
   // 构建最大堆
   buildHeap(arr);
