@@ -73,3 +73,9 @@ TEST(TestTemplate, type_traits_001) {
   auto rst = TypeJustice<decltype(purposeint)>::is_int_value();
   LOG(INFO) << "type is int" << rst;
 }
+
+template <size_t Input> constexpr size_t ten_num = 1 + ten_num<Input / 10>;
+
+template <> constexpr size_t ten_num<0> = 0;
+
+TEST(TestTemplate, constexpr_calc) { LOG(INFO) << ten_num<100001>; }
