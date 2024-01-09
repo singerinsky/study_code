@@ -7,7 +7,7 @@
 #include <gtest/gtest.h>
 #include <setjmp.h>
 
-jmp_buf env;
+static jmp_buf env;
 
 void foo() {
   int ret = setjmp(env);
