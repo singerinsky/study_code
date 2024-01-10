@@ -1,7 +1,9 @@
 #ifndef FB614393_1C69_4704_9AB7_B14334DABAA7
 #define FB614393_1C69_4704_9AB7_B14334DABAA7
 #include "algorithm_double_linklist.h"
+#include <glog/logging.h>
 #include <unordered_map>
+
 template <class T, class V> class LRUCache {
 public:
   using DL = DoubleLinkList<T, V>;
@@ -68,11 +70,14 @@ public:
     if (map_.count(t)) {
       this->DeleteKey(t);
       this->AddRecently(t, v);
+      LOG(INFO) << "Replace Key:" << t << " Set Recently Use";
       return;
     }
     if (cap_ == map_.size()) {
+      LOG(INFO) << "Reach Capacity";
       RemoveLeastRecently();
     }
+    LOG(INFO) << "Add Key:" << t << " Set Recently Use";
     this->AddRecently(t, v);
   }
 
