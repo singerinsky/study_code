@@ -1,7 +1,130 @@
 #ifndef BB3A7CD2_35A4_4592_8A1E_1C297CE30D1A
 #define BB3A7CD2_35A4_4592_8A1E_1C297CE30D1A
 
+#include <functional>
+#include <glog/logging.h>
 #include <unistd.h>
+
+template <typename K, typename T> class ListNode {
+public:
+  ListNode<K, T> *next;
+  T value_;
+  K key_;
+
+  ListNode() : next(nullptr) {
+    key_ = K();
+    value_ = T();
+  }
+
+  ListNode(K k, T t) : next(nullptr) {
+    key_ = k;
+    value_ = t;
+  }
+};
+
+template <typename K, typename T> class LinkList {
+public:
+  using LN = ListNode<K, T>;
+  LinkList() {
+    head_ = new LN(999, 999);
+    tail_ = new LN(888, 888);
+    head_->next = tail_;
+    size_ = 0;
+  }
+
+  ~LinkList() {
+    LN *pTemp = head_;
+    while (pTemp->next != tail_) {
+      LN *pNext = pTemp->next;
+      delete pTemp;
+      pTemp = pNext;
+    }
+    delete pTemp;
+    delete tail_;
+  }
+
+  void Insert(LN *pNode) {
+    pNode->next = head_->next;
+    head_->next = pNode;
+    size_++;
+  }
+
+  void Remove(LN *pNode) {
+    LN *pTemp = head_;
+    while (pTemp->next != tail_) {
+      if (pTemp->next == pNode) {
+        pTemp->next = pNode->next;
+        size_--;
+        return;
+      }
+      pTemp = pTemp->next;
+    }
+  }
+
+  LN *PopFirst() {
+    if (head_->next == tail_) {
+      return nullptr;
+    }
+    LN *pRemove = head_->next;
+    head_->next = pRemove->next;
+    size_--;
+    return pRemove;
+  }
+
+  size_t GetSize() { return size_; }
+
+  const LN *GetHead() const { return head_; }
+
+  LN *GetHead() { return head_; }
+
+  const LN *GetTail() const { return tail_; }
+
+  LN *GetTail() { return tail_; }
+
+  void Foreach(std::function<void(LN *)> func) {
+    auto *pTemp = head_;
+    while (pTemp->next != tail_) {
+      func(pTemp->next);
+      pTemp = pTemp->next;
+      sleep(1);
+    }
+  }
+
+private:
+  LN *head_;
+  LN *tail_;
+  size_t size_;
+};
+/*
+函数的实现使用了一个 lambda 函数
+_resverse，该函数接受一个链表和一个节点作为参数。如果当前节点的下一个节点就是链表的尾节点，那么就返回当前节点。否则，它会递归调用
+_resverse
+函数，将当前节点的下一个节点作为参数，并将返回的节点的下一个节点设置为当前节点，然后将当前节点的下一个节点设置为链表的尾节点。最后，它返回最后一次递归调用
+_resverse 函数的结果。
+
+在函数的最后，它创建了一个指向链表头节点的指针pLastNode，并将其设置为 _resverse
+函数的返回值，即反转后的链表的尾节点。然后，它将链表的头节点的下一个节点设置为pLastNode，完成了链表的反转。*/
+template <typename K, typename T> void ResverseLinkList(LinkList<K, T> &list) {
+  std::function<typename LinkList<K, T>::LN *(LinkList<K, T> &,
+                                              typename LinkList<K, T>::LN *)>
+      _resverse =
+          [&](LinkList<K, T> &list, typename LinkList<K, T>::LN *node_start) ->
+      typename LinkList<K, T>::LN * {
+        if (node_start->next == list.GetTail()) {
+          return node_start;
+        }
+        typename LinkList<K, T>::LN *last = _resverse(list, node_start->next);
+        node_start->next->next = node_start;
+
+        node_start->next = list.GetTail();
+
+        return last;
+      };
+  //返回的是新的头指针
+  auto *pLastNode = _resverse(list, list.GetHead()->next);
+  //设置head指向新的指针
+  list.GetHead()->next = pLastNode;
+}
 
 template <typename K, typename T> class DoubleListNode {
 public:
