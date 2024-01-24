@@ -67,7 +67,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : " -g -O0 -DNDEBUG  -g -std=c++17"
+					"fragment" : " -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17"
 				}
 			],
 			"defines" : 
@@ -125,7 +125,8 @@
 				11,
 				12,
 				13,
-				14
+				14,
+				15
 			]
 		}
 	],
@@ -142,7 +143,7 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-g -O0 -DNDEBUG  -g",
+				"fragment" : "-g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g",
 				"role" : "flags"
 			},
 			{
@@ -361,18 +362,18 @@
 				84,
 				85,
 				86,
-				87
+				87,
+				88,
+				89,
+				90,
+				91,
+				92
 			]
 		},
 		{
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				88,
-				89,
-				90,
-				91,
-				92,
 				93,
 				94,
 				95,
@@ -623,12 +624,26 @@
 				340,
 				341,
 				342,
-				343
+				343,
+				344,
+				345,
+				346,
+				347,
+				348,
+				349,
+				350,
+				351
 			]
 		}
 	],
 	"sources" : 
 	[
+		{
+			"backtrace" : 0,
+			"compileGroupIndex" : 0,
+			"path" : "build/src/CMakeFiles/AllCppTest.dir/Unity/unity_15_cxx.cxx",
+			"sourceGroupIndex" : 0
+		},
 		{
 			"backtrace" : 0,
 			"compileGroupIndex" : 0,
@@ -721,6 +736,11 @@
 		},
 		{
 			"backtrace" : 1,
+			"path" : "src/algorithm/algorithm_avl.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
 			"path" : "src/algorithm/algorithm_coin.cpp",
 			"sourceGroupIndex" : 0
 		},
@@ -746,6 +766,11 @@
 		},
 		{
 			"backtrace" : 1,
+			"path" : "src/algorithm/algorithm_lru.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
 			"path" : "src/algorithm/algorithm_max_sub_array.cpp",
 			"sourceGroupIndex" : 0
 		},
@@ -757,6 +782,16 @@
 		{
 			"backtrace" : 1,
 			"path" : "src/algorithm/algorithm_pattern.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/algorithm/algorithm_reverse_list.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/algorithm/algorithm_subset.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -1091,7 +1126,22 @@
 		},
 		{
 			"backtrace" : 1,
+			"path" : "src/algorithm/algorithm_avl.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
 			"path" : "src/algorithm/algorithm_double_linklist.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/algorithm/algorithm_lru.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/algorithm/algorithm_subset.h",
 			"sourceGroupIndex" : 1
 		},
 		{

@@ -93,7 +93,7 @@ build cmake_object_order_depends_target_luatestlib: phony || library/CMakeFiles/
 build library/CMakeFiles/luatestlib.dir/Unity/unity_0_cxx.cxx.o: CXX_COMPILER__luatestlib_unscanned_Debug /home/gl/workspace/study_code/build/library/CMakeFiles/luatestlib.dir/Unity/unity_0_cxx.cxx || cmake_object_order_depends_target_luatestlib
   DEFINES = -DTHREADED -Dluatestlib_EXPORTS
   DEP_FILE = library/CMakeFiles/luatestlib.dir/Unity/unity_0_cxx.cxx.o.d
-  FLAGS = -g -O0 -DNDEBUG  -g -std=c++17 -fPIC
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17 -fPIC
   INCLUDES = -I/home/gl/workspace/study_code/src/include -I/home/gl/workspace/study_code/src/include/lua -I/home/gl/workspace/study_code/src/include/zookeeper -I/home/gl/workspace/study_code/thirdparty -I/home/gl/workspace/study_code/message_include
   OBJECT_DIR = library/CMakeFiles/luatestlib.dir
   OBJECT_FILE_DIR = library/CMakeFiles/luatestlib.dir/Unity
@@ -107,7 +107,7 @@ build library/CMakeFiles/luatestlib.dir/Unity/unity_0_cxx.cxx.o: CXX_COMPILER__l
 # Link the shared library /home/gl/workspace/study_code/library/libluatestlib.so
 
 build /home/gl/workspace/study_code/library/libluatestlib.so: CXX_SHARED_LIBRARY_LINKER__luatestlib_Debug library/CMakeFiles/luatestlib.dir/Unity/unity_0_cxx.cxx.o
-  LANGUAGE_COMPILE_FLAGS = -g -O0 -DNDEBUG  -g
+  LANGUAGE_COMPILE_FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g
   OBJECT_DIR = library/CMakeFiles/luatestlib.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -156,7 +156,7 @@ build cmake_object_order_depends_target_hookstaticlib: phony || static_library/C
 build static_library/CMakeFiles/hookstaticlib.dir/Unity/unity_0_cxx.cxx.o: CXX_COMPILER__hookstaticlib_unscanned_Debug /home/gl/workspace/study_code/build/static_library/CMakeFiles/hookstaticlib.dir/Unity/unity_0_cxx.cxx || cmake_object_order_depends_target_hookstaticlib
   DEFINES = -DTHREADED
   DEP_FILE = static_library/CMakeFiles/hookstaticlib.dir/Unity/unity_0_cxx.cxx.o.d
-  FLAGS = -g -O0 -DNDEBUG  -g -std=c++17
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17
   INCLUDES = -I/home/gl/workspace/study_code/src/include -I/home/gl/workspace/study_code/src/include/lua -I/home/gl/workspace/study_code/src/include/zookeeper -I/home/gl/workspace/study_code/thirdparty -I/home/gl/workspace/study_code/message_include
   OBJECT_DIR = static_library/CMakeFiles/hookstaticlib.dir
   OBJECT_FILE_DIR = static_library/CMakeFiles/hookstaticlib.dir/Unity
@@ -170,7 +170,7 @@ build static_library/CMakeFiles/hookstaticlib.dir/Unity/unity_0_cxx.cxx.o: CXX_C
 # Link the static library static_library/libhookstaticlib.a
 
 build static_library/libhookstaticlib.a: CXX_STATIC_LIBRARY_LINKER__hookstaticlib_Debug static_library/CMakeFiles/hookstaticlib.dir/Unity/unity_0_cxx.cxx.o
-  LANGUAGE_COMPILE_FLAGS = -g -O0 -DNDEBUG  -g
+  LANGUAGE_COMPILE_FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g
   OBJECT_DIR = static_library/CMakeFiles/hookstaticlib.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -217,7 +217,7 @@ build cmake_object_order_depends_target_messagelib: phony || messagelib/CMakeFil
 build messagelib/CMakeFiles/messagelib.dir/Unity/unity_0_cxx.cxx.o: CXX_COMPILER__messagelib_unscanned_Debug /home/gl/workspace/study_code/build/messagelib/CMakeFiles/messagelib.dir/Unity/unity_0_cxx.cxx || cmake_object_order_depends_target_messagelib
   DEFINES = -DTHREADED
   DEP_FILE = messagelib/CMakeFiles/messagelib.dir/Unity/unity_0_cxx.cxx.o.d
-  FLAGS = -g -O0 -DNDEBUG  -g -std=c++17
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17
   INCLUDES = -I/home/gl/workspace/study_code/src/include -I/home/gl/workspace/study_code/src/include/lua -I/home/gl/workspace/study_code/src/include/zookeeper -I/home/gl/workspace/study_code/thirdparty -I/home/gl/workspace/study_code/message_include
   OBJECT_DIR = messagelib/CMakeFiles/messagelib.dir
   OBJECT_FILE_DIR = messagelib/CMakeFiles/messagelib.dir/Unity
@@ -231,7 +231,7 @@ build messagelib/CMakeFiles/messagelib.dir/Unity/unity_0_cxx.cxx.o: CXX_COMPILER
 # Link the static library /home/gl/workspace/study_code/libs/libmessagelib.a
 
 build /home/gl/workspace/study_code/libs/libmessagelib.a: CXX_STATIC_LIBRARY_LINKER__messagelib_Debug messagelib/CMakeFiles/messagelib.dir/Unity/unity_0_cxx.cxx.o
-  LANGUAGE_COMPILE_FLAGS = -g -O0 -DNDEBUG  -g
+  LANGUAGE_COMPILE_FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g
   OBJECT_DIR = messagelib/CMakeFiles/messagelib.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -275,10 +275,18 @@ build messagelib/rebuild_cache: phony messagelib/CMakeFiles/rebuild_cache.util
 
 build cmake_object_order_depends_target_AllCppTest: phony || cmake_object_order_depends_target_hookstaticlib
 
+build src/CMakeFiles/AllCppTest.dir/Unity/unity_15_cxx.cxx.o: CXX_COMPILER__AllCppTest_unscanned_Debug /home/gl/workspace/study_code/build/src/CMakeFiles/AllCppTest.dir/Unity/unity_15_cxx.cxx || cmake_object_order_depends_target_AllCppTest
+  DEFINES = -DTHREADED
+  DEP_FILE = src/CMakeFiles/AllCppTest.dir/Unity/unity_15_cxx.cxx.o.d
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17
+  INCLUDES = -I/home/gl/workspace/study_code/src/include -I/home/gl/workspace/study_code/src/include/lua -I/home/gl/workspace/study_code/src/include/zookeeper -I/home/gl/workspace/study_code/thirdparty -I/home/gl/workspace/study_code/message_include
+  OBJECT_DIR = src/CMakeFiles/AllCppTest.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/AllCppTest.dir/Unity
+
 build src/CMakeFiles/AllCppTest.dir/Unity/unity_14_cxx.cxx.o: CXX_COMPILER__AllCppTest_unscanned_Debug /home/gl/workspace/study_code/build/src/CMakeFiles/AllCppTest.dir/Unity/unity_14_cxx.cxx || cmake_object_order_depends_target_AllCppTest
   DEFINES = -DTHREADED
   DEP_FILE = src/CMakeFiles/AllCppTest.dir/Unity/unity_14_cxx.cxx.o.d
-  FLAGS = -g -O0 -DNDEBUG  -g -std=c++17
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17
   INCLUDES = -I/home/gl/workspace/study_code/src/include -I/home/gl/workspace/study_code/src/include/lua -I/home/gl/workspace/study_code/src/include/zookeeper -I/home/gl/workspace/study_code/thirdparty -I/home/gl/workspace/study_code/message_include
   OBJECT_DIR = src/CMakeFiles/AllCppTest.dir
   OBJECT_FILE_DIR = src/CMakeFiles/AllCppTest.dir/Unity
@@ -286,7 +294,7 @@ build src/CMakeFiles/AllCppTest.dir/Unity/unity_14_cxx.cxx.o: CXX_COMPILER__AllC
 build src/CMakeFiles/AllCppTest.dir/Unity/unity_13_cxx.cxx.o: CXX_COMPILER__AllCppTest_unscanned_Debug /home/gl/workspace/study_code/build/src/CMakeFiles/AllCppTest.dir/Unity/unity_13_cxx.cxx || cmake_object_order_depends_target_AllCppTest
   DEFINES = -DTHREADED
   DEP_FILE = src/CMakeFiles/AllCppTest.dir/Unity/unity_13_cxx.cxx.o.d
-  FLAGS = -g -O0 -DNDEBUG  -g -std=c++17
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17
   INCLUDES = -I/home/gl/workspace/study_code/src/include -I/home/gl/workspace/study_code/src/include/lua -I/home/gl/workspace/study_code/src/include/zookeeper -I/home/gl/workspace/study_code/thirdparty -I/home/gl/workspace/study_code/message_include
   OBJECT_DIR = src/CMakeFiles/AllCppTest.dir
   OBJECT_FILE_DIR = src/CMakeFiles/AllCppTest.dir/Unity
@@ -294,7 +302,7 @@ build src/CMakeFiles/AllCppTest.dir/Unity/unity_13_cxx.cxx.o: CXX_COMPILER__AllC
 build src/CMakeFiles/AllCppTest.dir/Unity/unity_12_cxx.cxx.o: CXX_COMPILER__AllCppTest_unscanned_Debug /home/gl/workspace/study_code/build/src/CMakeFiles/AllCppTest.dir/Unity/unity_12_cxx.cxx || cmake_object_order_depends_target_AllCppTest
   DEFINES = -DTHREADED
   DEP_FILE = src/CMakeFiles/AllCppTest.dir/Unity/unity_12_cxx.cxx.o.d
-  FLAGS = -g -O0 -DNDEBUG  -g -std=c++17
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17
   INCLUDES = -I/home/gl/workspace/study_code/src/include -I/home/gl/workspace/study_code/src/include/lua -I/home/gl/workspace/study_code/src/include/zookeeper -I/home/gl/workspace/study_code/thirdparty -I/home/gl/workspace/study_code/message_include
   OBJECT_DIR = src/CMakeFiles/AllCppTest.dir
   OBJECT_FILE_DIR = src/CMakeFiles/AllCppTest.dir/Unity
@@ -302,7 +310,7 @@ build src/CMakeFiles/AllCppTest.dir/Unity/unity_12_cxx.cxx.o: CXX_COMPILER__AllC
 build src/CMakeFiles/AllCppTest.dir/Unity/unity_11_cxx.cxx.o: CXX_COMPILER__AllCppTest_unscanned_Debug /home/gl/workspace/study_code/build/src/CMakeFiles/AllCppTest.dir/Unity/unity_11_cxx.cxx || cmake_object_order_depends_target_AllCppTest
   DEFINES = -DTHREADED
   DEP_FILE = src/CMakeFiles/AllCppTest.dir/Unity/unity_11_cxx.cxx.o.d
-  FLAGS = -g -O0 -DNDEBUG  -g -std=c++17
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17
   INCLUDES = -I/home/gl/workspace/study_code/src/include -I/home/gl/workspace/study_code/src/include/lua -I/home/gl/workspace/study_code/src/include/zookeeper -I/home/gl/workspace/study_code/thirdparty -I/home/gl/workspace/study_code/message_include
   OBJECT_DIR = src/CMakeFiles/AllCppTest.dir
   OBJECT_FILE_DIR = src/CMakeFiles/AllCppTest.dir/Unity
@@ -310,7 +318,7 @@ build src/CMakeFiles/AllCppTest.dir/Unity/unity_11_cxx.cxx.o: CXX_COMPILER__AllC
 build src/CMakeFiles/AllCppTest.dir/Unity/unity_10_cxx.cxx.o: CXX_COMPILER__AllCppTest_unscanned_Debug /home/gl/workspace/study_code/build/src/CMakeFiles/AllCppTest.dir/Unity/unity_10_cxx.cxx || cmake_object_order_depends_target_AllCppTest
   DEFINES = -DTHREADED
   DEP_FILE = src/CMakeFiles/AllCppTest.dir/Unity/unity_10_cxx.cxx.o.d
-  FLAGS = -g -O0 -DNDEBUG  -g -std=c++17
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17
   INCLUDES = -I/home/gl/workspace/study_code/src/include -I/home/gl/workspace/study_code/src/include/lua -I/home/gl/workspace/study_code/src/include/zookeeper -I/home/gl/workspace/study_code/thirdparty -I/home/gl/workspace/study_code/message_include
   OBJECT_DIR = src/CMakeFiles/AllCppTest.dir
   OBJECT_FILE_DIR = src/CMakeFiles/AllCppTest.dir/Unity
@@ -318,7 +326,7 @@ build src/CMakeFiles/AllCppTest.dir/Unity/unity_10_cxx.cxx.o: CXX_COMPILER__AllC
 build src/CMakeFiles/AllCppTest.dir/Unity/unity_9_cxx.cxx.o: CXX_COMPILER__AllCppTest_unscanned_Debug /home/gl/workspace/study_code/build/src/CMakeFiles/AllCppTest.dir/Unity/unity_9_cxx.cxx || cmake_object_order_depends_target_AllCppTest
   DEFINES = -DTHREADED
   DEP_FILE = src/CMakeFiles/AllCppTest.dir/Unity/unity_9_cxx.cxx.o.d
-  FLAGS = -g -O0 -DNDEBUG  -g -std=c++17
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17
   INCLUDES = -I/home/gl/workspace/study_code/src/include -I/home/gl/workspace/study_code/src/include/lua -I/home/gl/workspace/study_code/src/include/zookeeper -I/home/gl/workspace/study_code/thirdparty -I/home/gl/workspace/study_code/message_include
   OBJECT_DIR = src/CMakeFiles/AllCppTest.dir
   OBJECT_FILE_DIR = src/CMakeFiles/AllCppTest.dir/Unity
@@ -326,7 +334,7 @@ build src/CMakeFiles/AllCppTest.dir/Unity/unity_9_cxx.cxx.o: CXX_COMPILER__AllCp
 build src/CMakeFiles/AllCppTest.dir/Unity/unity_8_cxx.cxx.o: CXX_COMPILER__AllCppTest_unscanned_Debug /home/gl/workspace/study_code/build/src/CMakeFiles/AllCppTest.dir/Unity/unity_8_cxx.cxx || cmake_object_order_depends_target_AllCppTest
   DEFINES = -DTHREADED
   DEP_FILE = src/CMakeFiles/AllCppTest.dir/Unity/unity_8_cxx.cxx.o.d
-  FLAGS = -g -O0 -DNDEBUG  -g -std=c++17
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17
   INCLUDES = -I/home/gl/workspace/study_code/src/include -I/home/gl/workspace/study_code/src/include/lua -I/home/gl/workspace/study_code/src/include/zookeeper -I/home/gl/workspace/study_code/thirdparty -I/home/gl/workspace/study_code/message_include
   OBJECT_DIR = src/CMakeFiles/AllCppTest.dir
   OBJECT_FILE_DIR = src/CMakeFiles/AllCppTest.dir/Unity
@@ -334,7 +342,7 @@ build src/CMakeFiles/AllCppTest.dir/Unity/unity_8_cxx.cxx.o: CXX_COMPILER__AllCp
 build src/CMakeFiles/AllCppTest.dir/Unity/unity_7_cxx.cxx.o: CXX_COMPILER__AllCppTest_unscanned_Debug /home/gl/workspace/study_code/build/src/CMakeFiles/AllCppTest.dir/Unity/unity_7_cxx.cxx || cmake_object_order_depends_target_AllCppTest
   DEFINES = -DTHREADED
   DEP_FILE = src/CMakeFiles/AllCppTest.dir/Unity/unity_7_cxx.cxx.o.d
-  FLAGS = -g -O0 -DNDEBUG  -g -std=c++17
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17
   INCLUDES = -I/home/gl/workspace/study_code/src/include -I/home/gl/workspace/study_code/src/include/lua -I/home/gl/workspace/study_code/src/include/zookeeper -I/home/gl/workspace/study_code/thirdparty -I/home/gl/workspace/study_code/message_include
   OBJECT_DIR = src/CMakeFiles/AllCppTest.dir
   OBJECT_FILE_DIR = src/CMakeFiles/AllCppTest.dir/Unity
@@ -342,7 +350,7 @@ build src/CMakeFiles/AllCppTest.dir/Unity/unity_7_cxx.cxx.o: CXX_COMPILER__AllCp
 build src/CMakeFiles/AllCppTest.dir/Unity/unity_6_cxx.cxx.o: CXX_COMPILER__AllCppTest_unscanned_Debug /home/gl/workspace/study_code/build/src/CMakeFiles/AllCppTest.dir/Unity/unity_6_cxx.cxx || cmake_object_order_depends_target_AllCppTest
   DEFINES = -DTHREADED
   DEP_FILE = src/CMakeFiles/AllCppTest.dir/Unity/unity_6_cxx.cxx.o.d
-  FLAGS = -g -O0 -DNDEBUG  -g -std=c++17
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17
   INCLUDES = -I/home/gl/workspace/study_code/src/include -I/home/gl/workspace/study_code/src/include/lua -I/home/gl/workspace/study_code/src/include/zookeeper -I/home/gl/workspace/study_code/thirdparty -I/home/gl/workspace/study_code/message_include
   OBJECT_DIR = src/CMakeFiles/AllCppTest.dir
   OBJECT_FILE_DIR = src/CMakeFiles/AllCppTest.dir/Unity
@@ -350,7 +358,7 @@ build src/CMakeFiles/AllCppTest.dir/Unity/unity_6_cxx.cxx.o: CXX_COMPILER__AllCp
 build src/CMakeFiles/AllCppTest.dir/Unity/unity_5_cxx.cxx.o: CXX_COMPILER__AllCppTest_unscanned_Debug /home/gl/workspace/study_code/build/src/CMakeFiles/AllCppTest.dir/Unity/unity_5_cxx.cxx || cmake_object_order_depends_target_AllCppTest
   DEFINES = -DTHREADED
   DEP_FILE = src/CMakeFiles/AllCppTest.dir/Unity/unity_5_cxx.cxx.o.d
-  FLAGS = -g -O0 -DNDEBUG  -g -std=c++17
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17
   INCLUDES = -I/home/gl/workspace/study_code/src/include -I/home/gl/workspace/study_code/src/include/lua -I/home/gl/workspace/study_code/src/include/zookeeper -I/home/gl/workspace/study_code/thirdparty -I/home/gl/workspace/study_code/message_include
   OBJECT_DIR = src/CMakeFiles/AllCppTest.dir
   OBJECT_FILE_DIR = src/CMakeFiles/AllCppTest.dir/Unity
@@ -358,7 +366,7 @@ build src/CMakeFiles/AllCppTest.dir/Unity/unity_5_cxx.cxx.o: CXX_COMPILER__AllCp
 build src/CMakeFiles/AllCppTest.dir/Unity/unity_4_cxx.cxx.o: CXX_COMPILER__AllCppTest_unscanned_Debug /home/gl/workspace/study_code/build/src/CMakeFiles/AllCppTest.dir/Unity/unity_4_cxx.cxx || cmake_object_order_depends_target_AllCppTest
   DEFINES = -DTHREADED
   DEP_FILE = src/CMakeFiles/AllCppTest.dir/Unity/unity_4_cxx.cxx.o.d
-  FLAGS = -g -O0 -DNDEBUG  -g -std=c++17
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17
   INCLUDES = -I/home/gl/workspace/study_code/src/include -I/home/gl/workspace/study_code/src/include/lua -I/home/gl/workspace/study_code/src/include/zookeeper -I/home/gl/workspace/study_code/thirdparty -I/home/gl/workspace/study_code/message_include
   OBJECT_DIR = src/CMakeFiles/AllCppTest.dir
   OBJECT_FILE_DIR = src/CMakeFiles/AllCppTest.dir/Unity
@@ -366,7 +374,7 @@ build src/CMakeFiles/AllCppTest.dir/Unity/unity_4_cxx.cxx.o: CXX_COMPILER__AllCp
 build src/CMakeFiles/AllCppTest.dir/Unity/unity_3_cxx.cxx.o: CXX_COMPILER__AllCppTest_unscanned_Debug /home/gl/workspace/study_code/build/src/CMakeFiles/AllCppTest.dir/Unity/unity_3_cxx.cxx || cmake_object_order_depends_target_AllCppTest
   DEFINES = -DTHREADED
   DEP_FILE = src/CMakeFiles/AllCppTest.dir/Unity/unity_3_cxx.cxx.o.d
-  FLAGS = -g -O0 -DNDEBUG  -g -std=c++17
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17
   INCLUDES = -I/home/gl/workspace/study_code/src/include -I/home/gl/workspace/study_code/src/include/lua -I/home/gl/workspace/study_code/src/include/zookeeper -I/home/gl/workspace/study_code/thirdparty -I/home/gl/workspace/study_code/message_include
   OBJECT_DIR = src/CMakeFiles/AllCppTest.dir
   OBJECT_FILE_DIR = src/CMakeFiles/AllCppTest.dir/Unity
@@ -374,7 +382,7 @@ build src/CMakeFiles/AllCppTest.dir/Unity/unity_3_cxx.cxx.o: CXX_COMPILER__AllCp
 build src/CMakeFiles/AllCppTest.dir/Unity/unity_2_cxx.cxx.o: CXX_COMPILER__AllCppTest_unscanned_Debug /home/gl/workspace/study_code/build/src/CMakeFiles/AllCppTest.dir/Unity/unity_2_cxx.cxx || cmake_object_order_depends_target_AllCppTest
   DEFINES = -DTHREADED
   DEP_FILE = src/CMakeFiles/AllCppTest.dir/Unity/unity_2_cxx.cxx.o.d
-  FLAGS = -g -O0 -DNDEBUG  -g -std=c++17
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17
   INCLUDES = -I/home/gl/workspace/study_code/src/include -I/home/gl/workspace/study_code/src/include/lua -I/home/gl/workspace/study_code/src/include/zookeeper -I/home/gl/workspace/study_code/thirdparty -I/home/gl/workspace/study_code/message_include
   OBJECT_DIR = src/CMakeFiles/AllCppTest.dir
   OBJECT_FILE_DIR = src/CMakeFiles/AllCppTest.dir/Unity
@@ -382,7 +390,7 @@ build src/CMakeFiles/AllCppTest.dir/Unity/unity_2_cxx.cxx.o: CXX_COMPILER__AllCp
 build src/CMakeFiles/AllCppTest.dir/Unity/unity_1_cxx.cxx.o: CXX_COMPILER__AllCppTest_unscanned_Debug /home/gl/workspace/study_code/build/src/CMakeFiles/AllCppTest.dir/Unity/unity_1_cxx.cxx || cmake_object_order_depends_target_AllCppTest
   DEFINES = -DTHREADED
   DEP_FILE = src/CMakeFiles/AllCppTest.dir/Unity/unity_1_cxx.cxx.o.d
-  FLAGS = -g -O0 -DNDEBUG  -g -std=c++17
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17
   INCLUDES = -I/home/gl/workspace/study_code/src/include -I/home/gl/workspace/study_code/src/include/lua -I/home/gl/workspace/study_code/src/include/zookeeper -I/home/gl/workspace/study_code/thirdparty -I/home/gl/workspace/study_code/message_include
   OBJECT_DIR = src/CMakeFiles/AllCppTest.dir
   OBJECT_FILE_DIR = src/CMakeFiles/AllCppTest.dir/Unity
@@ -390,7 +398,7 @@ build src/CMakeFiles/AllCppTest.dir/Unity/unity_1_cxx.cxx.o: CXX_COMPILER__AllCp
 build src/CMakeFiles/AllCppTest.dir/Unity/unity_0_cxx.cxx.o: CXX_COMPILER__AllCppTest_unscanned_Debug /home/gl/workspace/study_code/build/src/CMakeFiles/AllCppTest.dir/Unity/unity_0_cxx.cxx || cmake_object_order_depends_target_AllCppTest
   DEFINES = -DTHREADED
   DEP_FILE = src/CMakeFiles/AllCppTest.dir/Unity/unity_0_cxx.cxx.o.d
-  FLAGS = -g -O0 -DNDEBUG  -g -std=c++17
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17
   INCLUDES = -I/home/gl/workspace/study_code/src/include -I/home/gl/workspace/study_code/src/include/lua -I/home/gl/workspace/study_code/src/include/zookeeper -I/home/gl/workspace/study_code/thirdparty -I/home/gl/workspace/study_code/message_include
   OBJECT_DIR = src/CMakeFiles/AllCppTest.dir
   OBJECT_FILE_DIR = src/CMakeFiles/AllCppTest.dir/Unity
@@ -403,8 +411,8 @@ build src/CMakeFiles/AllCppTest.dir/Unity/unity_0_cxx.cxx.o: CXX_COMPILER__AllCp
 #############################################
 # Link the executable /home/gl/workspace/study_code/bin/AllCppTest
 
-build /home/gl/workspace/study_code/bin/AllCppTest: CXX_EXECUTABLE_LINKER__AllCppTest_Debug src/CMakeFiles/AllCppTest.dir/Unity/unity_14_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_13_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_12_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_11_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_10_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_9_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_8_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_7_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_6_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_5_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_4_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_3_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_2_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_1_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_0_cxx.cxx.o | /home/gl/workspace/study_code/libs/liblua.a /usr/local/lib/libprotobuf.so static_library/libhookstaticlib.a /home/gl/workspace/study_code/libs/libzookeeper.a /home/gl/workspace/study_code/libs/libhashtable.a /usr/lib/x86_64-linux-gnu/libuv.so /home/gl/workspace/study_code/libs/libmysqlclient.a || static_library/libhookstaticlib.a
-  FLAGS = -g -O0 -DNDEBUG  -g
+build /home/gl/workspace/study_code/bin/AllCppTest: CXX_EXECUTABLE_LINKER__AllCppTest_Debug src/CMakeFiles/AllCppTest.dir/Unity/unity_15_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_14_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_13_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_12_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_11_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_10_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_9_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_8_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_7_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_6_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_5_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_4_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_3_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_2_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_1_cxx.cxx.o src/CMakeFiles/AllCppTest.dir/Unity/unity_0_cxx.cxx.o | /home/gl/workspace/study_code/libs/liblua.a /usr/local/lib/libprotobuf.so static_library/libhookstaticlib.a /home/gl/workspace/study_code/libs/libzookeeper.a /home/gl/workspace/study_code/libs/libhashtable.a /usr/lib/x86_64-linux-gnu/libuv.so /home/gl/workspace/study_code/libs/libmysqlclient.a || static_library/libhookstaticlib.a
+  FLAGS = -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g
   LINK_LIBRARIES = -Wl,-rpath,/home/gl/workspace/study_code/library:/usr/local/lib  -lgtest  -lpthread  -lgflags  -lglog  -ltcmalloc  -lzmq  /home/gl/workspace/study_code/libs/liblua.a  -ldl  /usr/local/lib/libprotobuf.so  -lbenchmark  static_library/libhookstaticlib.a  -lprofiler  /home/gl/workspace/study_code/libs/libzookeeper.a  /home/gl/workspace/study_code/libs/libhashtable.a  /usr/lib/x86_64-linux-gnu/libuv.so  -lcrypto  -lssl  -lnuma  /home/gl/workspace/study_code/libs/libmysqlclient.a  -lluatestlib
   LINK_PATH = -L/home/gl/workspace/study_code/library
   OBJECT_DIR = src/CMakeFiles/AllCppTest.dir

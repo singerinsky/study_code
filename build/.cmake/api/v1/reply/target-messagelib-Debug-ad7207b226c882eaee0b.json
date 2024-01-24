@@ -1,8 +1,9 @@
 {
+	"archive" : {},
 	"artifacts" : 
 	[
 		{
-			"path" : "/home/gl/workspace/study_code/library/libluatestlib.so"
+			"path" : "/home/gl/workspace/study_code/libs/libmessagelib.a"
 		}
 	],
 	"backtrace" : 1,
@@ -16,7 +17,7 @@
 		],
 		"files" : 
 		[
-			"common_lib/CMakeLists.txt",
+			"src/cpp_proto/CMakeLists.txt",
 			"CMakeLists.txt"
 		],
 		"nodes" : 
@@ -27,7 +28,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 7,
+				"line" : 3,
 				"parent" : 0
 			},
 			{
@@ -53,7 +54,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : " -g -O0 -DNDEBUG  -g -std=c++17 -fPIC"
+					"fragment" : " -g -O0 -std=c++17 -Wall -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free  -fsanitize=address  -fno-omit-frame-pointer -DNDEBUG  -g -std=c++17"
 				}
 			],
 			"defines" : 
@@ -61,9 +62,6 @@
 				{
 					"backtrace" : 3,
 					"define" : "THREADED"
-				},
-				{
-					"define" : "luatestlib_EXPORTS"
 				}
 			],
 			"includes" : 
@@ -104,24 +102,13 @@
 			]
 		}
 	],
-	"id" : "luatestlib::@25993c7f548492bbc626",
-	"link" : 
-	{
-		"commandFragments" : 
-		[
-			{
-				"fragment" : "",
-				"role" : "flags"
-			}
-		],
-		"language" : "CXX"
-	},
-	"name" : "luatestlib",
-	"nameOnDisk" : "libluatestlib.so",
+	"id" : "messagelib::@b9b8411fba22e7db0263",
+	"name" : "messagelib",
+	"nameOnDisk" : "libmessagelib.a",
 	"paths" : 
 	{
-		"build" : "library",
-		"source" : "common_lib"
+		"build" : "messagelib",
+		"source" : "src/cpp_proto"
 	},
 	"sourceGroups" : 
 	[
@@ -130,8 +117,7 @@
 			"sourceIndexes" : 
 			[
 				0,
-				2,
-				3
+				2
 			]
 		},
 		{
@@ -145,7 +131,7 @@
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				4
+				3
 			]
 		}
 	],
@@ -154,29 +140,24 @@
 		{
 			"backtrace" : 0,
 			"compileGroupIndex" : 0,
-			"path" : "build/library/CMakeFiles/luatestlib.dir/Unity/unity_0_cxx.cxx",
+			"path" : "build/messagelib/CMakeFiles/messagelib.dir/Unity/unity_0_cxx.cxx",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "common_lib/CMakeLists.txt",
+			"path" : "src/cpp_proto/CMakeLists.txt",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
-			"path" : "common_lib/common.cpp",
+			"path" : "src/cpp_proto/message.pb.cc",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "common_lib/lib_cpp.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "common_lib/lib_header.h",
+			"path" : "src/cpp_proto/message.pb.h",
 			"sourceGroupIndex" : 2
 		}
 	],
-	"type" : "SHARED_LIBRARY"
+	"type" : "STATIC_LIBRARY"
 }
