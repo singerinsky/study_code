@@ -63,6 +63,10 @@ inline vector<vector<int>> combine(int n, int k) {
   return res;
 }
 
+template <class T, size_t num_size>
+void permate_track_back(std::array<T, num_size> &nums, std::set<T> &track,
+                        vector<std::set<T>> &res);
+
 template <class T, size_t num_size = 10>
 vector<std::set<T>> permate(std::array<T, num_size> &nums) {
   vector<std::set<T>> res;

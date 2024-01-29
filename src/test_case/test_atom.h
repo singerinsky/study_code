@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 
 TEST(Atom_Test, test_001) {
-  std::atomic_int* ptr_int_flag = new std::atomic_int(ATOMIC_FLAG_INIT);
+  std::atomic_int *ptr_int_flag = ATOMIC_FLAG_INIT;
   std::atomic_int int_flag = ATOMIC_FLAG_INIT;
   int_flag.store(10);
   auto future1 = std::async(std::launch::async, [&]() {

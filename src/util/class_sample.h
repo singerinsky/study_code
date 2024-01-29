@@ -16,7 +16,8 @@ public:
   SampleClass(int i) {
     static int id_index = 0;
     id_index = i;
-    LOG(INFO) << "Create New Sample Class" << id << " With Con";
+    LOG(INFO) << "Create New Sample Class" << id
+              << " With Con id_index:" << id_index;
   }
 
   ~SampleClass() { LOG(INFO) << "Release Sample Class" << id; }
