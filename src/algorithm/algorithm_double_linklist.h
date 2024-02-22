@@ -3,6 +3,7 @@
 
 #include <functional>
 #include <glog/logging.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 template <typename K, typename T> class ListNode {
@@ -126,6 +127,41 @@ template <typename K, typename T> void ResverseLinkList(LinkList<K, T> &list) {
   list.GetHead()->next = pLastNode;
 }
 
+// 反转链表
+template <typename K, typename T>
+ListNode<K, T> *_GetResverseList(ListNode<K, T> *cur, ListNode<K, T> *cur_pre) {
+  if (cur == nullptr) {
+    return cur_pre;
+  }
+  ListNode<K, T> *head_after_resvese = _GetResverseList(cur->next, cur);
+  cur->next = cur_pre;
+  return head_after_resvese;
+}
+
+// 分区链表
+template <typename K, typename T>
+ListNode<K, T> *GetPartitionList(ListNode<K, T> *header, T t) {
+  if (header == nullptr) {
+    return header;
+  }
+  ListNode<K, T> *pLarge = new ListNode<K, T>();
+  auto pLargeHeader = pLarge;
+  ListNode<K, T> *pSmall = new ListNode<K, T>();
+  auto pSmallHeader = pSmall;
+  while (header->next != nullptr) {
+    if (header->value_ < t) {
+      pSmall->next = header;
+      pSmall = pSmall->next;
+    } else {
+      pLarge->next = header;
+      pLarge = pLarge->next;
+    }
+    header = header->next;
+  }
+  pLarge->next = nullptr;
+  pSmall->next = pLargeHeader;
+  return pSmallHeader;
+}
 template <typename K, typename T> class DoubleListNode {
 public:
   DoubleListNode<K, T> *next;
