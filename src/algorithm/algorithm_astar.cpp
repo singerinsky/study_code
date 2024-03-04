@@ -40,6 +40,8 @@ struct PointCell {
 class MapAStar {
 public:
   MapAStar() {}
+
+  virtual ~MapAStar() {}
   void Init() { cells_index_.resize(width * height); }
 
   void InitCell(int index, int isblock) {
@@ -205,15 +207,14 @@ TEST_F(AStarTest, FindPath) {
   const PointCell *p1 = map->GetCell(1, 1);
   p->Dump();
   p1->Dump();
+  std::vector<int> vecPathFind;
   bool rst = map->FindPath(1, 1, 4, 4);
   if (rst) {
     while (p->parent_index != 0) {
       p->Dump();
-
+      vecPathFind.push_back(p->index);
       p = map->GetCell(p->parent_index);
     }
   }
-  const PointCell *p2 = map->GetCell(8);
-  p2->Dump();
   LOG(INFO) << "finish test";
 }
