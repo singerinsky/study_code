@@ -39,3 +39,46 @@ template <typename T> bool SeqLock<T>::Load(T &value) {
   // 判断当前版本号是否与加载时的版本号相同
   return version == mVersion;
 }
+class RWLock {
+public:
+  // 读锁加锁函数
+  void readLock() {
+    while (true) {
+      int expected = 0;
+      // 判断写锁未被占用且成功将写锁设为-1时，表示获取读锁成功
+      if (m_writerCount.load() == 0 &&
+          m_writerCount.compare_exchange_strong(expected, -1)) {
+        m_readerCount.fetch_add(1); // 读锁计数加一
+        m_writerCount.store(0);     // 释放写锁
+        break;                      // 退出循环
+      }
+      std::this_thread::sleep_for(
+          std::chrono::milliseconds(10)); // 等待10毫秒后重试
+    }
+  }
+
+  // 读锁解锁函数
+  void readUnlock() { m_readerCount.fetch_sub(1); } // 读锁计数减一
+
+  // 写锁加锁函数
+  void writeLock() {
+    int expected = 0;
+    // 尝试将写锁设为1，直到成功为止
+    while (!m_writerCount.compare_exchange_strong(expected, 1)) {
+      std::this_thread::sleep_for(
+          std::chrono::milliseconds(10)); // 等待10毫秒后重试
+    }
+    // 等待所有读锁释放
+    while (m_readerCount.load() > 0) {
+      std::this_thread::sleep_for(
+          std::chrono::milliseconds(10)); // 等待10毫秒后重试
+    }
+  }
+
+  // 写锁解锁函数
+  void writeUnlock() { m_writerCount.store(0); } // 释放写锁
+
+private:
+  std::atomic<int> m_readerCount{0}; // 读锁计数
+  std::atomic<int> m_writerCount{0}; // 写锁标志
+};
