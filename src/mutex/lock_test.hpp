@@ -82,3 +82,48 @@ private:
   std::atomic<int> m_readerCount{0}; // 读锁计数
   std::atomic<int> m_writerCount{0}; // 写锁标志
 };
+
+//使用自旋锁来同步数据
+class SharedResource {
+private:
+  int data_;
+  std::atomic<bool> lock_{false};
+
+public:
+  /**
+   * @brief Locks the resource
+   */
+  void lock() {
+    bool expected = false;
+    while (!lock_.compare_exchange_strong(expected, true,
+                                          std::memory_order_acquire)) {
+      expected = false;
+    }
+  }
+
+  /**
+   * @brief Unlocks the resource
+   */
+  void unlock() { lock_.store(false, std::memory_order_release); }
+
+  /**
+   * @brief Sets the data value
+   * @param data The new data value
+   */
+  void setData(int data) {
+    lock();
+    data_ = data;
+    unlock();
+  }
+
+  /**
+   * @brief Retrieves the data value
+   * @return The data value
+   */
+  int getData() {
+    lock();
+    int ret = data_;
+    unlock();
+    return ret;
+  }
+};

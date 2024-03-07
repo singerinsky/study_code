@@ -51,7 +51,7 @@ void PopStackFrame(std::vector<T> &vec, std::vector<T> &newVec) {
 
 TEST(StackTest, test_resverse) {
   std::vector<int> vec = {1, 2, 3, 4};
-  std::vector<int> newVec;
+  1 std::vector<int> newVec;
   PopStackFrame<int>(vec, newVec);
   EXPECT_EQ(newVec.size(), 4);
   EXPECT_EQ(newVec[0], 4);

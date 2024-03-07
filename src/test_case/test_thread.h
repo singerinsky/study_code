@@ -76,6 +76,7 @@ TEST(ProducerTest, ThreadSafeTest) {
 
 // use thread_local instead static
 void test_thread_local_value() {
+  //局部变量使用thread_local 默认含有static 的语义
   thread_local int count = 0;
   thread_local void *buff = malloc(1024);
   while (true) {
